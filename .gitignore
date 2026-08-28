@@ -88,10 +88,3 @@ Thumbs.db
 .antigravity/
 .antigravity-ide/
 .tempmediaStorage/
-*.mp4
-*.pdf
-*.webp
-*.png
-walkthrough.md
-implementation_plan.md
-task.md
