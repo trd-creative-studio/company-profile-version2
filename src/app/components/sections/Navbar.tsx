@@ -204,8 +204,12 @@ export function Navbar() {
   const handleScroll = (id: string) => {
     setServicesOpen(false);
     setMenuOpen(false);
+
+    const params = new URLSearchParams(window.location.search);
+    const isHomepage = !params.get("page") && !params.get("service");
     const element = document.getElementById(id);
-    if (element) {
+
+    if (isHomepage && element) {
       const offset = 70;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - offset;
@@ -214,6 +218,9 @@ export function Navbar() {
         top: offsetPosition,
         behavior: "smooth"
       });
+    } else {
+      window.history.pushState({}, "", `/?scroll=${id}`);
+      window.dispatchEvent(new Event("popstate"));
     }
   };
 
