@@ -92,6 +92,16 @@ export default function App() {
     return () => window.removeEventListener("popstate", handleLocationChange);
   }, [page]);
 
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get("scroll")) {
+      window.scrollTo(0, 0);
+    }
+  }, [page]);
+
   return (
     <div className="bg-[#1e1e1e] flex flex-col w-full min-h-screen relative">
       {/* Orange transition overlay */}
