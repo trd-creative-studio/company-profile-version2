@@ -53,7 +53,9 @@ export function ServicesSection() {
       <div className="flex flex-col gap-8">
         <span className="font-mono font-regular text-[#77786d] text-base">TOOLS WE WORK WITH</span>
         <div className="flex flex-wrap gap-6 md:gap-12 items-center overflow-x-auto">
-          {[true, false, true, false, true].map((useImg, i) => <LogoSlot key={i} useImg={useImg} />)}
+          {["figma", "nextjs", "medusa", "chatgpt", "weavy", "seedance"].map((logo) => (
+            <LogoSlot key={logo} name={logo} />
+          ))}
         </div>
       </div>
     </section>

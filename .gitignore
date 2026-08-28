@@ -88,3 +88,5 @@ Thumbs.db
 .antigravity/
 .antigravity-ide/
 .tempmediaStorage/
+.vercel
+.env*

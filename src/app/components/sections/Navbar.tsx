@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import navSvgPaths from "@/imports/Navigation/svg-f3oboy1128";
 import { ChevronDown, ArrowUpRight } from "../Icons";
@@ -193,6 +193,17 @@ export function Navbar() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const openServices = () => {
     clearTimeout(closeTimer.current);
     setServicesOpen(true);
@@ -227,7 +238,8 @@ export function Navbar() {
   const navLinks = ["APPROACH", "PRICING", "ABOUT"];
 
   return (
-    <nav className="w-full bg-white sticky top-0 z-50">
+    <>
+      <nav className="w-full bg-white fixed top-0 left-0 right-0 z-50">
       {/* Top bar */}
       <div className={`flex items-center justify-between h-[70px] px-5 md:px-[50px] border-b ${servicesOpen ? "border-transparent" : "border-black/[0.06]"}`}>
         <BrandMark />
@@ -282,21 +294,55 @@ export function Navbar() {
         <ServicesDropdown onItemClick={handleScroll} />
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu overlay */}
       {menuOpen && (
-        <div className="lg:hidden bg-white border-t border-black/[0.06] px-5 pb-6 flex flex-col gap-1">
-          {["WORK", "SERVICES", "APPROACH", "PRICING", "ABOUT"].map((l) => (
-            <span key={l} onClick={() => handleScroll(l.toLowerCase())} className="font-mono font-medium text-[#1e1e1e] text-base py-3 border-b border-black/[0.06] cursor-pointer">{l}</span>
-          ))}
-          <div className="pt-4">
-            <OrangeBtn label="START A PROJECT" className="w-fit" onClick={() => {
-              setMenuOpen(false);
-              window.history.pushState({}, "", "/?page=inquiry");
-              window.dispatchEvent(new Event("popstate"));
-            }} />
+        <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[70px] bg-white z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
+          {/* Navigation Links */}
+          <div className="flex flex-col">
+            {["WORK", "SERVICES", "APPROACH", "PRICING", "ABOUT"].map((l, i) => (
+              <div
+                key={l}
+                onClick={() => handleScroll(l.toLowerCase())}
+                className="flex items-center justify-between py-4 border-b border-black/[0.06] cursor-pointer group active:opacity-60 transition-opacity"
+              >
+                <div className="flex items-baseline gap-4">
+                  <span className="font-mono text-[#77786d] text-xs">0{i + 1}</span>
+                  <span className="font-sans font-regular text-[#1e1e1e] text-[28px] tracking-[-0.56px] uppercase">{l}</span>
+                </div>
+                <ArrowUpRight className="text-[#1e1e1e] size-5" />
+              </div>
+            ))}
+          </div>
+
+          {/* Footer content */}
+          <div className="flex flex-col gap-8 pt-8">
+            <div className="flex justify-between items-end">
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">GET IN TOUCH</span>
+                <a href="mailto:hello@realisticdreamer.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
+                  hello@realisticdreamer.com
+                </a>
+              </div>
+              <div className="flex flex-col gap-1 text-right">
+                <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">FOLLOW US</span>
+                <span className="font-sans font-medium text-[#1e1e1e] text-sm">@realisticdreamer</span>
+              </div>
+            </div>
+            <OrangeBtn
+              label="START A PROJECT"
+              className="w-full justify-center py-4"
+              onClick={() => {
+                setMenuOpen(false);
+                window.history.pushState({}, "", "/?page=inquiry");
+                window.dispatchEvent(new Event("popstate"));
+              }}
+            />
           </div>
         </div>
       )}
-    </nav>
+      </nav>
+      {/* Spacer to prevent layout shifts since navbar is fixed */}
+      <div className="h-[70px] w-full shrink-0" />
+    </>
   );
 }

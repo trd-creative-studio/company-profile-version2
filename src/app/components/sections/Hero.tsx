@@ -1,18 +1,10 @@
 import { Marquee } from "../Marquee";
-import mobilePreview from "@/assets/mobile-preview.jpg";
-import webPreview from "@/assets/web-preview.jpg";
-import videoPreview from "@/assets/video-preview.jpg";
-import websitePreview from "@/assets/website-preview.jpg";
-import brandPreview from "@/assets/brand-preview.jpg";
+
+// Automatically import all preview images from the assets directory
+const imageModules = import.meta.glob("../../../assets/*.{png,jpg,jpeg,webp,svg}", { eager: true });
+const previews = Object.values(imageModules).map((mod: any) => mod.default);
 
 export function Hero() {
-  const previews = [
-    mobilePreview,
-    webPreview,
-    videoPreview,
-    websitePreview,
-    brandPreview,
-  ];
 
   return (
     <section className="bg-white w-full h-[calc(100vh-70px)] min-h-[600px] lg:min-h-[680px] flex flex-col justify-between pt-16 pb-8 md:pb-12 gap-6 overflow-hidden">
@@ -27,7 +19,7 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <p className="font-sans font-regular leading-[1] text-[#1e1e1e] text-[38px] sm:text-[52px] md:text-[60px] lg:text-[64px] tracking-[-1.3px] md:tracking-[-2px] max-w-[609px]">
+        <p className="font-sans font-regular leading-[1] text-[#1e1e1e] text-[48px] sm:text-[52px] md:text-[60px] lg:text-[64px] tracking-[-1.3px] md:tracking-[-2px] max-w-[609px]">
           We turn complex ideas into clear digital experiences.
         </p>
       </div>
@@ -38,7 +30,7 @@ export function Hero() {
           {previews.map((src, idx) => (
             <div
               key={`hero-pre-${idx}`}
-              className="w-[280px] sm:w-[360px] md:w-[360px] h-[187px] sm:h-[240px] md:h-[230px] rounded-lg overflow-hidden shrink-0 transition-all duration-500 ease-out"
+              className="w-[360px] sm:w-[360px] md:w-[400px] h-[250px] sm:h-[240px] md:h-[260px] rounded-lg overflow-hidden shrink-0 transition-all duration-500 ease-out"
             >
               <img
                 src={src}
