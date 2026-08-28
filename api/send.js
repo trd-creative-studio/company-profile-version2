@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'TRD Studio <onboarding@resend.dev>', // Replace with your verified Resend domain once added
+        from: 'TRD Creative Studio <hi@trdcreativestudio.com>', // Replace with your verified Resend domain once added
         to: 'trdcreativestudio@gmail.com',
         subject: `New Project Inquiry from ${firstName} ${lastName}`,
         html: `
