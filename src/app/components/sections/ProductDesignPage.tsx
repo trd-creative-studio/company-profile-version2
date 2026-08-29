@@ -225,7 +225,7 @@ function OurApproach() {
       <div className="flex flex-col gap-8 w-full mt-12">
         <span className="font-mono font-regular text-[#77786d] text-sm">TOOLS WE WORK WITH</span>
         <div className="flex flex-wrap gap-12 items-center">
-          {["figma", "nextjs", "medusa", "chatgpt", "weavy", "seedance"].map((logo) => (
+          {["figma", "nextjs", "chatgpt", "weavy", "seedance"].map((logo) => (
             <LogoSlot key={logo} name={logo} />
           ))}
         </div>

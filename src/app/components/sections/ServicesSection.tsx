@@ -52,8 +52,8 @@ export function ServicesSection() {
       {/* Tools */}
       <div className="flex flex-col gap-8">
         <span className="font-mono font-regular text-[#77786d] text-base">TOOLS WE WORK WITH</span>
-        <div className="flex flex-wrap gap-6 md:gap-12 items-center overflow-x-auto">
-          {["figma", "nextjs", "medusa", "chatgpt", "weavy", "seedance"].map((logo) => (
+        <div className="flex flex-wrap gap-1 md:gap-3 items-center overflow-x-auto">
+          {["figma", "nextjs", "chatgpt", "weavy", "seedance"].map((logo) => (
             <LogoSlot key={logo} name={logo} />
           ))}
         </div>
