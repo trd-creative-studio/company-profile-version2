@@ -8,11 +8,9 @@ export function InquiryFormPage() {
   const [submitted, setSubmitted] = useState(false);
 
   // Form Fields State
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
-  const [productLink, setProductLink] = useState("");
 
   const [helpServices, setHelpServices] = useState<string[]>([]);
   const [budget, setBudget] = useState("");
@@ -29,11 +27,11 @@ export function InquiryFormPage() {
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get("service");
     if (serviceParam === "product-design") {
-      setHelpServices(["App Design"]);
+      setHelpServices(["UI/UX Design"]);
     } else if (serviceParam === "website") {
-      setHelpServices(["Web Design"]);
+      setHelpServices(["Company Profile Website"]);
     } else if (serviceParam === "ai-video") {
-      setHelpServices(["Motion Graphics"]);
+      setHelpServices(["AI Video Production"]);
     }
   }, []);
 
@@ -47,14 +45,13 @@ export function InquiryFormPage() {
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    if (!firstName.trim()) newErrors.firstName = "First name is required";
-    if (!lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!name.trim()) newErrors.name = "Name is required";
     if (!email.trim()) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Please enter a valid email address";
     }
-    if (!companyName.trim()) newErrors.companyName = "Company name is required";
+    if (!companyName.trim()) newErrors.companyName = "Company/Brand name is required";
     if (helpServices.length === 0) newErrors.helpServices = "Please select at least one service";
     if (!budget) newErrors.budget = "Please select a budget range";
     if (!findUs) newErrors.findUs = "Please select how you found us";
@@ -76,11 +73,9 @@ export function InquiryFormPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            firstName,
-            lastName,
+            name,
             email,
             companyName,
-            productLink,
             helpServices,
             budget,
             findUs,
@@ -183,32 +178,17 @@ export function InquiryFormPage() {
                       Tell us about your details*
                     </h2>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 w-full">
-                      <div className="flex flex-col gap-2 w-full" id="firstName">
-                        <span className="font-sans font-regular text-sm text-[#4d4d4d]">First Name</span>
-                        <input
-                          type="text"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          placeholder="e.g. Dary"
-                          className={`w-full py-3 bg-transparent border-b ${errors.firstName ? "border-[#d4183d]" : "border-black/[0.12]"
-                            } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
-                        />
-                        {errors.firstName && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.firstName}</span>}
-                      </div>
-
-                      <div className="flex flex-col gap-2 w-full" id="lastName">
-                        <span className="font-sans font-regular text-sm text-[#4d4d4d]">Last Name</span>
-                        <input
-                          type="text"
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          placeholder="e.g. Ramadhan"
-                          className={`w-full py-3 bg-transparent border-b ${errors.lastName ? "border-[#d4183d]" : "border-black/[0.12]"
-                            } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
-                        />
-                        {errors.lastName && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.lastName}</span>}
-                      </div>
+                    <div className="flex flex-col gap-2 w-full" id="name">
+                      <span className="font-sans font-regular text-sm text-[#4d4d4d]">Name</span>
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="your name"
+                        className={`w-full py-3 bg-transparent border-b ${errors.name ? "border-[#d4183d]" : "border-black/[0.12]"
+                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
+                      />
+                      {errors.name && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.name}</span>}
                     </div>
 
                     <div className="flex flex-col gap-2 w-full" id="email">
@@ -225,48 +205,35 @@ export function InquiryFormPage() {
                     </div>
 
                     <div className="flex flex-col gap-2 w-full" id="companyName">
-                      <span className="font-sans font-regular text-sm text-[#4d4d4d]">Company Name</span>
+                      <span className="font-sans font-regular text-sm text-[#4d4d4d]">Company / Brand</span>
                       <input
                         type="text"
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
-                        placeholder="e.g. TRD Creative Studio"
+                        placeholder="e.g TRD Creative Studio"
                         className={`w-full py-3 bg-transparent border-b ${errors.companyName ? "border-[#d4183d]" : "border-black/[0.12]"
                           } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
                       />
                       {errors.companyName && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.companyName}</span>}
-                    </div>
-
-                    <div className="flex flex-col gap-2 w-full">
-                      <div className="flex justify-between items-center">
-                        <span className="font-sans font-regular text-sm text-[#4d4d4d]">Website or Product Link</span>
-                        <span className="font-mono text-xs text-[#707070]">Optional</span>
-                      </div>
-                      <input
-                        type="url"
-                        value={productLink}
-                        onChange={(e) => setProductLink(e.target.value)}
-                        placeholder="https://"
-                        className="w-full py-3 bg-transparent border-b border-black/[0.12] focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors"
-                      />
                     </div>
                   </div>
 
                   {/* 02. Help options */}
                   <div className="flex flex-col gap-6 w-full" id="helpServices">
                     <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      How we can help you?*
+                      What do you need help with?
                     </h2>
                     <div className="flex flex-wrap gap-2.5 w-full">
                       {[
-                        "Branding",
-                        "Web Design",
-                        "App Design",
-                        "2D Illustration",
-                        "Motion Graphics",
-                        "Graphic Design",
-                        "Pitch Deck",
-                        "Development"
+                        "Landing Page",
+                        "Company Profile Website",
+                        "UI/UX Design",
+                        "Mobile App Design",
+                        "Web Development",
+                        "E-Commerce",
+                        "Custom Website",
+                        "AI Video Production",
+                        "AI UGC Content"
                       ].map((opt) => {
                         const isSelected = helpServices.includes(opt);
                         return (
@@ -289,13 +256,13 @@ export function InquiryFormPage() {
                   {/* 03. Budget options */}
                   <div className="flex flex-col gap-6 w-full" id="budget">
                     <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      Project Budget ( USD )*
+                      Project Budget*
                     </h2>
                     <div className="flex flex-wrap gap-2.5 w-full">
                       {[
                         "Under $5K",
-                        "$5K-10K",
-                        "$10K-15K",
+                        "$5K - $10K",
+                        "$10K - $15K",
                         "$20K+",
                         "Not sure yet"
                       ].map((opt) => {
@@ -320,7 +287,7 @@ export function InquiryFormPage() {
                   {/* 04. Referral options */}
                   <div className="flex flex-col gap-6 w-full" id="findUs">
                     <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      How did you hear about us?*
+                      How did you find us?
                     </h2>
                     <div className="flex flex-wrap gap-2.5 w-full">
                       {[
@@ -328,10 +295,8 @@ export function InquiryFormPage() {
                         "Behance",
                         "Instagram",
                         "Google",
-                        "Clutch",
-                        "Upwork",
                         "Pinterest",
-                        "Awwwards"
+                        "LinkedIn"
                       ].map((opt) => {
                         const isSelected = findUs === opt;
                         return (
@@ -354,14 +319,13 @@ export function InquiryFormPage() {
                   {/* 05. Description */}
                   <div className="flex flex-col gap-4 w-full" id="projectDetails">
                     <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      Tell us about your project*
+                      Describe your project*
                     </h2>
                     <div className="flex flex-col gap-2 w-full">
-                      {/* <span className="font-sans font-regular text-sm text-[#4d4d4d]">Your Project Details</span> */}
                       <textarea
                         value={projectDetails}
                         onChange={(e) => setProjectDetails(e.target.value)}
-                        placeholder="Tell us what you’re building, the current challenge, and what you’d like to achieve."
+                        placeholder="Tell us what you're building, what isn't working today, and what you'd like to improve."
                         rows={3}
                         className={`w-full py-3 bg-transparent border-b ${errors.projectDetails ? "border-[#d4183d]" : "border-black/[0.12]"
                           } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors resize-y`}

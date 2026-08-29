@@ -17,7 +17,8 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { firstName, lastName, email, companyName, productLink, helpServices, budget, findUs, projectDetails } = req.body;
+  const { name, firstName, lastName, email, companyName, productLink, helpServices, budget, findUs, projectDetails } = req.body;
+  const fullName = name || `${firstName || ""} ${lastName || ""}`.trim() || "Anonymous";
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -34,11 +35,11 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: 'TRD Creative Studio <hi@trdcreativestudio.com>', // Replace with your verified Resend domain once added
         to: 'trdcreativestudio@gmail.com',
-        subject: `New Project Inquiry from ${firstName} ${lastName}`,
+        subject: `New Project Inquiry from ${fullName}`,
         html: `
           <h2>New Project Inquiry</h2>
           <hr />
-          <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+          <p><strong>Name:</strong> ${fullName}</p>
           <p><strong>Email:</strong> ${email}</p>
           <p><strong>Company/Brand:</strong> ${companyName}</p>
           <p><strong>Website/Link:</strong> ${productLink || 'N/A'}</p>

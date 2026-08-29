@@ -24,9 +24,8 @@ function PricingCard({ tag, title, desc, price, note, cta, onClick }: { tag: str
 }
 
 export function PricingSection() {
-  const handleNav = (e?: React.MouseEvent) => {
-    e?.preventDefault();
-    window.history.pushState({}, "", "/?service=product-design");
+  const handleNav = (service: string) => {
+    window.history.pushState({}, "", `/?page=inquiry&service=${service}`);
     window.dispatchEvent(new Event("popstate"));
   };
 
@@ -37,9 +36,9 @@ export function PricingSection() {
         <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-2xl md:text-[36px] tracking-[-0.72px]">Start with what your project needs.</p>
       </div>
       <div className="flex flex-col md:flex-row gap-2 w-full">
-        <PricingCard tag="UI/UX DESIGN" title="Product & Experience Design" desc="For digital products that need clearer flows, stronger usability, and better product structure." price="Rp5.000.000" note="Depends on product complexity and requirements." cta="VIEW PRODUCT DESIGN" onClick={handleNav} />
-        <PricingCard tag="WEB DEV" title="Website Design & Development" desc="For businesses that need a clear, thoughtful website from design through development." price="Rp12.000.000" note="Depends on functionality and development needs." cta="VIEW WEBSITE DEVELOPMENT" />
-        <PricingCard tag="AI VIDEO" title="AI Video Production" desc="For products and brands that need stronger visual storytelling through motion and AI-led production." price="Rp5.000.000" note="Depends on concept and production complexity." cta="VIEW AI VIDEO" />
+        <PricingCard tag="UI/UX DESIGN" title="Product & Experience Design" desc="For digital products that need clearer flows, stronger usability, and better product structure." price="Rp5.000.000" note="Depends on product complexity and requirements." cta="START UI/UX PROJECT" onClick={() => handleNav("product-design")} />
+        <PricingCard tag="WEB DEV" title="Website Design & Development" desc="For businesses that need a clear, thoughtful website from design through development." price="Rp12.000.000" note="Depends on functionality and development needs." cta="START WEBSITE PROJECT" onClick={() => handleNav("website")} />
+        <PricingCard tag="AI VIDEO" title="AI Video Production" desc="For products and brands that need stronger visual storytelling through motion and AI-led production." price="Rp5.000.000" note="Depends on concept and production complexity." cta="START AI VIDEO PROJECT" onClick={() => handleNav("ai-video")} />
       </div>
     </section>
   );
