@@ -30,7 +30,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section id="services" className="bg-white w-full px-5 md:px-16 lg:px-[200px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-16">
+    <section id="services" className="bg-white w-full px-5 md:px-16 lg:px-[200px] py-16 md:py-24 lg:pt-[150px] lg:pt-[75px] flex flex-col gap-16">
       {/* Header row */}
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
         <div className="flex flex-col gap-6 max-w-[531px]">

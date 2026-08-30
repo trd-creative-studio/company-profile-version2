@@ -4,9 +4,10 @@ interface MarqueeProps {
   children: React.ReactNode;
   speed?: number; // base scrolling speed (pixels per frame)
   gap?: string;   // Tailwind gap class, e.g. "gap-6"
+  reverse?: boolean; // scroll in reverse direction (to the right)
 }
 
-export function Marquee({ children, speed = 1, gap = "gap-6" }: MarqueeProps) {
+export function Marquee({ children, speed = 1, gap = "gap-6", reverse = false }: MarqueeProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentSpeed, setCurrentSpeed] = useState(speed);
   const scrollPosRef = useRef(0);
@@ -27,14 +28,26 @@ export function Marquee({ children, speed = 1, gap = "gap-6" }: MarqueeProps) {
     if (!container) return;
 
     let animationFrameId: number;
+    
+    // Initialize position on mount or reverse prop change
+    const initialHalfWidth = container.scrollWidth / 2;
+    if (reverse && (scrollPosRef.current === 0 || scrollPosRef.current >= initialHalfWidth)) {
+      scrollPosRef.current = initialHalfWidth;
+    }
 
     const scroll = () => {
-      scrollPosRef.current += speedRef.current;
-      // loop when we reach half of the container width (since it is duplicated)
       const halfWidth = container.scrollWidth / 2;
-
-      if (scrollPosRef.current >= halfWidth) {
-        scrollPosRef.current = 0;
+      
+      if (reverse) {
+        scrollPosRef.current -= speedRef.current;
+        if (scrollPosRef.current <= 0) {
+          scrollPosRef.current = halfWidth;
+        }
+      } else {
+        scrollPosRef.current += speedRef.current;
+        if (scrollPosRef.current >= halfWidth) {
+          scrollPosRef.current = 0;
+        }
       }
 
       container.style.transform = `translate3d(-${scrollPosRef.current}px, 0, 0)`;
@@ -43,12 +56,12 @@ export function Marquee({ children, speed = 1, gap = "gap-6" }: MarqueeProps) {
 
     animationFrameId = requestAnimationFrame(scroll);
     return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+  }, [reverse]);
 
   return (
     <div
       className="overflow-hidden w-full flex"
-      onMouseEnter={() => setCurrentSpeed(speed * 0.50)} // Slow down to 15% of speed on hover
+      onMouseEnter={() => setCurrentSpeed(speed * 0.50)} // Slow down to 50% of speed on hover
       onMouseLeave={() => setCurrentSpeed(speed)}       // Restore full speed on leave
     >
       <div
@@ -65,3 +78,4 @@ export function Marquee({ children, speed = 1, gap = "gap-6" }: MarqueeProps) {
     </div>
   );
 }
+

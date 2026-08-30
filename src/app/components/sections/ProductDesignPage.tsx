@@ -234,25 +234,102 @@ function OurApproach() {
   );
 }
 
-function PricingCard({ tag, title, desc, price, note, cta, onClick }: { tag: string; title: string; desc: string; price: string; note: string; cta: string; onClick?: () => void }) {
+function BulletStar() {
   return (
-    <div className="bg-[#f9f9f9] hover:bg-[#f4f4f4] flex flex-col items-start justify-between p-5 rounded-lg hover:rounded-none flex-1 min-w-0 gap-8 md:gap-0 md:h-[550px] transition-all duration-300 ease-out group">
-      <div className="bg-white inline-flex items-center justify-center px-3 py-1.5">
-        <span className="font-mono text-[#1e1e1e] text-xs">{tag}</span>
-      </div>
-      <div className="flex flex-col gap-4">
-        <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-2xl tracking-[-0.4px]">{title}</p>
-        <p className="font-sans font-medium leading-[1.4] text-[#4d4d4d] text-sm tracking-[-0.14px]">{desc}</p>
-      </div>
-      {/* Divider */}
-      {/* <div className="h-px w-full bg-[#F4F4F4]" /> */}
-      <div className="flex flex-col gap-6 w-full">
-        <div className="flex flex-col gap-3">
-          <p className="font-sans font-medium leading-[1.5] text-[#4d4d4d] text-sm tracking-[-0.14px]">Starting from</p>
-          <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-4xl tracking-[-1px]">{price}</p>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="shrink-0 text-[#eb5503] mt-[3px]">
+      <path
+        d="M8 2v12M2 8h12M3.76 3.76l8.48 8.48M12.24 3.76L3.76 12.24"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function PricingCard({
+  tag,
+  duration,
+  title,
+  desc,
+  price,
+  cta,
+  offersTitle,
+  offers,
+  note,
+  isFeatured = false,
+  onClick,
+}: {
+  tag: string;
+  duration: string;
+  title: React.ReactNode;
+  desc: string;
+  price: string;
+  cta: string;
+  offersTitle: string;
+  offers: string[];
+  note: string;
+  isFeatured?: boolean;
+  onClick?: () => void;
+}) {
+  return (
+    <div
+      className={`flex flex-col justify-between p-6 rounded-lg flex-1 min-w-0 transition-all duration-300 gap-6 ${
+        isFeatured ? "bg-[#f9f9f9]" : "bg-white"
+      }`}
+    >
+      {/* Top Part */}
+      <div className="flex flex-col gap-12">
+        {/* Tag Badge and Duration Row */}
+        <div className="flex items-center justify-between w-full">
+          <div
+            className={`inline-flex items-center justify-center px-3 py-1.5 ${
+              isFeatured ? "bg-white" : "bg-[#f4f4f4]"
+            }`}
+          >
+            <span className="font-mono text-[#1e1e1e] text-xs font-regular uppercase">{tag}</span>
+          </div>
+          <span className="font-sans text-xs md:text-sm text-[#77786d] font-regular">{duration}</span>
         </div>
-        <OrangeBtn label={cta} className="w-full justify-center" onClick={onClick} />
-        <p className="font-sans font-regular leading-[1.5] text-[#b4b4b4] text-xs">{note}</p>
+
+        {/* Title and Description */}
+        <div className="flex flex-col gap-3">
+          <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-xl md:text-2xl tracking-[-0.48px]">{title}</p>
+          <p className="font-sans font-medium leading-[1.5] text-[#4d4d4d] text-sm tracking-[-0.14px]">
+            {desc}
+          </p>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="h-px w-full bg-[#f4f4f4]" />
+
+      {/* Middle Part (Price and Button) */}
+      <div className="flex flex-col gap-6">
+        <p className="font-sans font-medium leading-[1.1] text-[#1e1e1e] text-3xl md:text-4xl tracking-[-1.5px]">
+          {price}
+        </p>
+        <OrangeBtn label={cta} className="w-full justify-center text-sm md:text-base font-semibold" onClick={onClick} />
+      </div>
+
+      {/* Bottom Part (Offers & Final Note) */}
+      <div className="flex flex-col gap-6 mt-2 flex-1 justify-between">
+        <div className="flex flex-col gap-4">
+          <p className="font-sans font-regular text-[#1e1e1e] text-sm">
+            {offersTitle}
+          </p>
+          <ul className="flex flex-col gap-2">
+            {offers.map((offer, index) => (
+              <li key={index} className="flex gap-2 items-start text-[#1e1e1e] font-sans font-normal text-sm leading-[1.4] tracking-[-0.14px]">
+                <BulletStar />
+                <span>{offer}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p className="font-sans font-normal leading-[1.5] text-[#77786d] text-xs">
+          {note}
+        </p>
       </div>
     </div>
   );
@@ -266,15 +343,72 @@ function PricingSection() {
   };
 
   return (
-    <section className="bg-white w-full px-5 md:px-16 lg:px-[200px] pt-16 md:pt-24 lg:pt-[150px] pb-12 md:pb-16 lg:pb-[75px] flex flex-col gap-16 items-center">
+    <section className="bg-white w-full px-5 md:px-16 lg:px-[150px] pt-16 md:pt-24 lg:pt-[150px] pb-12 md:pb-16 lg:pb-[75px] flex flex-col gap-16 items-center">
       <div className="flex flex-col gap-6 items-center text-center">
         <span className="font-mono font-regular text-[#77786d] text-sm">PRICING</span>
-        <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-2xl md:text-[36px] tracking-[-0.72px]">Ways to work together</p>
+        <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-3xl md:text-[42px] tracking-[-1.2px]">
+          Simple Pricing.
+          <br />
+          No Surprises.
+        </p>
       </div>
-      <div className="flex flex-col md:flex-row gap-2 w-full">
-        <PricingCard tag="UX" title="UX Focus" desc="For one specific product or experience problem. Audit, existing feature redesign, key-flow improvement, or usability fixes." price="Rp5.000.000" note="Scope and deliverables are confirmed before kickoff." cta="DISCUSS A UX FOCUS" onClick={handleNav} />
-        <PricingCard tag="UI/UX" title="Product Design" desc="For MVPs, new features, dashboards, or new digital products. Includes flows, wireframes, interface, prototypes, and handoffs." price="Rp12.000.000" note="Final scope depends on product complexity." cta="START A PROJECT" onClick={handleNav} />
-        <PricingCard tag="ENTERPRISE" title="Complex Product" desc="For enterprise products and systems with deeper workflows, roles, approval pipelines, operational dashboards, and design systems." price="Custom Quote" note="Ongoing product design support is also available." cta="DISCUSS YOUR PRODUCT" onClick={handleNav} />
+
+      <div className="flex flex-col lg:flex-row items-stretch gap-4 w-full max-w-[1200px]">
+        <PricingCard
+          tag="UX"
+          duration="5-7 days"
+          title="UX Focus"
+          desc="For one specific product or experience problem."
+          price="Rp5.000.000"
+          cta="DISCUSS A UX FOCUS"
+          offersTitle="Best for:"
+          offers={[
+            "UX Audit",
+            "Key-Flow Improvement",
+            "Existing Feature Redesign",
+            "Usability Issues",
+            "Early Product Direction",
+          ]}
+          note="Final scope depends on page structure and functionality."
+          onClick={handleNav}
+        />
+        <PricingCard
+          tag="UI/UX"
+          duration="4-8+ weeks"
+          title="Product Design"
+          desc="For MVPs, new features, dashboards, or new digital products."
+          price="Rp12.000.000"
+          cta="START A PROJECT"
+          offersTitle="Typical scope:"
+          offers={[
+            "Product Flows",
+            "Wireframes",
+            "UI/UX Design",
+            "Interactive Prototype",
+            "Developer Handoff",
+          ]}
+          note="Final scope depends on page structure and functionality."
+          isFeatured={true}
+          onClick={handleNav}
+        />
+        <PricingCard
+          tag="ENTERPRISE"
+          duration="Based on scope"
+          title="Complex Product"
+          desc="For enterprise products and systems with deeper workflows, roles."
+          price="Custom"
+          cta="DISCUSS YOUR PRODUCT"
+          offersTitle="Typical scope:"
+          offers={[
+            "Enterprise Platforms",
+            "Multi-role Systems",
+            "Operational Dashboards",
+            "Approval Workflows",
+            "Design Systems",
+          ]}
+          note="Technology and scope are defined after discovery."
+          onClick={handleNav}
+        />
       </div>
     </section>
   );

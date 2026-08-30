@@ -12,8 +12,8 @@ function ProjectCard({ title, sub, tag, image }: { title: string; sub: string; t
         className="rounded-lg h-[280px] md:h-[250px] w-full shrink-0 object-cover"
       />
       <div className="flex flex-col gap-2">
-        <p className="font-sans font-regular text-[#1e1e1e] text-xl md:text-xl tracking-[-0.6px] leading-[1.2]">{title}</p>
-        <p className="font-sans font-medium text-[#4d4d4d] text-sm tracking-[-0.16px] leading-[1.2]">{sub}</p>
+        <p className="font-sans font-regular text-[#1e1e1e] text-lg md:text-md tracking-[-0.14px] leading-[1.2]">{title}</p>
+        <p className="font-sans font-medium text-[#4d4d4d] text-sm tracking-[-0.16px] leading-[1.4]">{sub}</p>
       </div>
       <div className="bg-[#f4f4f4] inline-flex items-center justify-center px-3 py-1.5 self-start">
         <span className="font-mono text-[#1e1e1e] text-sm">{tag}</span>
@@ -33,9 +33,9 @@ export function WorkSection() {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-2">
-        <ProjectCard title="Charted" sub="Bringing flow and clarity to financial automation" tag="NEW BRAND, NEW CATEGORY" image={showcase1} />
-        <ProjectCard title="Pilot44" sub="Where enterprise strength meets startup agility" tag="NEW BRAND, NEW CATEGORY" image={showcase2} />
-        <ProjectCard title="Pilot44" sub="Where enterprise strength meets startup agility" tag="NEW BRAND, NEW CATEGORY" image={showcase3} />
+        <ProjectCard title="Sentra Pupuk Indonesia" sub="Bringing flow and clarity to financial automation" tag="PRODUCT DESIGN, CORPORATE" image={showcase1} />
+        <ProjectCard title="Puranawa Jewelry" sub="Successfuly digitalize Indonesian jewelry product into International market with integrated shipping and payment" tag="E-COMMERCE, INTEGRATION" image={showcase2} />
+        <ProjectCard title="PT Elnusa Petrofin" sub="Redesigning digital experience with simple and clear design" tag="AI VIDEO, CORPORATE" image={showcase3} />
       </div>
     </section>
   );

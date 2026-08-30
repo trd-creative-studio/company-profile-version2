@@ -21,7 +21,7 @@ export default function App() {
     const handleLocationChange = () => {
       const params = new URLSearchParams(window.location.search);
       let targetPage = "home";
-      
+
       if (params.get("page") === "inquiry") {
         targetPage = "inquiry";
       } else if (params.get("service") === "product-design") {
@@ -46,7 +46,7 @@ export default function App() {
       setTimeout(() => {
         setPage(targetPage);
         window.scrollTo(0, 0); // Scroll to top before new page renders
-        
+
         handleScrollParam(params);
 
         // Slide out to left (translate-x-0 to -translate-x-full)
@@ -79,7 +79,7 @@ export default function App() {
     };
 
     window.addEventListener("popstate", handleLocationChange);
-    
+
     // Initial check (no animation on first load)
     const initialParams = new URLSearchParams(window.location.search);
     if (initialParams.get("page") === "inquiry") {
@@ -119,8 +119,8 @@ export default function App() {
           <Hero />
           <WorkSection />
           <WhyTRDSection />
-          <LogoStripSection />
           <ServicesSection />
+          <LogoStripSection />
           <ClientsSection />
           <PricingSection />
           <FAQSection />

@@ -22,7 +22,7 @@ import clientGreenflags from "@/assets/logo/Frame 467.png";
 const LOGO_CONFIG = {
   slotHeight: "h-[64px]",          // Height of the logo container slot
   toolHeight: "h-[36px] md:h-[42px]",   // Height of the tool logos (Figma, ChatGPT, etc.)
-  clientHeight: "h-[56px] md:h-[42px]", // Height of client logos (Junso, Tehc House, etc.)
+  clientHeight: "h-[56px] md:h-[56px]", // Height of client logos (Junso, Tehc House, etc.)
 };
 
 // ==========================================
@@ -30,12 +30,12 @@ const LOGO_CONFIG = {
 // ==========================================
 function LogoImage({ src, alt, type }: { src: string; alt: string; type: "tool" | "client" }) {
   const heightClass = type === "tool" ? LOGO_CONFIG.toolHeight : LOGO_CONFIG.clientHeight;
-  const opacityClass = type === "client" ? "opacity-70 hover:opacity-100 transition-opacity duration-300" : "";
+  const filterClass = type === "client" ? "grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300" : "";
 
   return (
     <img
       src={src}
-      className={`${heightClass} ${opacityClass} object-contain`}
+      className={`${heightClass} ${filterClass} object-contain`}
       alt={alt}
     />
   );
@@ -67,23 +67,53 @@ export function LogoSlot({ name }: { name: string }) {
 }
 
 export function LogoStripSection() {
-  const clients = [
+  const row1 = [
+    "client-tehchouse",
+    "client-greenflags",
     "client-junso",
     "client-metalindo",
     "client-nyambee",
     "client-pupuk",
-    "client-synapsis",
-    "client-tehchouse",
-    "client-greenflags"
+    "client-synapsis"
   ];
-  // Repeat the list to ensure the marquee fills the screen and flows smoothly
-  const doubleClients = [...clients, ...clients];
+  const row2 = [
+    "client-synapsis",
+    "client-pupuk",
+    "client-nyambee",
+    "client-metalindo",
+    "client-junso",
+    "client-greenflags",
+    "client-tehchouse"
+  ];
 
   return (
-    <section className="bg-white w-full py-8 overflow-hidden flex" data-name="CTA Section">
-      <Marquee speed={0.2} gap="gap-6">
-        {doubleClients.map((logo, i) => <LogoSlot key={`logo-${i}`} name={logo} />)}
-      </Marquee>
+    <section className="bg-white w-full py-16 md:py-24 lg:pb-[150px] overflow-hidden flex flex-col gap-10 md:gap-12" data-name="Clients Section">
+      {/* Title */}
+      <div className="text-center px-5">
+        <p className="font-sans font-normal text-[#1e1e1e] text-center text-lg md:text-[22px] max-w-[480px] mx-auto leading-[1.3] tracking-[-0.2px]">
+          Selected teams, clients, and
+          <br className="hidden sm:inline" />
+          collaborations behind our experience.
+        </p>
+      </div>
+
+      {/* Two Marquee Rows */}
+      <div className="w-full flex flex-col gap-4 overflow-hidden">
+        {/* Row 1: Standard direction (left) */}
+        <Marquee speed={0.3} gap="gap-2">
+          {row1.map((logo, i) => (
+            <LogoSlot key={`row1-${logo}-${i}`} name={logo} />
+          ))}
+        </Marquee>
+
+        {/* Row 2: Reverse direction (right) */}
+        <Marquee speed={0.3} gap="gap-2" reverse={true}>
+          {row2.map((logo, i) => (
+            <LogoSlot key={`row2-${logo}-${i}`} name={logo} />
+          ))}
+        </Marquee>
+      </div>
     </section>
   );
 }
+

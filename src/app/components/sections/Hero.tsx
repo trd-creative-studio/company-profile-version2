@@ -15,7 +15,7 @@ export function Hero() {
     if (previews.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % previews.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(interval);
   }, [previews.length]);
 
@@ -34,9 +34,10 @@ export function Hero() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-sans font-regular leading-[1.1] text-[#1e1e1e] text-[40px] sm:text-[48px] md:text-[56px] lg:text-[64px] tracking-[-1.5px] lg:tracking-[-2px] max-w-[650px] mt-6 mb-8">
+          <p className="font-sans font-regular leading-[1] text-[#1e1e1e] text-[40px] sm:text-[48px] md:text-[60px] lg:text-[64px] tracking-[-1.5px] lg:tracking-[-2px] max-w-[650px] mt-12 mb-14">
+
             We turn complex ideas into clear digital experiences.
-          </h1>
+          </p>
 
           {/* Buttons row */}
           <div className="flex items-center gap-4 select-none">
@@ -61,16 +62,37 @@ export function Hero() {
 
         {/* Right Column (Slideshow Container) */}
         <div className="w-full lg:w-[45%] xl:w-[50%] aspect-[4/3] max-h-[400px] lg:max-h-[500px] rounded-2xl overflow-hidden relative shadow-sm shrink-0 bg-[#f9f9f9]">
+          <style>{`
+            @keyframes progress-fill {
+              0% { width: 0%; }
+              100% { width: 100%; }
+            }
+          `}</style>
+
           {previews.map((src, idx) => (
             <img
               key={idx}
               src={src}
               alt="Studio Work Preview"
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-                idx === currentIdx ? "opacity-100" : "opacity-0"
-              }`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === currentIdx ? "opacity-100" : "opacity-0"
+                }`}
             />
           ))}
+
+          {/* Progress Indicators Strip */}
+          <div className="absolute bottom-2 left-4 right-4 flex gap-1 z-10 select-none pointer-events-none">
+            {previews.map((_, idx) => (
+              <div key={idx} className="flex-1 h-[3px] bg-white/30 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#eb5503]"
+                  style={{
+                    animation: idx === currentIdx ? "progress-fill 2s linear forwards" : "none",
+                    width: idx < currentIdx ? "100%" : "0%",
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
