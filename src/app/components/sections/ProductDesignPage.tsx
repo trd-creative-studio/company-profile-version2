@@ -19,9 +19,9 @@ function ServiceHero() {
         <div className="flex flex-wrap gap-2 md:gap-6 items-center">
           <span className="font-mono font-regular text-[#77786d] text-sm md:text-sm whitespace-nowrap">PRODUCT & EXPERIENCE DESIGN</span>
         </div>
-        <p className="font-sans font-regular leading-[1.1] text-[#1e1e1e] text-[38px] sm:text-[52px] md:text-[60px] lg:text-[64px] tracking-[-1.5px] md:tracking-[-1.92px] max-w-[800px]">
+        <h1 className="font-sans font-regular leading-[1.1] text-[#1e1e1e] text-[38px] sm:text-[52px] md:text-[60px] lg:text-[64px] tracking-[-1.5px] md:tracking-[-1.92px] max-w-[800px]">
           We help teams turn complicated requirements into clear, usable digital experiences.
-        </p>
+        </h1>
       </div>
     </section>
   );

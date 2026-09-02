@@ -100,6 +100,15 @@ export default function App() {
     if (!params.get("scroll")) {
       window.scrollTo(0, 0);
     }
+
+    // Dynamic SEO Titles per page
+    if (page === "inquiry") {
+      document.title = "Start a Project | TRD Creative Studio";
+    } else if (page === "product-design") {
+      document.title = "Product & Experience Design | TRD Creative Studio";
+    } else {
+      document.title = "TRD Creative Studio | UI/UX Design, Website & AI Video Production";
+    }
   }, [page]);
 
   return (

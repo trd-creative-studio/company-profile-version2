@@ -34,10 +34,9 @@ export function Hero() {
           </div>
 
           {/* Headline */}
-          <p className="font-sans font-regular leading-[1] text-[#1e1e1e] text-[40px] sm:text-[48px] md:text-[60px] lg:text-[64px] tracking-[-1.5px] lg:tracking-[-2px] max-w-[650px] mt-12 mb-14">
-
+          <h1 className="font-sans font-regular leading-[1] text-[#1e1e1e] text-[40px] sm:text-[48px] md:text-[60px] lg:text-[64px] tracking-[-1.5px] lg:tracking-[-2px] max-w-[650px] mt-12 mb-14">
             We turn complex ideas into clear digital experiences.
-          </p>
+          </h1>
 
           {/* Buttons row */}
           <div className="flex items-center gap-4 select-none">
