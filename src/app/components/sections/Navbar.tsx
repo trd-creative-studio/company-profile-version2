@@ -3,6 +3,7 @@ import { Menu, X } from "lucide-react";
 import navSvgPaths from "@/imports/Navigation/svg-f3oboy1128";
 import { ChevronDown, ArrowUpRight } from "../Icons";
 import { OrangeBtn } from "../OrangeBtn";
+import { navigateToHome, navigateToInquiry, navigateToService, navigateTo } from "../../utils/navigation";
 
 function CompassMark() {
   return (
@@ -37,8 +38,7 @@ function BrandMark() {
   return (
     <div className="h-[37.863px] relative w-[57px] shrink-0 cursor-pointer" onClick={(e) => {
       e.preventDefault();
-      window.history.pushState({}, "", "/");
-      window.dispatchEvent(new Event("popstate"));
+      navigateToHome();
     }}>
       <div className="[word-break:break-word] absolute font-sans font-normal leading-[0] left-0 text-[#1e1e1e] text-[15.2px] top-[calc(50%-17.07px)] tracking-[-0.608px]">
         <p className="leading-[0.8] mb-0">The</p>
@@ -242,14 +242,14 @@ export function Navbar() {
       <nav className="w-full bg-white fixed top-0 left-0 right-0 z-50">
         {/* Top bar */}
         <div className={`flex items-center justify-between h-[70px] px-5 md:px-[50px] border-b ${servicesOpen ? "border-transparent" : "border-black/[0.06]"}`}>
-          <div className="flex items-center gap-4 lg:gap-6">
+          <div className="flex items-center gap-4 lg:gap-8">
             <BrandMark />
             <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fff5f0] border border-[#ffeedd]">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#eb5503] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#eb5503]"></span>
               </span>
-              <span className="font-sans text-xs font-medium text-[#eb5503]">2 projects available for Q2</span>
+              <span className="font-sans text-sm font-regular text-[#eb5503]">2 projects available for Q2</span>
             </div>
           </div>
 
