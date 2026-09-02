@@ -90,8 +90,8 @@ function ServiceCard({
 
 function ServicesDropdown({ onItemClick }: { onItemClick: (id: string) => void }) {
   return (
-    <div className="bg-white w-full px-[50px] py-[56px] mt-[-1px]">
-      <div className="flex gap-[150px] items-start w-full">
+    <div className="bg-white w-full px-[100px] py-[56px] mt-[-1px]">
+      <div className="flex gap-[150px] lg:[150px] items-start w-full">
         {/* Left: service cards */}
         <div className="flex flex-col gap-4 flex-1 min-w-0">
           <span className="font-mono font-regular text-[#77786d] text-sm">OUR SERVICES</span>
@@ -240,106 +240,127 @@ export function Navbar() {
   return (
     <>
       <nav className="w-full bg-white fixed top-0 left-0 right-0 z-50">
-      {/* Top bar */}
-      <div className={`flex items-center justify-between h-[70px] px-5 md:px-[50px] border-b ${servicesOpen ? "border-transparent" : "border-black/[0.06]"}`}>
-        <BrandMark />
-
-        {/* Desktop links */}
-        <div className="hidden lg:flex items-center gap-6">
-          <div className="flex items-center gap-6">
-            <span onClick={() => handleScroll("work")} className="font-mono font-regular text-[#1e1e1e] text-base cursor-pointer hover:opacity-60 transition-opacity">WORK</span>
-
-            {/* SERVICES trigger */}
-            <div
-              className="flex items-center gap-1 cursor-pointer"
-              onMouseEnter={openServices}
-              onMouseLeave={closeServices}
-              onClick={() => handleScroll("services")}
-            >
-              <span className={`font-mono font-regular text-base transition-opacity ${servicesOpen ? "text-[#1e1e1e]" : "text-[#1e1e1e] hover:opacity-60"}`}>
-                SERVICES
+        {/* Top bar */}
+        <div className={`flex items-center justify-between h-[70px] px-5 md:px-[50px] border-b ${servicesOpen ? "border-transparent" : "border-black/[0.06]"}`}>
+          <div className="flex items-center gap-4 lg:gap-6">
+            <BrandMark />
+            <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fff5f0] border border-[#ffeedd]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#eb5503] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#eb5503]"></span>
               </span>
-              <ChevronDown className={`transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`} />
+              <span className="font-sans text-xs font-medium text-[#eb5503]">2 projects available for Q2</span>
             </div>
-
-            {navLinks.map((l) => (
-              <span key={l} onClick={() => handleScroll(l.toLowerCase())} className="font-mono font-regular text-[#1e1e1e] text-base cursor-pointer hover:opacity-60 transition-opacity">{l}</span>
-            ))}
           </div>
-          <OrangeBtn label="START A PROJECT" onClick={() => {
-            window.history.pushState({}, "", "/?page=inquiry");
-            window.dispatchEvent(new Event("popstate"));
-          }} />
-        </div>
 
-        {/* Hamburger */}
-        <button className="lg:hidden p-2 text-[#1e1e1e]" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </div>
+          {/* Desktop links */}
+          <div className="hidden lg:flex items-center gap-6">
+            <div className="flex items-center gap-6">
+              <span onClick={() => handleScroll("work")} className="font-mono font-regular text-[#1e1e1e] text-sm cursor-pointer hover:opacity-60 transition-opacity">WORK</span>
 
-      {/* Backdrop blur */}
-      <div
-        className={`hidden lg:block fixed inset-0 top-[70px] bg-black/20 backdrop-blur-sm z-[-1] transition-opacity duration-500 ease-in-out ${servicesOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        onMouseEnter={closeServices}
-      />
+              <span onClick={() => handleScroll("about")} className="font-mono font-regular text-[#1e1e1e] text-sm cursor-pointer hover:opacity-60 transition-opacity">ABOUT</span>
 
-      {/* Services megamenu — floating */}
-      <div
-        className={`hidden lg:block absolute top-[70px] left-0 w-full border-t border-black/[0.06] transition-all duration-500 ease-in-out ${servicesOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-4 pointer-events-none"
-          }`}
-        onMouseEnter={openServices}
-        onMouseLeave={closeServices}
-      >
-        <ServicesDropdown onItemClick={handleScroll} />
-      </div>
-
-      {/* Mobile menu overlay */}
-      {menuOpen && (
-        <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[70px] bg-white z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
-          {/* Navigation Links */}
-          <div className="flex flex-col">
-            {["WORK", "SERVICES", "APPROACH", "PRICING", "ABOUT"].map((l, i) => (
+              {/* SERVICES trigger */}
               <div
-                key={l}
-                onClick={() => handleScroll(l.toLowerCase())}
-                className="flex items-center justify-between py-4 border-b border-black/[0.06] cursor-pointer group active:opacity-60 transition-opacity"
+                className="flex items-center gap-1 cursor-pointer"
+                onMouseEnter={openServices}
+                onMouseLeave={closeServices}
+                onClick={() => handleScroll("services")}
               >
-                <div className="flex items-baseline gap-4">
-                  <span className="font-mono text-[#77786d] text-xs">0{i + 1}</span>
-                  <span className="font-sans font-regular text-[#1e1e1e] text-[28px] tracking-[-0.56px] uppercase">{l}</span>
-                </div>
-                <ArrowUpRight className="text-[#1e1e1e] size-5" />
+                <span className={`font-mono font-regular text-sm transition-opacity ${servicesOpen ? "text-[#1e1e1e]" : "text-[#1e1e1e] hover:opacity-60"}`}>
+                  SERVICES
+                </span>
+                <ChevronDown className={`transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""}`} />
               </div>
-            ))}
-          </div>
 
-          {/* Footer content */}
-          <div className="flex flex-col gap-8 pt-8">
-            <div className="flex justify-between items-end">
-              <div className="flex flex-col gap-1">
-                <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">GET IN TOUCH</span>
-                <a href="mailto:hello@realisticdreamer.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
-                  hello@realisticdreamer.com
-                </a>
-              </div>
-              <div className="flex flex-col gap-1 text-right">
-                <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">FOLLOW US</span>
-                <span className="font-sans font-medium text-[#1e1e1e] text-sm">@realisticdreamer</span>
-              </div>
+              <span onClick={() => handleScroll("pricing")} className="font-mono font-regular text-[#1e1e1e] text-sm cursor-pointer hover:opacity-60 transition-opacity">PRICING</span>
+
+              <span onClick={() => {
+                window.history.pushState({}, "", "/?page=inquiry");
+                window.dispatchEvent(new Event("popstate"));
+              }} className="font-mono font-regular text-[#1e1e1e] text-sm cursor-pointer hover:opacity-60 transition-opacity">CONTACT</span>
             </div>
-            <OrangeBtn
-              label="START A PROJECT"
-              className="w-full justify-center py-4"
+
+            <button
               onClick={() => {
-                setMenuOpen(false);
                 window.history.pushState({}, "", "/?page=inquiry");
                 window.dispatchEvent(new Event("popstate"));
               }}
-            />
+              className="border border-[#eb5503] bg-white hover:bg-[#fff5f0] text-[#1e1e1e] px-4 py-1.5 rounded-full font-mono text-xs font-medium tracking-wide flex items-center gap-2.5 transition-all duration-300 cursor-pointer shrink-0"
+            >
+              <span>START A PROJECT</span>
+              <span className="text-[9px]">▶</span>
+            </button>
           </div>
+
+          {/* Hamburger */}
+          <button className="lg:hidden p-2 text-[#1e1e1e]" onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
-      )}
+
+        {/* Backdrop blur */}
+        <div
+          className={`hidden lg:block fixed inset-0 top-[70px] bg-black/20 backdrop-blur-sm z-[-1] transition-opacity duration-500 ease-in-out ${servicesOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+          onMouseEnter={closeServices}
+        />
+
+        {/* Services megamenu — floating */}
+        <div
+          className={`hidden lg:block absolute top-[70px] left-0 w-full border-t border-black/[0.06] transition-all duration-500 ease-in-out ${servicesOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-4 pointer-events-none"
+            }`}
+          onMouseEnter={openServices}
+          onMouseLeave={closeServices}
+        >
+          <ServicesDropdown onItemClick={handleScroll} />
+        </div>
+
+        {/* Mobile menu overlay */}
+        {menuOpen && (
+          <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[70px] bg-white z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
+            {/* Navigation Links */}
+            <div className="flex flex-col">
+              {["WORK", "ABOUT", "SERVICES", "PRICING", "CONTACT"].map((l, i) => (
+                <div
+                  key={l}
+                  onClick={() => handleScroll(l.toLowerCase())}
+                  className="flex items-center justify-between py-4 border-b border-black/[0.06] cursor-pointer group active:opacity-60 transition-opacity"
+                >
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-[#77786d] text-xs">0{i + 1}</span>
+                    <span className="font-sans font-regular text-[#1e1e1e] text-[28px] tracking-[-0.56px] uppercase">{l}</span>
+                  </div>
+                  <ArrowUpRight className="text-[#1e1e1e] size-5" />
+                </div>
+              ))}
+            </div>
+
+            {/* Footer content */}
+            <div className="flex flex-col gap-8 pt-8">
+              <div className="flex justify-between items-end">
+                <div className="flex flex-col gap-1">
+                  <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">GET IN TOUCH</span>
+                  <a href="mailto:hello@realisticdreamer.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
+                    hello@realisticdreamer.com
+                  </a>
+                </div>
+                <div className="flex flex-col gap-1 text-right">
+                  <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">FOLLOW US</span>
+                  <span className="font-sans font-medium text-[#1e1e1e] text-sm">@realisticdreamer</span>
+                </div>
+              </div>
+              <OrangeBtn
+                label="START A PROJECT"
+                className="w-full justify-center py-4"
+                onClick={() => {
+                  setMenuOpen(false);
+                  window.history.pushState({}, "", "/?page=inquiry");
+                  window.dispatchEvent(new Event("popstate"));
+                }}
+              />
+            </div>
+          </div>
+        )}
       </nav>
       {/* Spacer to prevent layout shifts since navbar is fixed */}
       <div className="h-[70px] w-full shrink-0" />

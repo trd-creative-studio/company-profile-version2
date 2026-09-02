@@ -30,7 +30,7 @@ function FAQRow({ q, a, defaultOpen }: { q: string; a: string; defaultOpen: bool
 
 export function FAQSection() {
   return (
-    <section className="bg-white rounded-b-[40px] w-full px-5 md:px-16 lg:px-[250px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-16 items-center">
+    <section className="bg-white rounded-b-[40px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-16 items-center">
       <div className="flex flex-col gap-6 items-center text-center">
         <span className="font-mono font-regular text-[#77786d] text-sm">FREQUENTLY ASKED QUESTIONS</span>
         <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-2xl md:text-[36px] tracking-[-0.72px]">FAQs</p>

@@ -86,6 +86,7 @@ export function InquiryFormPage() {
         const data = await response.json();
         if (response.ok && data.success) {
           setSubmitted(true);
+          window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           setSubmitError(data.error || "Failed to submit project inquiry.");
         }
@@ -139,8 +140,8 @@ export function InquiryFormPage() {
           ) : (
             /* FORM STATE - SPLIT SCREEN */
             <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 w-full items-start">
-              {/* Left Column (Sticky) */}
-              <div className="lg:sticky lg:top-[120px] lg:w-[350px] xl:w-[400px] w-full flex flex-col shrink-0 gap-12 lg:gap-[180px]">
+              {/* Left Column (Sticky justify-between) */}
+              <div className="sticky top-28 self-start lg:w-[350px] xl:w-[400px] w-full flex flex-col justify-between shrink-0 lg:h-[calc(100vh-180px)] min-h-[450px]">
                 <div className="flex flex-col gap-6 text-left">
                   <span className="font-mono font-regular text-[#77786d] text-sm uppercase tracking-wider">START A PROJECT</span>
                   <h1 className="font-sans font-regular leading-[1.1] text-[#1e1e1e] text-[36px] md:text-[44px] tracking-[-1.5px] max-w-[360px]">
@@ -168,9 +169,9 @@ export function InquiryFormPage() {
                 </div>
               </div>
 
-              {/* Right Column (Form scrollable) */}
+              {/* Right Column (Form) */}
               <div className="flex-1 min-w-0 w-full">
-                <form onSubmit={handleSubmit} className="w-full flex flex-col gap-16">
+                <form onSubmit={handleSubmit} className="w-full flex flex-col gap-12">
 
                   {/* 01. Details */}
                   <div className="flex flex-col gap-8 w-full" id="detailsSection">

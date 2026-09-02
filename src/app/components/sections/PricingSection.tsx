@@ -36,7 +36,7 @@ function PricingCard({
 }) {
   return (
     <div
-      className={`flex flex-col justify-between p-6 rounded-lg flex-1 min-w-0 transition-all duration-300 gap-6 ${isFeatured ? "bg-[#f9f9f9]" : "bg-white"
+      className={`flex flex-col justify-between p-6 rounded-lg flex-1 min-w-0 transition-all duration-300 gap-6 group ${isFeatured ? "bg-[#f9f9f9]" : "bg-white"
         }`}
     >
       {/* Top Part */}
@@ -50,16 +50,20 @@ function PricingCard({
         </div>
 
         {/* Title and Description */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col">
           <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-xl md:text-2xl tracking-[-0.48px]">{title}</p>
-          <p className="font-sans font-medium leading-[1.5] text-[#4d4d4d] text-sm tracking-[-0.14px]">
-            {desc}
-          </p>
+          <div className="grid transition-all duration-500 ease-in-out grid-rows-[0fr] opacity-0 mt-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:mt-3">
+            <div className="overflow-hidden">
+              <p className="font-sans font-medium leading-[1.5] text-[#4d4d4d] text-sm tracking-[-0.14px]">
+                {desc}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Divider */}
-      <div className="h-px w-full bg-[#f4f4f4]" />
+      {/* <div className="h-px w-full bg-[#f4f4f4]" /> */}
 
       {/* Middle Part (Starting from, Price, Button) */}
       <div className="flex flex-col gap-6">
@@ -97,7 +101,7 @@ function PricingCard({
 
 export function PricingSection() {
   const handleNav = (service: string) => {
-    window.history.pushState({}, "", `/?page=inquiry&service=${service}`);
+    window.history.pushState({}, "", `/?service=${service}`);
     window.dispatchEvent(new Event("popstate"));
   };
 
@@ -112,9 +116,9 @@ export function PricingSection() {
         </p>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-stretch gap-4 w-full max-w-[1200px]">
+      <div className="flex flex-col lg:flex-row items-start gap-4 w-full max-w-[1200px]">
         <PricingCard
-          tag="UI/UX DESIGN"
+          tag="[01]"
           title={
             <>
               Product &<br />
@@ -133,7 +137,7 @@ export function PricingSection() {
           onClick={() => handleNav("product-design")}
         />
         <PricingCard
-          tag="WEB & APP DEVELOPMENT"
+          tag="[02]"
           title={
             <>
               Website Design &<br />
@@ -153,7 +157,7 @@ export function PricingSection() {
           onClick={() => handleNav("website")}
         />
         <PricingCard
-          tag="AI VIDEO PRODUCTION"
+          tag="[03]"
           title={
             <>
               AI Video<br />

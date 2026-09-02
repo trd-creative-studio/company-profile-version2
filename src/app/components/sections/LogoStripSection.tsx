@@ -87,7 +87,7 @@ export function LogoStripSection() {
   ];
 
   return (
-    <section className="bg-white w-full py-16 md:py-24 lg:pb-[150px] overflow-hidden flex flex-col gap-10 md:gap-12" data-name="Clients Section">
+    <section className="bg-white w-full py-16 md:py-24 lg:pb-[200px] overflow-hidden flex flex-col gap-10 md:gap-12" data-name="Clients Section">
       {/* Title */}
       <div className="text-center px-5">
         <p className="font-sans font-normal text-[#1e1e1e] text-center text-lg md:text-[22px] max-w-[480px] mx-auto leading-[1.3] tracking-[-0.2px]">

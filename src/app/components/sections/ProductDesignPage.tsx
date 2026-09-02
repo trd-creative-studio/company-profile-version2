@@ -42,7 +42,7 @@ function HelpItem({ icon, title, desc }: { icon: React.ReactNode; title: string;
 
 function WhenWeCanHelp() {
   return (
-    <section id="capabilities" className="bg-white w-full px-5 md:px-16 lg:px-[200px] py-16 md:py-24 lg:py-[150px]">
+    <section id="capabilities" className="bg-white w-full px-5 md:px-16 lg:px-[150px] py-16 md:py-24 lg:py-[75px]">
       <div className="flex flex-col lg:flex-row gap-11 items-start justify-between w-full">
         {/* Left */}
         <div className="flex flex-col gap-8 lg:w-[calc(50%-22px)] shrink-0">
@@ -120,7 +120,7 @@ function CapabilityCard({ index, title, desc }: { index: string; title: string; 
 
 function OurCapabilities() {
   return (
-    <section className="bg-white w-full px-5 md:px-16 lg:px-[200px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-12 md:gap-16 items-center">
+    <section className="bg-white w-full px-5 md:px-16 min-[1080px]:px-[200px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-12 md:gap-16 items-center">
       <div className="flex flex-col gap-6 items-center text-center">
         <span className="font-mono font-regular text-[#77786d] text-sm">OUR DESIGN CAPABILITIES</span>
         <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-[32px] md:text-[36px] tracking-[-0.4px] max-w-[500px]">
@@ -149,12 +149,14 @@ function WorkCard({ title, sub, tag, orange }: { title: string; sub: string; tag
   return (
     <div className="flex flex-col gap-6 flex-1 min-w-0">
       <div className={`rounded-lg h-[280px] md:h-[387px] w-full shrink-0 ${orange ? "bg-[#eb5503]" : "bg-[#f4f4f4]"}`} />
-      <div className="flex flex-col gap-2 px-2">
-        <p className="font-sans font-regular text-[#1e1e1e] text-[18px] md:text-[20px] tracking-[-0.6px] leading-[1.2]">{title}</p>
-        <p className="font-sans font-regular leading-[1.5] text-[#4d4d4d] text-[15px] tracking-[-0.14px]">{sub}</p>
-      </div>
-      <div className="bg-[#ffffff] inline-flex items-center justify-center px-3 py-1.5 self-start">
-        <span className="font-mono text-[#1e1e1e] text-sm">{tag}</span>
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 px-2">
+          <p className="font-sans font-regular text-[#1e1e1e] text-[18px] md:text-[20px] tracking-[-0.2px] leading-[1.2]">{title}</p>
+          <p className="font-sans font-regular leading-[1.5] text-[#4d4d4d] text-[15px] tracking-[-0.2px]">{sub}</p>
+        </div>
+        <div className="bg-[#ffffff] inline-flex items-center justify-center px-3 py-1.5 self-start">
+          <span className="font-mono text-[#1e1e1e] text-sm">{tag}</span>
+        </div>
       </div>
     </div>
   );
@@ -162,10 +164,10 @@ function WorkCard({ title, sub, tag, orange }: { title: string; sub: string; tag
 
 function SelectedWork() {
   return (
-    <section className="bg-[#f9f9f9] w-full px-4 md:px-10 lg:px-[40px] py-16 md:py-24 lg:py-[150px]">
-      <div className="flex flex-col lg:flex-row gap-12 items-start justify-between w-full max-w-[1200px] mx-auto">
+    <section className="bg-[#f9f9f9] w-full md:px-10 lg:px-16 py-16 md:py-24 lg:py-[150px]">
+      <div className="flex flex-col lg:flex-row gap-12 items-start justify-between w-full mx-auto">
         {/* Left */}
-        <div className="flex flex-col gap-8 lg:w-[calc(33.33%-16px)] shrink-0">
+        <div className="lg:sticky lg:top-28 lg:self-start flex flex-col gap-8 lg:w-[calc(33.33%-16px)] shrink-0">
           <span className="font-mono font-regular text-[#77786d] text-sm">SELECTED WORK</span>
           <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-2xl md:text-[36px] tracking-[-0.4px]">
             Designed around real product problems.
@@ -204,7 +206,7 @@ function ApproachCard({ index, title, desc }: { index: string; title: string; de
 
 function OurApproach() {
   return (
-    <section className="bg-white w-full px-5 md:px-16 lg:px-[200px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-16">
+    <section className="bg-white w-full px-5 md:px-16 lg:px-[150px] py-16 md:py-24 lg:pt-[150px] lg:pb-[75px] flex flex-col gap-16">
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
         <div className="flex flex-col gap-6">
           <span className="font-mono font-regular text-[#77786d] text-sm">OUR APPROACH</span>
@@ -224,7 +226,7 @@ function OurApproach() {
 
       <div className="flex flex-col gap-8 w-full mt-12">
         <span className="font-mono font-regular text-[#77786d] text-sm">TOOLS WE WORK WITH</span>
-        <div className="flex flex-wrap gap-12 items-center">
+        <div className="flex flex-wrap gap-4 items-center">
           {["figma", "nextjs", "chatgpt", "weavy", "seedance"].map((logo) => (
             <LogoSlot key={logo} name={logo} />
           ))}
@@ -274,18 +276,16 @@ function PricingCard({
 }) {
   return (
     <div
-      className={`flex flex-col justify-between p-6 rounded-lg flex-1 min-w-0 transition-all duration-300 gap-6 ${
-        isFeatured ? "bg-[#f9f9f9]" : "bg-white"
-      }`}
+      className={`flex flex-col justify-between p-6 rounded-lg flex-1 min-w-0 transition-all duration-300 gap-6 group ${isFeatured ? "bg-[#f9f9f9]" : "bg-white"
+        }`}
     >
       {/* Top Part */}
       <div className="flex flex-col gap-12">
         {/* Tag Badge and Duration Row */}
         <div className="flex items-center justify-between w-full">
           <div
-            className={`inline-flex items-center justify-center px-3 py-1.5 ${
-              isFeatured ? "bg-white" : "bg-[#f4f4f4]"
-            }`}
+            className={`inline-flex items-center justify-center px-3 py-1.5 ${isFeatured ? "bg-white" : "bg-[#f4f4f4]"
+              }`}
           >
             <span className="font-mono text-[#1e1e1e] text-xs font-regular uppercase">{tag}</span>
           </div>

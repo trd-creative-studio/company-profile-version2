@@ -20,15 +20,15 @@ export function Hero() {
   }, [previews.length]);
 
   return (
-    <section className="bg-white w-full h-[calc(100vh-70px)] min-h-[600px] lg:min-h-[680px] flex items-center justify-between px-5 md:px-[50px] pt-8 lg:pt-0 pb-12 gap-12 overflow-hidden">
+    <section className="bg-white w-full h-[calc(100vh-70px)] min-h-[600px] lg:min-h-[680px] flex items-center justify-between px-5 md:px-16 pt-8 lg:pt-0 pb-12 gap-12 overflow-hidden">
       <div className="flex flex-col lg:flex-row items-center justify-between gap-12 w-full">
         {/* Left Column (Headline & CTAs) */}
         <div className="flex-1 flex flex-col items-start min-w-0">
           {/* Service tags row */}
           <div className="flex flex-wrap gap-x-3 gap-y-1.5 items-center">
-            <span className="font-mono font-regular text-[#77786d] text-xs md:text-sm whitespace-nowrap">PRODUCT & EXPERIENCE DESIGN</span>
+            <span className="font-mono font-regular text-[#77786d] text-xs md:text-sm whitespace-nowrap">UI/UX DESIGN</span>
             <span className="text-black/20 text-xs md:text-sm select-none">·</span>
-            <span className="font-mono font-regular text-[#77786d] text-xs md:text-sm whitespace-nowrap">WEBSITE DESIGN & DEVELOPMENT</span>
+            <span className="font-mono font-regular text-[#77786d] text-xs md:text-sm whitespace-nowrap">WEB DESIGN & DEVELOPMENT</span>
             <span className="text-black/20 text-xs md:text-sm select-none">·</span>
             <span className="font-mono font-regular text-[#77786d] text-xs md:text-sm whitespace-nowrap">AI VIDEO PRODUCTION</span>
           </div>

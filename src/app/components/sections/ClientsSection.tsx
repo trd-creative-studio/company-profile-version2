@@ -2,7 +2,7 @@ import { OrangeBtn } from "../OrangeBtn";
 
 export function ClientsSection() {
   return (
-    <section id="about" className="bg-[#f9f9f9] w-full px-5 md:px-10 py-16 md:py-24 lg:py-[150px]">
+    <section id="about" className="bg-[#f9f9f9] w-full px-5 md:px-16 min-[1080px]:px-[200px] py-16 md:py-24 lg:py-[150px]">
       <div className="flex flex-col lg:flex-row items-start justify-between gap-12">
         {/* Label */}
         <div className="shrink-0 lg:w-[210px]">
