@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.2" baseProfile="tiny-ps" width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>TRD Creative Studio Logo</title>
+  <rect width="320" height="320" fill="#EB5503"/>
+  <rect x="62" y="154.765" width="103.235" height="11.4706" fill="white"/>
+  <rect x="256.999" y="166.235" width="103.235" height="11.4706" transform="rotate(-180 256.999 166.235)" fill="white"/>
+  <rect x="165.235" y="154.765" width="103.235" height="11.4706" transform="rotate(90 165.235 154.765)" fill="white"/>
+  <rect x="153.764" y="166.235" width="103.235" height="11.4706" transform="rotate(-90 153.764 166.235)" fill="white"/>
+  <rect x="157.937" y="167.051" width="103.235" height="11.4706" transform="rotate(-135 157.937 167.051)" fill="white"/>
+  <rect x="188.177" y="113.633" width="22.9412" height="22.9412" rx="11.4706" transform="rotate(-45 188.177 113.633)" fill="white"/>
+  <rect x="161.875" y="154.765" width="103.235" height="11.4706" transform="rotate(45 161.875 154.765)" fill="white"/>
+  <rect x="166.052" y="162.875" width="103.235" height="11.4706" transform="rotate(135 166.052 162.875)" fill="white"/>
+</svg>

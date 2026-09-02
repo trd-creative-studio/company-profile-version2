@@ -6,6 +6,8 @@ import { Footer } from "./Footer";
 
 export function InquiryFormPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
+  const [transitionClass, setTransitionClass] = useState("translate-x-full");
 
   // Form Fields State
   const [name, setName] = useState("");
@@ -84,9 +86,26 @@ export function InquiryFormPage() {
         });
 
         const data = await response.json();
+
         if (response.ok && data.success) {
-          setSubmitted(true);
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          // Trigger page transition like navigating to next page
+          setTransitioning(true);
+          setTransitionClass("translate-x-full");
+
+          setTimeout(() => {
+            setTransitionClass("translate-x-0 transition-transform duration-500 ease-in-out");
+          }, 50);
+
+          setTimeout(() => {
+            setSubmitted(true);
+            window.scrollTo(0, 0);
+            setTransitionClass("-translate-x-full transition-transform duration-500 ease-in-out");
+          }, 550);
+
+          setTimeout(() => {
+            setTransitioning(false);
+            setTransitionClass("translate-x-full");
+          }, 1100);
         } else {
           setSubmitError(data.error || "Failed to submit project inquiry.");
         }
@@ -113,13 +132,18 @@ export function InquiryFormPage() {
 
   return (
     <div className="bg-[#1e1e1e] flex flex-col w-full min-h-screen relative">
+      {/* Orange transition overlay */}
+      {transitioning && (
+        <div className={`fixed inset-0 bg-[#eb5503] z-[9999] transform pointer-events-none ${transitionClass}`} />
+      )}
+
       <Navbar />
 
       <main className="bg-white w-full rounded-b-[40px] pb-24 pt-0 z-10 relative flex-1">
         <div className="max-w-[1200px] w-full mx-auto px-5 md:px-[50px] flex flex-col justify-center pt-[50px] pb-8">
           {submitted ? (
             /* SUCCESS STATE */
-            <div className="flex flex-col items-center text-center gap-8 py-8 animate-fade-in">
+            <div className="flex flex-col items-center justify-center text-center gap-8 py-16 md:py-24 min-h-[500px] md:min-h-[600px] animate-fade-in">
               <div className="bg-[#eb5503]/10 size-20 rounded-full flex items-center justify-center text-[#eb5503] animate-scale-up">
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
