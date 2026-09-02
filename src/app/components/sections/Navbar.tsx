@@ -7,47 +7,33 @@ import { navigateToHome, navigateToInquiry, navigateToService, navigateTo } from
 
 function CompassMark() {
   return (
-    <div className="relative size-[13px] shrink-0">
-      <div className="absolute bg-[#1e1e1e] h-[0.76px] left-0 top-[6.08px] w-[6.84px]" />
-      <div className="absolute flex h-[0.76px] items-center justify-center right-0 top-[6.08px] w-[6.84px]">
-        <div className="flex-none rotate-180"><div className="bg-[#1e1e1e] h-[0.76px] w-[6.84px]" /></div>
-      </div>
-      <div className="absolute flex h-[6.84px] items-center justify-center left-[6.08px] top-[6.08px] w-[0.76px]">
-        <div className="flex-none rotate-90"><div className="bg-[#1e1e1e] h-[0.76px] w-[6.84px]" /></div>
-      </div>
-      <div className="absolute flex h-[6.84px] items-center justify-center left-[6.08px] top-0 w-[0.76px]">
-        <div className="-rotate-90 flex-none"><div className="bg-[#1e1e1e] h-[0.76px] w-[6.84px]" /></div>
-      </div>
-      <div className="absolute flex items-center justify-center left-[1.52px] size-[5.374px] top-[1.52px]">
-        <div className="-rotate-135 flex-none"><div className="bg-[#1e1e1e] h-[0.76px] w-[6.84px]" /></div>
-      </div>
-      <div className="absolute flex items-center justify-center left-[8.36px] size-[2.15px] top-[2.28px]">
-        <div className="-rotate-45 flex-none"><div className="bg-[#1e1e1e] rounded-[38px] size-[1.52px]" /></div>
-      </div>
-      <div className="absolute flex items-center justify-center left-[6.08px] size-[5.374px] top-[6.08px]">
-        <div className="flex-none rotate-45"><div className="bg-[#1e1e1e] h-[0.76px] w-[6.84px]" /></div>
-      </div>
-      <div className="absolute flex items-center justify-center left-[1.52px] size-[5.374px] top-[6.08px]">
-        <div className="flex-none rotate-135"><div className="bg-[#1e1e1e] h-[0.76px] w-[6.84px]" /></div>
-      </div>
-    </div>
+    <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-3.5 text-[#eb5503] shrink-0">
+      <rect x="62" y="154.765" width="103.235" height="11.4706" fill="currentColor"/>
+      <rect x="256.999" y="166.235" width="103.235" height="11.4706" transform="rotate(-180 256.999 166.235)" fill="currentColor"/>
+      <rect x="165.235" y="154.765" width="103.235" height="11.4706" transform="rotate(90 165.235 154.765)" fill="currentColor"/>
+      <rect x="153.764" y="166.235" width="103.235" height="11.4706" transform="rotate(-90 153.764 166.235)" fill="currentColor"/>
+      <rect x="157.937" y="167.051" width="103.235" height="11.4706" transform="rotate(-135 157.937 167.051)" fill="currentColor"/>
+      <rect x="188.177" y="113.633" width="22.9412" height="22.9412" rx="11.4706" transform="rotate(-45 188.177 113.633)" fill="currentColor"/>
+      <rect x="161.875" y="154.765" width="103.235" height="11.4706" transform="rotate(45 161.875 154.765)" fill="currentColor"/>
+      <rect x="166.052" y="162.875" width="103.235" height="11.4706" transform="rotate(135 166.052 162.875)" fill="currentColor"/>
+    </svg>
   );
 }
 
 function BrandMark() {
   return (
-    <div className="h-[37.863px] relative w-[57px] shrink-0 cursor-pointer" onClick={(e) => {
-      e.preventDefault();
-      navigateToHome();
-    }}>
-      <div className="[word-break:break-word] absolute font-sans font-normal leading-[0] left-0 text-[#1e1e1e] text-[15.2px] top-[calc(50%-17.07px)] tracking-[-0.608px]">
-        <p className="leading-[0.8] mb-0">The</p>
-        <p className="leading-[0.8] mb-0">Realistic</p>
-        <p className="leading-[0.8]">Dreamer</p>
-      </div>
-      <div className="absolute left-[44.08px] top-0">
-        <CompassMark />
-      </div>
+    <div
+      className="flex items-center cursor-pointer shrink-0"
+      onClick={(e) => {
+        e.preventDefault();
+        navigateToHome();
+      }}
+    >
+      <img
+        src="/trd-logo.png"
+        alt="The Realistic Dreamer"
+        className="h-9 md:h-11 w-auto object-contain"
+      />
     </div>
   );
 }
