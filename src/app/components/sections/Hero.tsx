@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { OrangeBtn } from "../OrangeBtn";
 
-// Automatically import all preview images from the assets directory
-const imageModules = import.meta.glob("../../../assets/*.{png,jpg,jpeg,webp,svg,avif}", { eager: true });
-const previews = Object.values(imageModules)
-  .map((mod: any) => mod.default)
-  // Filter out any logo folder SVGs or logos if they are somehow matched
-  .filter((src) => !src.includes("/logo/"));
+// Automatically import preview images ONLY from public/hero
+const heroModules = import.meta.glob("/public/hero/*.{png,jpg,jpeg,webp,svg,avif}", { eager: true, query: "?url", import: "default" });
+const previews = Object.values(heroModules).map((src: any) =>
+  typeof src === "string" ? src.replace(/^\/public/, "") : src
+) as string[];
 
 export function Hero() {
   const [currentIdx, setCurrentIdx] = useState(0);

@@ -85,8 +85,7 @@ function ServicesDropdown({ onItemClick }: { onItemClick: (id: string) => void }
             {/* Column 1 */}
             <div className="flex flex-col gap-1 flex-1 min-w-0">
               <ServiceCard
-                onClick={(e) => {
-                  e?.preventDefault();
+                onClick={() => {
                   window.history.pushState({}, "", "/?service=product-design");
                   window.dispatchEvent(new Event("popstate"));
                 }}

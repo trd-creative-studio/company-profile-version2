@@ -6,11 +6,7 @@ import { FAQSection } from "./FAQSection";
 import { ChevronDown, ArrowUpRight } from "../Icons";
 import { Footer } from "./Footer";
 
-// Import previews for Selected Work
-import mobilePreview from "@/assets/mobile-preview.jpg";
-import webPreview from "@/assets/web-preview.jpg";
-import websitePreview from "@/assets/website-preview.jpg";
-import brandPreview from "@/assets/brand-preview.jpg";
+
 
 function ServiceHero() {
   return (
