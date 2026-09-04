@@ -265,12 +265,12 @@ export function Navbar() {
                 />
               </div>
 
-              <span
+              {/* <span
                 onClick={() => handleScroll("pricing")}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
               >
                 PRICING
-              </span>
+              </span> */}
 
               <span
                 onClick={() => {

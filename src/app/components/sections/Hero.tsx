@@ -145,6 +145,55 @@ function CarouselCard({
   );
 }
 
+const ROTATING_SERVICES = [
+  "UI/UX Design",
+  "Web Development",
+  "AI Video Production",
+];
+
+function RotatingServiceText() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % ROTATING_SERVICES.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="inline-inline-flex relative [perspective:600px] align-bottom">
+      <style>{`
+        @keyframes text3DTwistIn {
+          0% {
+            opacity: 0;
+            transform: rotateX(-90deg) rotateY(-6deg) translateY(20px);
+            transform-origin: 50% 100%;
+          }
+          65% {
+            opacity: 1;
+            transform: rotateX(8deg) rotateY(1deg) translateY(-2px);
+          }
+          100% {
+            opacity: 1;
+            transform: rotateX(0deg) rotateY(0deg) translateY(0px);
+          }
+        }
+      `}</style>
+      <span
+        key={index}
+        className="inline-block text-[#eb5503] transform-gpu origin-bottom"
+        style={{
+          animation: "text3DTwistIn 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        }}
+      >
+        {ROTATING_SERVICES[index]}
+      </span>
+    </span>
+  );
+}
+
 export function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -323,7 +372,7 @@ export function Hero() {
                 className="font-sans font-regular leading-[1.05] text-[#1e1e1e] text-[36px] sm:text-[48px] md:text-[56px] lg:text-[52px] tracking-[-1.5px] md:tracking-[-2.2px] max-w-[640px]"
               >
                 Design partner studio <br />
-                for <span className="text-[#eb5503]">UI/UX Design</span>
+                for <RotatingServiceText />
               </h1>
 
               {/* Right Paragraph & Action Buttons */}
