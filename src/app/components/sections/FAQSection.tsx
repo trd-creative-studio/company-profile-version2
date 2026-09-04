@@ -30,16 +30,32 @@ function FAQRow({ q, a, defaultOpen }: { q: string; a: string; defaultOpen: bool
 
 export function FAQSection() {
   return (
-    <section className="bg-white rounded-b-[40px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-16 items-center">
-      <div className="flex flex-col gap-6 items-center text-center">
-        <span className="font-mono font-regular text-[#77786d] text-sm">FREQUENTLY ASKED QUESTIONS</span>
-        <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-2xl md:text-[36px] tracking-[-0.72px]">FAQs</p>
-      </div>
-      <div className="flex flex-col gap-2 w-full max-w-[500px]">
-        {FAQ_ITEMS.map((item, i) => (
-          <FAQRow key={i} q={item.q} a={item.a} defaultOpen={item.open} />
-        ))}
-      </div>
-    </section>
+    <div className="bg-[#1e1e1e] w-full">
+      <section className="bg-white rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-3 items-center">
+        {/* Top Badge */}
+        <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">
+          <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
+            FAQ
+          </span>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {/* Headline */}
+          <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
+            Still have questions?
+          </h2>
+
+          {/* Subtitle */}
+          <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[400px] text-center mb-12 md:mb-16">
+            Looking for something in else? Reach out to us by Telegram or email us
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 w-full max-w-[500px]">
+          {FAQ_ITEMS.map((item, i) => (
+            <FAQRow key={i} q={item.q} a={item.a} defaultOpen={item.open} />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

@@ -29,7 +29,7 @@ function ProjectCard({ title, sub, tag, image }: { title: string; sub: string; t
 
 export function WorkSection() {
   return (
-    <section id="work" className="bg-[#ffffff] w-full px-5 md:px-16 lg:px-[200px] pt-[150px] pb-[150px]">
+    <section id="work" className="bg-[#ffffff] w-full px-5 md:px-16 lg:px-[200px] pt-16 md:pt-24 pb-20 md:pb-32">
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-10 md:mb-16">
         <p className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-xl md:text-2xl lg:text-[36px] tracking-[-1.08px] max-w-[966px]">
           We help teams bring clarity to digital products, websites, and visual experiences through strategy, design, and practical execution.

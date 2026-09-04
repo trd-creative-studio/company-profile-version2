@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "./components/sections/Navbar";
 import { Hero } from "./components/sections/Hero";
+import { StudioStatementSection } from "./components/sections/StudioStatementSection";
+import { LogoStripSection } from "./components/sections/LogoStripSection";
+import { HowWeHelpSection } from "./components/sections/HowWeHelpSection";
+import { ProcessSection } from "./components/sections/ProcessSection";
 import { WorkSection } from "./components/sections/WorkSection";
 import { WhyTRDSection } from "./components/sections/WhyTRDSection";
-import { LogoStripSection } from "./components/sections/LogoStripSection";
 import { ServicesSection } from "./components/sections/ServicesSection";
 import { ClientsSection } from "./components/sections/ClientsSection";
 import { PricingSection } from "./components/sections/PricingSection";
@@ -112,7 +115,7 @@ export default function App() {
   }, [page]);
 
   return (
-    <div className="bg-[#1e1e1e] flex flex-col w-full min-h-screen relative">
+    <div className="bg-[#f8f8f8] flex flex-col w-full min-h-screen relative">
       {/* Orange transition overlay */}
       {transitioning && (
         <div className={`fixed inset-0 bg-[#eb5503] z-[9999] transform ${transitionClass}`} />
@@ -126,12 +129,11 @@ export default function App() {
         <>
           <Navbar />
           <Hero />
-          <WorkSection />
-          <WhyTRDSection />
-          <ServicesSection />
+          <StudioStatementSection />
           <LogoStripSection />
+          <HowWeHelpSection />
+          <ProcessSection />
           <ClientsSection />
-          <PricingSection />
           <FAQSection />
           <Footer />
         </>

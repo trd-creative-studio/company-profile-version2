@@ -22,7 +22,7 @@ import clientGreenflags from "@/assets/logo/Frame 467.png";
 const LOGO_CONFIG = {
   slotHeight: "h-[64px]",          // Height of the logo container slot
   toolHeight: "h-[36px] md:h-[42px]",   // Height of the tool logos (Figma, ChatGPT, etc.)
-  clientHeight: "h-[56px] md:h-[56px]", // Height of client logos (Junso, Tehc House, etc.)
+  clientHeight: "h-[42px] md:h-[42px]", // Height of client logos (Junso, Tehc House, etc.)
 };
 
 // ==========================================
@@ -67,51 +67,30 @@ export function LogoSlot({ name }: { name: string }) {
 }
 
 export function LogoStripSection() {
-  const row1 = [
+  const clientLogos = [
+    "client-junso",
+    "client-metalindo",
+    "client-nyambee",
+    "client-pupuk",
+    "client-synapsis",
     "client-tehchouse",
     "client-greenflags",
-    "client-junso",
-    "client-metalindo",
-    "client-nyambee",
-    "client-pupuk",
-    "client-synapsis"
-  ];
-  const row2 = [
-    "client-synapsis",
-    "client-pupuk",
-    "client-nyambee",
-    "client-metalindo",
-    "client-junso",
-    "client-greenflags",
-    "client-tehchouse"
   ];
 
   return (
-    <section className="bg-white w-full py-16 md:py-24 lg:pb-[200px] overflow-hidden flex flex-col gap-10 md:gap-12" data-name="Clients Section">
+    <section className="bg-[#f8f8f8] w-full pt-4 pb-16 md:pb-24 flex flex-col gap-6 md:gap-8 items-center" data-name="Clients Section">
       {/* Title */}
       <div className="text-center px-5">
-        <p className="font-sans font-normal text-[#1e1e1e] text-center text-lg md:text-[22px] max-w-[480px] mx-auto leading-[1.3] tracking-[-0.2px]">
-          Selected teams, clients, and
-          <br className="hidden sm:inline" />
-          collaborations behind our experience.
+        <p className="font-sans font-medium text-[#1e1e1e] text-center text-sm md:text-base tracking-[-0.1px]">
+          Trusted by 40+ companies
         </p>
       </div>
 
-      {/* Two Marquee Rows */}
-      <div className="w-full flex flex-col gap-4 overflow-hidden">
-        {/* Row 1: Standard direction (left) */}
-        <Marquee speed={0.3} gap="gap-2">
-          {row1.map((logo, i) => (
-            <LogoSlot key={`row1-${logo}-${i}`} name={logo} />
-          ))}
-        </Marquee>
-
-        {/* Row 2: Reverse direction (right) */}
-        <Marquee speed={0.3} gap="gap-2" reverse={true}>
-          {row2.map((logo, i) => (
-            <LogoSlot key={`row2-${logo}-${i}`} name={logo} />
-          ))}
-        </Marquee>
+      {/* Static Logo Row with the new uploaded client logos */}
+      <div className="max-w-[1100px] w-full px-6 flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-0">
+        {clientLogos.map((logo) => (
+          <LogoSlot key={logo} name={logo} />
+        ))}
       </div>
     </section>
   );
