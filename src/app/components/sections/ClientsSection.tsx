@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 interface Testimonial {
   id: string;
@@ -45,25 +45,84 @@ const TESTIMONIALS_DATA: Testimonial[] = [
     stat2Number: "450+",
     stat2Label: "Unique assets, pages",
   },
+  {
+    id: "4",
+    name: "Sarah Jenkins,",
+    role: "Design Director @ Framer Lab",
+    quote:
+      '"The level of motion craft and component system hierarchy delivered by TRD set a new benchmark for our digital ecosystem. Truly world-class collaboration."',
+    stat1Number: "5",
+    stat1Label: "Months project duration",
+    stat2Number: "220+",
+    stat2Label: "Unique assets, pages",
+  },
+  {
+    id: "5",
+    name: "Alex Chen,",
+    role: "Head of Growth @ Fintech Global",
+    quote:
+      '"Fast execution without sacrificing quality. TRD helped us scale from early prototype to a polished enterprise platform seamlessly."',
+    stat1Number: "9",
+    stat1Label: "Months project duration",
+    stat2Number: "350+",
+    stat2Label: "Unique assets, pages",
+  },
 ];
 
 export function ClientsSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const handleScroll = () => {
+      if (!sectionRef.current || !trackRef.current || !containerRef.current) return;
+
+      const sectionRect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const totalScrollableDistance = sectionRect.height - viewportHeight;
+
+      if (totalScrollableDistance <= 0) return;
+
+      // Distance scrolled inside the sticky section
+      const scrolled = -sectionRect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / totalScrollableDistance));
+
+      setScrollProgress(progress);
+
+      const trackWidth = trackRef.current.scrollWidth;
+      const containerWidth = containerRef.current.clientWidth;
+      const maxTranslateX = Math.max(0, trackWidth - containerWidth);
+
+      const translateX = progress * maxTranslateX;
+      trackRef.current.style.transform = `translate3d(-${translateX}px, 0, 0)`;
+    };
+
+    const onScroll = () => {
+      animationFrameId = requestAnimationFrame(handleScroll);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   return (
-    <section id="about" className="bg-[#f8f8f8] w-full py-16 md:py-[150px] overflow-hidden">
-      <style>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
-      <div className="w-full flex flex-col items-center">
+    <div ref={sectionRef} id="about" className="relative h-[280vh] bg-[#f8f8f8] w-full">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-10 md:py-16">
         {/* Header Block matching How We Help style */}
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center text-center mb-12 md:mb-16">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center text-center mb-8 md:mb-12 shrink-0">
           {/* Badge */}
-          <div className="inline-flex items-center px-2.5 py-1 bg-[#ffffff] border border-black/[0.04] mb-4">
+          <div className="inline-flex items-center px-2.5 py-1 bg-[#ffffff] border border-black/[0.04] mb-3 md:mb-4">
             <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
               TESTIMONIALS
             </span>
@@ -71,7 +130,7 @@ export function ClientsSection() {
 
           <div className="flex flex-col gap-2 items-center">
             {/* Headline */}
-            <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
+            <h2 className="font-sans font-regular text-[24px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
               What our clients say about us
             </h2>
 
@@ -82,13 +141,16 @@ export function ClientsSection() {
           </div>
         </div>
 
-        {/* Horizontal Testimonials Carousel / Grid */}
-        <div className="w-full overflow-x-auto no-scrollbar px-6 md:px-[150px]">
-          <div className="flex gap-2 max-w-[1100px] mx-auto min-w-max pb-4">
+        {/* Horizontal Testimonials Track Window */}
+        <div ref={containerRef} className="w-full overflow-hidden px-6 md:px-12">
+          <div
+            ref={trackRef}
+            className="flex gap-4 md:gap-6 will-change-transform transition-transform ease-out duration-75 max-w-max mx-auto md:mx-0 pl-0 md:pl-[calc(max(0px,(100vw-1200px)/2))]"
+          >
             {TESTIMONIALS_DATA.map((item) => (
               <div
                 key={item.id}
-                className="bg-white border border-black/[0.04] rounded-2xl p-6 md:p-8 w-[320px] sm:w-[420px] md:w-[450px] shrink-0 flex flex-col justify-between gap-8"
+                className="bg-white border border-black/[0.04] rounded-2xl p-6 md:p-8 w-[320px] sm:w-[420px] md:w-[460px] shrink-0 flex flex-col justify-between gap-6 md:gap-8 shadow-sm"
               >
                 {/* Author Info at Top */}
                 <div className="flex flex-col">
@@ -128,8 +190,22 @@ export function ClientsSection() {
             ))}
           </div>
         </div>
+
+        {/* Scroll Progress Bar Indicator */}
+        <div className="max-w-[240px] w-full mx-auto mt-8 md:mt-10 px-6 shrink-0 flex flex-col items-center gap-2">
+          <div className="w-full bg-black/[0.08] h-1 rounded-full overflow-hidden relative">
+            <div
+              className="bg-[#eb5503] h-full rounded-full transition-all duration-150 ease-out"
+              style={{ width: `${Math.max(10, scrollProgress * 100)}%` }}
+            />
+          </div>
+          <span className="font-mono text-[10px] uppercase text-[#77786d] tracking-widest font-medium">
+            SCROLL TO EXPLORE ({Math.round(scrollProgress * 100)}%)
+          </span>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
+
 
