@@ -73,7 +73,25 @@ const MAIN_SERVICES = [
 ];
 
 export function InquiryFormPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("submitted") === "true" || params.get("success") === "true";
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("submitted") === "true" || params.get("success") === "true") {
+        setSubmitted(true);
+      }
+    };
+    handleUrlChange();
+    window.addEventListener("popstate", handleUrlChange);
+    return () => window.removeEventListener("popstate", handleUrlChange);
+  }, []);
   const [transitioning, setTransitioning] = useState(false);
   const [transitionClass, setTransitionClass] = useState("translate-x-full");
 
@@ -214,13 +232,13 @@ export function InquiryFormPage() {
                 </div>
                 <div className="flex flex-col gap-3 max-w-[520px]">
                   <h2 className="font-sans font-regular text-[#1e1e1e] text-2xl md:text-3xl tracking-[-0.8px]">
-                    Thanks — we’ve received your project inquiry.
+                    Thanks — we’ve got your brief.
                   </h2>
-                  <p className="font-sans text-[#4d4d4d] text-base leading-[1.6]">
-                    We’ll review the details and get back to you within 1–2 business days.
+                  <p className="font-sans text-[#4d4d4d] text-base leading-[1.5]">
+                    We’ll review the details and get back to you within 1–2 business days. If the project looks like a good fit, we’ll invite you to a discovery call to discuss the next steps.
                   </p>
                 </div>
-                <OrangeBtn label="RETURN TO HOMEPAGE" onClick={handleBackHome} className="mt-4" />
+                <OrangeBtn label="EXPLORE OUR WORKS" onClick={handleBackHome} className="mt-4" />
               </div>
             ) : (
               /* FORM STATE - SPLIT SCREEN */
@@ -344,11 +362,10 @@ export function InquiryFormPage() {
                                   setBudget("");
                                 }
                               }}
-                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 select-none flex items-center gap-2 cursor-pointer ${
-                                isSelected
-                                  ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular"
-                                  : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
-                              }`}
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 select-none flex items-center gap-2 cursor-pointer ${isSelected
+                                ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular"
+                                : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                }`}
                             >
                               <span>{item.name}</span>
                             </button>
