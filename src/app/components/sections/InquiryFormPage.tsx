@@ -1,27 +1,90 @@
 import React, { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
-import { OrangeBtn } from "../OrangeBtn";
-import { ArrowUpRight } from "../Icons";
 import { Footer } from "./Footer";
+import { OrangeBtn } from "../OrangeBtn";
+
+const SCOPE_OPTIONS_MAP: Record<string, string[]> = {
+  "Product & Experience Design": [
+    "Landing Page Design",
+    "UX Focus",
+    "Mobile App Design",
+    "Website Design",
+    "SaaS",
+    "Dashboard",
+    "Ongoing Support",
+    "Figma File MakeUp",
+  ],
+  "Web Design & Development": [
+    "Landing Page & Marketing Sites",
+    "E-Commerce",
+    "SaaS",
+    "Mobile App",
+    "Company Profile",
+    "Custom Web",
+    "SEO",
+  ],
+  "AI Video Production": [
+    "Product & Explainer Videos",
+    "AI Video Generation",
+    "Social & Short Form Content",
+    "Campaign Assets",
+  ],
+};
+
+const BUDGET_OPTIONS_MAP: Record<string, string[]> = {
+  "Web Design & Development": [
+    "< Rp5.000.000",
+    "Rp5.000.000 – Rp10.000.000",
+    "Rp10.000.000 – Rp20.000.000",
+    "Rp20.000.000 – Rp50.000.000",
+    "Rp50.000.000+",
+    "Not sure yet",
+  ],
+  "Product & Experience Design": [
+    "< Rp5.000.000",
+    "Rp5.000.000 – Rp12.000.000",
+    "Rp12.000.000 – Rp25.000.000",
+    "Rp25.000.000 – Rp50.000.000",
+    "Rp50.000.000+",
+    "Not sure yet",
+  ],
+  "AI Video Production": [
+    "< Rp5.000.000",
+    "Rp5.000.000 – Rp10.000.000",
+    "Rp10.000.000 – Rp20.000.000",
+    "Rp20.000.000+",
+    "Not sure yet",
+  ],
+};
+
+const DEFAULT_BUDGET_OPTIONS = [
+  "< Rp5.000.000",
+  "Rp5.000.000 – Rp10.000.000",
+  "Rp10.000.000 – Rp20.000.000",
+  "Rp20.000.000 – Rp50.000.000",
+  "Rp50.000.000+",
+  "Not sure yet",
+];
 
 export function InquiryFormPage() {
   const [submitted, setSubmitted] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
   const [transitionClass, setTransitionClass] = useState("translate-x-full");
 
-  // Form Fields State
+  // Form Fields State matching reference defaults
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
 
-  const [helpServices, setHelpServices] = useState<string[]>([]);
-  const [budget, setBudget] = useState("");
-  const [findUs, setFindUs] = useState("");
+  const [serviceCategory, setServiceCategory] = useState<string>("");
+  const [serviceScope, setServiceScope] = useState<string>("");
+  const [budget, setBudget] = useState<string>("");
+  const [timeline, setTimeline] = useState<string>("As soon as possible");
   const [projectDetails, setProjectDetails] = useState("");
+  const [referral, setReferral] = useState<string>("Dribbble");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
-  // Validation errors
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Auto pre-fill service from URL search parameters on load
@@ -29,21 +92,13 @@ export function InquiryFormPage() {
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get("service");
     if (serviceParam === "product-design") {
-      setHelpServices(["UI/UX Design"]);
+      setServiceCategory("Product & Experience Design");
     } else if (serviceParam === "website") {
-      setHelpServices(["Company Profile Website"]);
+      setServiceCategory("Web Design & Development");
     } else if (serviceParam === "ai-video") {
-      setHelpServices(["AI Video Production"]);
+      setServiceCategory("AI Video Production");
     }
   }, []);
-
-  const handleServiceToggle = (opt: string) => {
-    if (helpServices.includes(opt)) {
-      setHelpServices(helpServices.filter((s) => s !== opt));
-    } else {
-      setHelpServices([...helpServices, opt]);
-    }
-  };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -54,10 +109,6 @@ export function InquiryFormPage() {
       newErrors.email = "Please enter a valid email address";
     }
     if (!companyName.trim()) newErrors.companyName = "Company/Brand name is required";
-    if (helpServices.length === 0) newErrors.helpServices = "Please select at least one service";
-    if (!budget) newErrors.budget = "Please select a budget range";
-    if (!findUs) newErrors.findUs = "Please select how you found us";
-    if (!projectDetails.trim()) newErrors.projectDetails = "Please describe your project";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -78,17 +129,18 @@ export function InquiryFormPage() {
             name,
             email,
             companyName,
-            helpServices,
+            serviceCategory,
+            serviceScope,
             budget,
-            findUs,
+            timeline,
             projectDetails,
+            referral,
           }),
         });
 
         const data = await response.json();
 
         if (response.ok && data.success) {
-          // Trigger page transition like navigating to next page
           setTransitioning(true);
           setTransitionClass("translate-x-full");
 
@@ -115,7 +167,6 @@ export function InquiryFormPage() {
         setIsSubmitting(false);
       }
     } else {
-      // Scroll to the first error
       const firstErrorKey = Object.keys(errors)[0];
       const errorElement = document.getElementById(firstErrorKey);
       if (errorElement) {
@@ -137,260 +188,323 @@ export function InquiryFormPage() {
         <div className={`fixed inset-0 bg-[#eb5503] z-[9999] transform pointer-events-none ${transitionClass}`} />
       )}
 
-      <Navbar />
+      {/* Main Light Section Container with Rounded Bottom */}
+      <div className="bg-[#f8f8f8] rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full flex flex-col min-h-[calc(100vh-400px)]">
+        <Navbar />
 
-      <main className="bg-white w-full rounded-b-[40px] pb-24 pt-0 z-10 relative flex-1">
-        <div className="max-w-[1200px] w-full mx-auto px-5 md:px-[50px] flex flex-col justify-center pt-[50px] pb-8">
-          {submitted ? (
-            /* SUCCESS STATE */
-            <div className="flex flex-col items-center justify-center text-center gap-8 py-16 md:py-24 min-h-[500px] md:min-h-[600px] animate-fade-in">
-              <div className="bg-[#eb5503]/10 size-20 rounded-full flex items-center justify-center text-[#eb5503] animate-scale-up">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </div>
-              <div className="flex flex-col gap-4 max-w-[550px]">
-                <h2 className="font-sans font-regular leading-[1.2] text-[#1e1e1e] text-[28px] md:text-[36px] tracking-[-1px]">
-                  Thanks — we’ve received your project inquiry.
-                </h2>
-                <p className="font-sans font-regular leading-[1.6] text-[#4d4d4d] text-[15px] md:text-[16px]">
-                  We’ll review the details and get back to you within 1–2 business days.
-                  <br /><br />
-                  If the project looks like a good fit, we’ll invite you to a discovery call to discuss the scope, priorities, and next steps.
-                </p>
-              </div>
-              <OrangeBtn label="RETURN TO HOMEPAGE" onClick={handleBackHome} className="mt-4" />
-            </div>
-          ) : (
-            /* FORM STATE - SPLIT SCREEN */
-            <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 w-full items-start">
-              {/* Left Column (Sticky justify-between) */}
-              <div className="sticky top-28 self-start lg:w-[350px] xl:w-[400px] w-full flex flex-col justify-between shrink-0 lg:h-[calc(100vh-180px)] min-h-[450px]">
-                <div className="flex flex-col gap-6 text-left">
-                  <span className="font-mono font-regular text-[#77786d] text-sm uppercase tracking-wider">START A PROJECT</span>
-                  <h1 className="font-sans font-regular leading-[1.1] text-[#1e1e1e] text-[36px] md:text-[44px] tracking-[-1.5px] max-w-[360px]">
-                    Tell us what you’re building.
-                  </h1>
+        <main className="w-full pb-20 pt-28 z-10 relative flex-1">
+          <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16">
+            {submitted ? (
+              /* SUCCESS STATE */
+              <div className="bg-white rounded-[24px] p-8 md:p-16 border border-black/[0.04] shadow-sm flex flex-col items-center text-center gap-8 py-16 min-h-[450px]">
+                <div className="bg-[#eb5503]/10 size-16 rounded-full flex items-center justify-center text-[#eb5503]">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
                 </div>
+                <div className="flex flex-col gap-3 max-w-[520px]">
+                  <h2 className="font-sans font-regular text-[#1e1e1e] text-2xl md:text-3xl tracking-[-0.8px]">
+                    Thanks — we’ve received your project inquiry.
+                  </h2>
+                  <p className="font-sans text-[#4d4d4d] text-base leading-[1.6]">
+                    We’ll review the details and get back to you within 1–2 business days.
+                  </p>
+                </div>
+                <OrangeBtn label="RETURN TO HOMEPAGE" onClick={handleBackHome} className="mt-4" />
+              </div>
+            ) : (
+              /* FORM STATE - SPLIT SCREEN */
+              <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 w-full items-start justify-center">
+                {/* Left Column */}
+                <div className="flex flex-col justify-between shrink-0 lg:w-[380px] w-full lg:sticky lg:top-[150px] lg:min-h-[500px]">
+                  <div>
+                    {/* Availability Badge */}
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-black/[0.04] mb-6">
+                      <span className="size-2 rounded-full bg-[#eb5503] animate-pulse" />
+                      <span className="font-mono text-xs text-[#77786d] uppercase">
+                        AVAILABLE FOR SELECTED PROJECTS
+                      </span>
+                    </div>
 
-                {/* Contact Card */}
-                <div className="bg-[#f9f9f9] p-6 rounded-2xl flex flex-col gap-5 border border-black/[0.04] w-full max-w-[320px] text-left">
-                  <span className="font-mono text-xs text-[#707070] font-regular tracking-wider">CONTACT</span>
-                  <div className="flex flex-col gap-3.5">
-                    <a href="mailto:trdcreativestudio@gmail.com" className="flex justify-between items-center group cursor-pointer">
-                      <span className="font-sans text-[#1e1e1e] text-sm group-hover:opacity-75 transition-opacity">trdcreativestudio@gmail.com</span>
-                      <ArrowUpRight className="size-4 text-[#1e1e1e] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="flex justify-between items-center group cursor-pointer">
-                      <span className="font-sans text-[#1e1e1e] text-sm group-hover:opacity-75 transition-opacity">LinkedIn</span>
-                      <ArrowUpRight className="size-4 text-[#1e1e1e] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex justify-between items-center group cursor-pointer">
-                      <span className="font-sans text-[#1e1e1e] text-sm group-hover:opacity-75 transition-opacity">Instagram</span>
-                      <ArrowUpRight className="size-4 text-[#1e1e1e] opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </a>
+                    {/* Headline */}
+                    <h1 className="font-sans font-regular text-[#1e1e1e] text-[38px] sm:text-[48px] lg:text-[56px] leading-[1.05] tracking-[-1.5px] max-w-[400px] mt-4 mb-4">
+                      Tell us about <br />
+                      your project.
+                    </h1>
+
+                    {/* Subtitle */}
+                    {/* <p className="font-sans text-[#4d4d4d] text-base leading-[1.5] max-w-[360px]">
+                      Share a few details so we can understand what you need and recommend the best next step.
+                    </p> */}
+                  </div>
+
+                  {/* Bottom Note */}
+                  <div className="pt-12">
+                    <p className="font-sans text-sm text-[#4d4d4d] leading-[1.6]">
+                      Not ready to start a project? <br />
+                      Reach us directly by{" "}
+                      <a href="mailto:hi@trdcreativestudio.com" className="text-[#1e1e1e] underline underline-offset-4 hover:text-[#eb5503] transition-colors">
+                        email
+                      </a>{" "}
+                      or{" "}
+                      <a href="https://wa.me/" target="_blank" rel="noreferrer" className="text-[#1e1e1e] underline underline-offset-4 hover:text-[#eb5503] transition-colors">
+                        WhatsApp
+                      </a>
+                      .
+                    </p>
                   </div>
                 </div>
-              </div>
 
-              {/* Right Column (Form) */}
-              <div className="flex-1 min-w-0 w-full">
-                <form onSubmit={handleSubmit} className="w-full flex flex-col gap-12">
+                {/* Right Column: Form Card */}
+                <div className="bg-white rounded-lg w-full lg:w-[650px] shrink-0 overflow-hidden">
+                  {/* Top Orange Alert Banner */}
+                  <div className="bg-[#eb5503] text-white p-4 sm:p-4 flex items-start gap-3 rounded-t-lg">
+                    <div className="size-4 rounded-full border-1 border-white flex items-center justify-center font-mono text-xs font-regular shrink-0 mt-0.5 select-none">
+                      i
+                    </div>
+                    <p className="font-sans text-xs sm:text-sm font-regular leading-[1.4] text-white">
+                      Share a few details so we can understand what you need and recommend the best next step. Only takes about 2 minutes.
+                    </p>
+                  </div>
 
-                  {/* 01. Details */}
-                  <div className="flex flex-col gap-8 w-full" id="detailsSection">
-                    <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      Tell us about your details*
-                    </h2>
-
+                  {/* Form Fields */}
+                  <form onSubmit={handleSubmit} className="p-6 sm:p-6 md:p-8 flex flex-col gap-10">
+                    {/* Name */}
                     <div className="flex flex-col gap-2 w-full" id="name">
-                      <span className="font-sans font-regular text-sm text-[#4d4d4d]">Name</span>
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">Name</label>
                       <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="your name"
-                        className={`w-full py-3 bg-transparent border-b ${errors.name ? "border-[#d4183d]" : "border-black/[0.12]"
-                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
+                        placeholder="Your name"
+                        className={`w-full pb-2 pt-1 bg-transparent border-b ${errors.name ? "border-[#d4183d]" : "border-black/[0.1]"
+                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder:text-black/25 font-sans text-sm md:text-base transition-colors`}
                       />
                       {errors.name && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.name}</span>}
                     </div>
 
+                    {/* Email */}
                     <div className="flex flex-col gap-2 w-full" id="email">
-                      <span className="font-sans font-regular text-sm text-[#4d4d4d]">Email</span>
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">Email</label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="name@company.com"
-                        className={`w-full py-3 bg-transparent border-b ${errors.email ? "border-[#d4183d]" : "border-black/[0.12]"
-                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
+                        className={`w-full pb-2 pt-1 bg-transparent border-b ${errors.email ? "border-[#d4183d]" : "border-black/[0.1]"
+                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder:text-black/25 font-sans text-sm md:text-base transition-colors`}
                       />
                       {errors.email && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.email}</span>}
                     </div>
 
+                    {/* Company / Brand */}
                     <div className="flex flex-col gap-2 w-full" id="companyName">
-                      <span className="font-sans font-regular text-sm text-[#4d4d4d]">Company / Brand</span>
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">Company / Brand</label>
                       <input
                         type="text"
                         value={companyName}
                         onChange={(e) => setCompanyName(e.target.value)}
                         placeholder="e.g TRD Creative Studio"
-                        className={`w-full py-3 bg-transparent border-b ${errors.companyName ? "border-[#d4183d]" : "border-black/[0.12]"
-                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors`}
+                        className={`w-full pb-2 pt-1 bg-transparent border-b ${errors.companyName ? "border-[#d4183d]" : "border-black/[0.1]"
+                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder:text-black/25 font-sans text-sm md:text-base transition-colors`}
                       />
                       {errors.companyName && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.companyName}</span>}
                     </div>
-                  </div>
 
-                  {/* 02. Help options */}
-                  <div className="flex flex-col gap-6 w-full" id="helpServices">
-                    <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      What do you need help with?
-                    </h2>
-                    <div className="flex flex-wrap gap-2.5 w-full">
-                      {[
-                        "Landing Page",
-                        "Company Profile Website",
-                        "UI/UX Design",
-                        "Mobile App Design",
-                        "Web Development",
-                        "E-Commerce",
-                        "Custom Website",
-                        "AI Video Production",
-                        "AI UGC Content"
-                      ].map((opt) => {
-                        const isSelected = helpServices.includes(opt);
-                        return (
-                          <div
-                            key={opt}
-                            onClick={() => handleServiceToggle(opt)}
-                            className={`px-6 py-3 rounded-full border transition-all cursor-pointer text-sm font-sans select-none ${isSelected
-                              ? "bg-[#eb5503] border-[#eb5503] text-white font-medium shadow-sm"
-                              : "bg-white border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
-                              }`}
-                          >
-                            {opt}
-                          </div>
-                        );
-                      })}
+                    {/* What do you need help with? (Main Service Category) */}
+                    <div className="flex flex-col gap-4 w-full">
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                        What do you need help with?
+                      </label>
+                      <div className="flex flex-wrap gap-2.5 w-full">
+                        {[
+                          "Product & Experience Design",
+                          "Web Design & Development",
+                          "AI Video Production",
+                        ].map((item) => {
+                          const isSelected = serviceCategory === item;
+                          return (
+                            <button
+                              key={item}
+                              type="button"
+                              onClick={() => {
+                                if (serviceCategory === item) {
+                                  setServiceCategory("");
+                                  setServiceScope("");
+                                  setBudget("");
+                                } else {
+                                  setServiceCategory(item);
+                                  setServiceScope("");
+                                  setBudget("");
+                                }
+                              }}
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none ${isSelected
+                                ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular"
+                                : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                }`}
+                            >
+                              {item}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    {errors.helpServices && <span className="font-mono text-xs text-[#d4183d]">{errors.helpServices}</span>}
-                  </div>
 
-                  {/* 03. Budget options */}
-                  <div className="flex flex-col gap-6 w-full" id="budget">
-                    <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      Project Budget*
-                    </h2>
-                    <div className="flex flex-wrap gap-2.5 w-full">
-                      {[
-                        "Under $5K",
-                        "$5K - $10K",
-                        "$10K - $15K",
-                        "$20K+",
-                        "Not sure yet"
-                      ].map((opt) => {
-                        const isSelected = budget === opt;
-                        return (
-                          <div
-                            key={opt}
-                            onClick={() => setBudget(opt)}
-                            className={`px-6 py-3 rounded-full border transition-all cursor-pointer text-sm font-sans select-none ${isSelected
-                              ? "bg-[#eb5503] border-[#eb5503] text-white font-medium shadow-sm"
-                              : "bg-white border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
-                              }`}
-                          >
-                            {opt}
-                          </div>
-                        );
-                      })}
+                    {/* Dynamic Child Scope Options (Only visible after a main category is selected) */}
+                    {serviceCategory && SCOPE_OPTIONS_MAP[serviceCategory] && (
+                      <div className="flex flex-col gap-4 w-full animate-fadeIn">
+                        <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                          What specific scope do you need help with?
+                        </label>
+                        <div className="flex flex-wrap gap-2 w-full">
+                          {SCOPE_OPTIONS_MAP[serviceCategory].map((item) => {
+                            const isSelected = serviceScope === item;
+                            return (
+                              <button
+                                key={item}
+                                type="button"
+                                onClick={() => setServiceScope(isSelected ? "" : item)}
+                                className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none ${isSelected
+                                  ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-medium"
+                                  : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                  }`}
+                              >
+                                {item}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* What budget range are you considering? */}
+                    <div className="flex flex-col gap-4 w-full">
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                        What budget range are you considering?
+                      </label>
+                      <div className="flex flex-wrap gap-2 w-full">
+                        {((serviceCategory && BUDGET_OPTIONS_MAP[serviceCategory]) || DEFAULT_BUDGET_OPTIONS).map((item) => {
+                          const isSelected = budget === item;
+                          return (
+                            <button
+                              key={item}
+                              type="button"
+                              onClick={() => setBudget(isSelected ? "" : item)}
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans tracking-[-0.4px] transition-all duration-200 cursor-pointer select-none ${isSelected
+                                ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-medium"
+                                : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                }`}
+                            >
+                              {item}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    {errors.budget && <span className="font-mono text-xs text-[#d4183d]">{errors.budget}</span>}
-                  </div>
 
-                  {/* 04. Referral options */}
-                  <div className="flex flex-col gap-6 w-full" id="findUs">
-                    <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      How did you find us?
-                    </h2>
-                    <div className="flex flex-wrap gap-2.5 w-full">
-                      {[
-                        "Dribbble",
-                        "Behance",
-                        "Instagram",
-                        "Google",
-                        "Pinterest",
-                        "LinkedIn"
-                      ].map((opt) => {
-                        const isSelected = findUs === opt;
-                        return (
-                          <div
-                            key={opt}
-                            onClick={() => setFindUs(opt)}
-                            className={`px-6 py-3 rounded-full border transition-all cursor-pointer text-sm font-sans select-none ${isSelected
-                              ? "bg-[#eb5503] border-[#eb5503] text-white font-medium shadow-sm"
-                              : "bg-white border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
-                              }`}
-                          >
-                            {opt}
-                          </div>
-                        );
-                      })}
+                    {/* When would you like to start? */}
+                    <div className="flex flex-col gap-4 w-full">
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                        When would you like to start?
+                      </label>
+                      <div className="flex flex-wrap gap-2 w-full">
+                        {[
+                          "As soon as possible",
+                          "Within 2-4 weeks",
+                          "Within 1-2 months",
+                          "3+ months",
+                          "Still exploring",
+                        ].map((item) => {
+                          const isSelected = timeline === item;
+                          return (
+                            <button
+                              key={item}
+                              type="button"
+                              onClick={() => setTimeline(item)}
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none ${isSelected
+                                ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-medium"
+                                : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                }`}
+                            >
+                              {item}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    {errors.findUs && <span className="font-mono text-xs text-[#d4183d]">{errors.findUs}</span>}
-                  </div>
 
-                  {/* 05. Description */}
-                  <div className="flex flex-col gap-4 w-full" id="projectDetails">
-                    <h2 className="font-sans font-medium text-xl text-[#1e1e1e] tracking-tight">
-                      Describe your project*
-                    </h2>
-                    <div className="flex flex-col gap-2 w-full">
+                    {/* Describe your project* */}
+                    <div className="flex flex-col gap-1 w-full" id="projectDetails">
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                        Describe your project*
+                      </label>
                       <textarea
                         value={projectDetails}
                         onChange={(e) => setProjectDetails(e.target.value)}
-                        placeholder="Tell us what you're building, what isn't working today, and what you'd like to improve."
-                        rows={3}
-                        className={`w-full py-3 bg-transparent border-b ${errors.projectDetails ? "border-[#d4183d]" : "border-black/[0.12]"
-                          } focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder-black/20 font-sans text-base transition-colors resize-y`}
+                        placeholder="Tell us what you're building, the current challenge, and what you'd like to achieve."
+                        rows={2}
+                        className="w-full pb-2 pt-1 bg-transparent border-b border-black/[0.1] focus:outline-none focus:border-[#eb5503] text-[#1e1e1e] placeholder:text-black/25 font-sans text-sm md:text-base transition-colors resize-none"
                       />
-                      {errors.projectDetails && <span className="font-mono text-xs text-[#d4183d] mt-1">{errors.projectDetails}</span>}
                     </div>
-                  </div>
 
-                  {/* Submit button */}
-                  <div className="flex items-center justify-between w-full pt-8 mt-4">
-                    <button
-                      type="button"
-                      onClick={handleBackHome}
-                      className="font-mono font-medium text-sm text-[#707070] cursor-pointer hover:text-[#1e1e1e] transition-colors flex items-center gap-1.5"
-                    >
-                      ← BACK TO HOME
-                    </button>
+                    {/* How did you hear us? */}
+                    <div className="flex flex-col gap-3 w-full">
+                      <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                        How did you hear us?
+                      </label>
+                      <div className="flex flex-wrap gap-2.5 w-full">
+                        {[
+                          "Dribbble",
+                          "Behance",
+                          "Instagram",
+                          "Google",
+                          "Pinterest",
+                          "LinkedIn",
+                        ].map((item) => {
+                          const isSelected = referral === item;
+                          return (
+                            <button
+                              key={item}
+                              type="button"
+                              onClick={() => setReferral(item)}
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none ${isSelected
+                                ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-medium"
+                                : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                }`}
+                            >
+                              {item}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
 
-                    <div className="flex flex-col items-end gap-2">
-                      <OrangeBtn
+                    {/* Submit Button Row */}
+                    <div className="flex flex-col items-end gap-2 w-full pt-4">
+                      <button
                         type="submit"
-                        label={isSubmitting ? "SUBMITTING..." : "SUBMIT INQUIRY"}
                         disabled={isSubmitting}
-                      />
+                        className="bg-[#eb5503] hover:bg-[#d44c02] text-white px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider flex items-center gap-4 transition-all duration-200 cursor-pointer"
+                      >
+                        <span>{isSubmitting ? "SUBMITTING..." : "SUBMIT PROJECT INQUIRY"}</span>
+                        <span className="text-xs">▶</span>
+                      </button>
                       {submitError && (
-                        <span className="font-mono text-xs text-[#d4183d] mt-1 text-right max-w-[250px]">
+                        <span className="font-mono text-xs text-[#d4183d] mt-1 text-right max-w-[280px]">
                           {submitError}
                         </span>
                       )}
                     </div>
-                  </div>
-
-                </form>
+                  </form>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      </main>
+            )}
+          </div>
+        </main>
+      </div>
 
       <Footer />
     </div>
   );
 }
+
