@@ -297,7 +297,7 @@ export function Navbar() {
 
           {/* Mobile Hamburger Button */}
           <button
-            className="lg:hidden p-2 text-[#1e1e1e] bg-white rounded-full shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-black/[0.04]"
+            className="lg:hidden p-2 text-[#1e1e1e] bg-white rounded-full"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -323,10 +323,10 @@ export function Navbar() {
 
         {/* Mobile Menu Drawer */}
         {menuOpen && (
-          <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[80px] bg-white z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
+          <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[80px] bg-[#f9f9f9] z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
             {/* Links */}
             <div className="flex flex-col">
-              {["WORK", "ABOUT", "SERVICES", "PRICING", "CONTACT"].map((l, i) => (
+              {["WORK", "ABOUT", "SERVICES", "CONTACT"].map((l, i) => (
                 <div
                   key={l}
                   onClick={() => {
@@ -354,13 +354,13 @@ export function Navbar() {
               <div className="flex justify-between items-end">
                 <div className="flex flex-col gap-1">
                   <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">GET IN TOUCH</span>
-                  <a href="mailto:hello@realisticdreamer.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
-                    hello@realisticdreamer.com
+                  <a href="mailto:trdcreativestudio@gmail.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
+                    hi@trdcreativestudio.com
                   </a>
                 </div>
                 <div className="flex flex-col gap-1 text-right">
                   <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">FOLLOW US</span>
-                  <span className="font-sans font-medium text-[#1e1e1e] text-sm">@realisticdreamer</span>
+                  <span className="font-sans font-medium text-[#1e1e1e] text-sm">@trdcreativestudio</span>
                 </div>
               </div>
               <button
@@ -369,7 +369,7 @@ export function Navbar() {
                   window.history.pushState({}, "", "/?page=inquiry");
                   window.dispatchEvent(new Event("popstate"));
                 }}
-                className="w-full bg-[#1e1e1e] text-white py-4 rounded-full font-mono text-sm font-medium tracking-wider justify-center"
+                className="w-full bg-[#eb5503] text-white px-4 py-2 rounded-full font-mono text-sm font-medium tracking-wider justify-center"
               >
                 START A PROJECT
               </button>

@@ -171,17 +171,26 @@ export function HowWeHelpSection() {
                     <span className="font-mono text-base md:text-lg text-[#77786d]">
                       {service.step}
                     </span>
-                    <h3
-                      className={`font-sans font-regular text-2xl sm:text-3xl md:text-[32px] tracking-[-0.8px] transition-colors ${isOpen ? "text-[#1e1e1e]" : "text-[#77786d] group-hover:text-[#1e1e1e]"
-                        }`}
-                    >
-                      {service.title}
-                    </h3>
+                    <div className="flex flex-col items-start">
+                      <h3
+                        className={`font-sans font-regular text-2xl sm:text-3xl md:text-[32px] tracking-[-0.8px] transition-colors ${isOpen ? "text-[#1e1e1e]" : "text-[#77786d] group-hover:text-[#1e1e1e]"
+                          }`}
+                      >
+                        {service.title}
+                      </h3>
+                      {service.badge && (
+                        <div className="bg-[#eb5503] text-white px-3 py-1 rounded-full md:hidden mt-2">
+                          <span className="font-sans text-xs font-medium">
+                            {service.badge}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 shrink-0">
                     {service.badge && (
-                      <div className="bg-[#eb5503] text-white px-3 py-1 rounded-full">
+                      <div className="hidden md:flex bg-[#eb5503] text-white px-3 py-1 rounded-full">
                         <span className="font-sans text-xs font-medium">
                           {service.badge}
                         </span>

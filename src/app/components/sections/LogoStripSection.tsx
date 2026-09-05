@@ -87,7 +87,7 @@ export function LogoStripSection() {
       </div>
 
       {/* Static Logo Row with the new uploaded client logos */}
-      <div className="max-w-[1100px] w-full px-6 flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-0">
+      <div className="max-w-[1200px] w-full px-6 flex flex-wrap items-center justify-center gap-2 sm:gap-2 md:gap-2 lg:gap-0">
         {clientLogos.map((logo) => (
           <LogoSlot key={logo} name={logo} />
         ))}

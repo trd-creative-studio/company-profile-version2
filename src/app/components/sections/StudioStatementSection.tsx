@@ -32,13 +32,13 @@ export function StudioStatementSection() {
   }, []);
 
   return (
-    <section className="w-full bg-[#f8f8f8] px-6 md:px-10 py-10 md:py-16">
+    <section className="w-full bg-[#f8f8f8] px-4 md:px-10 py-10 md:py-16">
       <div
         ref={containerRef}
-        className="mx-auto bg-[#eb5503] rounded-[28px] md:rounded-[36px] p-8 md:p-14 lg:p-20 max-w-[1500px] text-white shadow-sm flex flex-col items-center justify-center text-center gap-8 md:gap-12"
+        className="mx-auto bg-[#eb5503] rounded-[20px] md:rounded-[36px] p-8 md:p-14 lg:p-20 max-w-[1500px] text-white shadow-sm flex flex-col items-center justify-center text-center gap-8 md:gap-12"
       >
         {/* Statement Paragraph 1 */}
-        <p className="font-sans font-regular text-2xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-1px] md:tracking-[-1.5px] max-w-[900px] text-center mx-auto">
+        <p className="font-sans font-regular text-3xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-1px] md:tracking-[-1.5px] max-w-[900px] text-left md:text-center mx-auto">
           {p1.split("").map((char, idx) => {
             const globalIndex = idx;
             const threshold = globalIndex / totalChars;
@@ -56,7 +56,7 @@ export function StudioStatementSection() {
         </p>
 
         {/* Statement Paragraph 2 - Starts after Paragraph 1 completes */}
-        <p className="font-sans font-regular text-2xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-1px] md:tracking-[-1.5px] max-w-[900px] text-center mx-auto">
+        <p className="font-sans font-regular text-3xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-1px] md:tracking-[-1.5px] max-w-[900px] text-left md:text-center mx-auto">
           {p2.split("").map((char, idx) => {
             const globalIndex = p1.length + idx;
             const threshold = globalIndex / totalChars;
