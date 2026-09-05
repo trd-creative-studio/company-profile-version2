@@ -66,6 +66,12 @@ const DEFAULT_BUDGET_OPTIONS = [
   "Not sure yet",
 ];
 
+const MAIN_SERVICES = [
+  { name: "Product & Experience Design", enabled: true },
+  { name: "Web Design & Development", enabled: false, badge: "Coming Soon" },
+  { name: "AI Video Production", enabled: false, badge: "Coming Soon" },
+];
+
 export function InquiryFormPage() {
   const [submitted, setSubmitted] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
@@ -77,7 +83,7 @@ export function InquiryFormPage() {
   const [companyName, setCompanyName] = useState("");
 
   const [serviceCategory, setServiceCategory] = useState<string>("");
-  const [serviceScope, setServiceScope] = useState<string>("");
+  const [serviceScope, setServiceScope] = useState<string[]>([]);
   const [budget, setBudget] = useState<string>("");
   const [timeline, setTimeline] = useState<string>("As soon as possible");
   const [projectDetails, setProjectDetails] = useState("");
@@ -130,11 +136,15 @@ export function InquiryFormPage() {
             email,
             companyName,
             serviceCategory,
-            serviceScope,
+            serviceScope: Array.isArray(serviceScope) ? serviceScope.join(", ") : (serviceScope || ""),
+            helpServices: Array.isArray(serviceScope) && serviceScope.length > 0
+              ? [serviceCategory, ...serviceScope].filter(Boolean)
+              : [serviceCategory].filter(Boolean),
             budget,
             timeline,
             projectDetails,
             referral,
+            findUs: referral,
           }),
         });
 
@@ -317,33 +327,40 @@ export function InquiryFormPage() {
                         What do you need help with?
                       </label>
                       <div className="flex flex-wrap gap-2.5 w-full">
-                        {[
-                          "Product & Experience Design",
-                          "Web Design & Development",
-                          "AI Video Production",
-                        ].map((item) => {
-                          const isSelected = serviceCategory === item;
+                        {MAIN_SERVICES.map((item) => {
+                          const isSelected = serviceCategory === item.name;
+                          const isDisabled = !item.enabled;
                           return (
                             <button
-                              key={item}
+                              key={item.name}
                               type="button"
+                              disabled={isDisabled}
                               onClick={() => {
-                                if (serviceCategory === item) {
+                                if (isDisabled) return;
+                                if (serviceCategory === item.name) {
                                   setServiceCategory("");
-                                  setServiceScope("");
+                                  setServiceScope([]);
                                   setBudget("");
                                 } else {
-                                  setServiceCategory(item);
-                                  setServiceScope("");
+                                  setServiceCategory(item.name);
+                                  setServiceScope([]);
                                   setBudget("");
                                 }
                               }}
-                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none ${isSelected
-                                ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular"
-                                : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
-                                }`}
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 select-none flex items-center gap-2 ${
+                                isDisabled
+                                  ? "bg-black/[0.03] border-black/[0.06] text-[#77786d] cursor-not-allowed opacity-60"
+                                  : isSelected
+                                  ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular cursor-pointer"
+                                  : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e] cursor-pointer"
+                              }`}
                             >
-                              {item}
+                              <span>{item.name}</span>
+                              {item.badge && (
+                                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-[#eb5503] text-white font-medium">
+                                  {item.badge}
+                                </span>
+                              )}
                             </button>
                           );
                         })}
@@ -358,12 +375,18 @@ export function InquiryFormPage() {
                         </label>
                         <div className="flex flex-wrap gap-2 w-full">
                           {SCOPE_OPTIONS_MAP[serviceCategory].map((item) => {
-                            const isSelected = serviceScope === item;
+                            const isSelected = serviceScope.includes(item);
                             return (
                               <button
                                 key={item}
                                 type="button"
-                                onClick={() => setServiceScope(isSelected ? "" : item)}
+                                onClick={() => {
+                                  if (isSelected) {
+                                    setServiceScope(serviceScope.filter((s) => s !== item));
+                                  } else {
+                                    setServiceScope([...serviceScope, item]);
+                                  }
+                                }}
                                 className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none ${isSelected
                                   ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-medium"
                                   : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"

@@ -17,8 +17,40 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, firstName, lastName, email, companyName, productLink, helpServices, budget, findUs, projectDetails } = req.body;
+  const {
+    name,
+    firstName,
+    lastName,
+    email,
+    companyName,
+    productLink,
+    helpServices,
+    serviceCategory,
+    serviceScope,
+    budget,
+    timeline,
+    referral,
+    findUs,
+    projectDetails,
+  } = req.body;
+
   const fullName = name || `${firstName || ""}`.trim() || "Anonymous";
+
+  // Build services text safely
+  let servicesNeeded = "N/A";
+  if (Array.isArray(helpServices) && helpServices.length > 0) {
+    servicesNeeded = helpServices.join(', ');
+  } else if (typeof helpServices === 'string' && helpServices) {
+    servicesNeeded = helpServices;
+  } else {
+    const scopeStr = Array.isArray(serviceScope) ? serviceScope.join(', ') : serviceScope;
+    const parts = [serviceCategory, scopeStr].filter(Boolean);
+    if (parts.length > 0) {
+      servicesNeeded = parts.join(' - ');
+    }
+  }
+
+  const referralSource = referral || findUs || 'N/A';
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -47,14 +79,15 @@ export default async function handler(req, res) {
             <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
             <p><strong>Name:</strong> ${fullName}</p>
             <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Company/Brand:</strong> ${companyName}</p>
-            <p><strong>Website/Link:</strong> ${productLink || 'N/A'}</p>
-            <p><strong>Services Needed:</strong> ${helpServices.join(', ')}</p>
-            <p><strong>Expected Budget:</strong> ${budget}</p>
-            <p><strong>How they found us:</strong> ${findUs}</p>
+            <p><strong>Company/Brand:</strong> ${companyName || 'N/A'}</p>
+            <p><strong>Service Category:</strong> ${serviceCategory || 'N/A'}</p>
+            <p><strong>Services Needed / Scope:</strong> ${servicesNeeded}</p>
+            <p><strong>Expected Budget:</strong> ${budget || 'N/A'}</p>
+            <p><strong>Timeline:</strong> ${timeline || 'N/A'}</p>
+            <p><strong>How they found us:</strong> ${referralSource}</p>
             <p><strong>Project Details:</strong></p>
             <blockquote style="background: #f9f9f9; padding: 15px; border-left: 4px solid #eb5503; margin: 0;">
-              ${projectDetails ? projectDetails.replace(/\n/g, '<br />') : ''}
+              ${projectDetails ? projectDetails.replace(/\n/g, '<br />') : 'N/A'}
             </blockquote>
           </div>
         `,
