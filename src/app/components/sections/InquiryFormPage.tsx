@@ -68,8 +68,8 @@ const DEFAULT_BUDGET_OPTIONS = [
 
 const MAIN_SERVICES = [
   { name: "Product & Experience Design", enabled: true },
-  { name: "Web Design & Development", enabled: false, badge: "Coming Soon" },
-  { name: "AI Video Production", enabled: false, badge: "Coming Soon" },
+  { name: "Web Design & Development", enabled: true },
+  { name: "AI Video Production", enabled: true },
 ];
 
 export function InquiryFormPage() {
@@ -206,7 +206,7 @@ export function InquiryFormPage() {
           <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 lg:px-16">
             {submitted ? (
               /* SUCCESS STATE */
-              <div className="bg-white rounded-[24px] p-8 md:p-16 border border-black/[0.04] shadow-sm flex flex-col items-center text-center gap-8 py-16 min-h-[450px]">
+              <div className="p-8 md:p-16 flex flex-col items-center text-center gap-8 py-16 min-h-[450px]">
                 <div className="bg-[#eb5503]/10 size-16 rounded-full flex items-center justify-center text-[#eb5503]">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
@@ -329,14 +329,11 @@ export function InquiryFormPage() {
                       <div className="flex flex-wrap gap-2.5 w-full">
                         {MAIN_SERVICES.map((item) => {
                           const isSelected = serviceCategory === item.name;
-                          const isDisabled = !item.enabled;
                           return (
                             <button
                               key={item.name}
                               type="button"
-                              disabled={isDisabled}
                               onClick={() => {
-                                if (isDisabled) return;
                                 if (serviceCategory === item.name) {
                                   setServiceCategory("");
                                   setServiceScope([]);
@@ -347,20 +344,13 @@ export function InquiryFormPage() {
                                   setBudget("");
                                 }
                               }}
-                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 select-none flex items-center gap-2 ${
-                                isDisabled
-                                  ? "bg-black/[0.03] border-black/[0.06] text-[#77786d] cursor-not-allowed opacity-60"
-                                  : isSelected
-                                  ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular cursor-pointer"
-                                  : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e] cursor-pointer"
+                              className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 select-none flex items-center gap-2 cursor-pointer ${
+                                isSelected
+                                  ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-regular"
+                                  : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
                               }`}
                             >
                               <span>{item.name}</span>
-                              {item.badge && (
-                                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-[#eb5503] text-white font-medium">
-                                  {item.badge}
-                                </span>
-                              )}
                             </button>
                           );
                         })}
