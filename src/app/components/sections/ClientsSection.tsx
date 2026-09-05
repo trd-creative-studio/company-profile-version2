@@ -142,22 +142,22 @@ export function ClientsSection() {
         </div>
 
         {/* Horizontal Testimonials Track Window */}
-        <div ref={containerRef} className="w-full overflow-hidden px-6 md:px-12">
+        <div ref={containerRef} className="w-full overflow-hidden">
           <div
             ref={trackRef}
-            className="flex gap-4 md:gap-6 will-change-transform transition-transform ease-out duration-75 max-w-max mx-auto md:mx-0 pl-0 md:pl-[calc(max(0px,(100vw-1200px)/2))]"
+            className="flex gap-4 md:gap-2 will-change-transform transition-transform ease-out duration-75 max-w-max pl-6 md:pl-[calc(max(3rem,(100vw-1200px)/2+3rem))]"
           >
             {TESTIMONIALS_DATA.map((item) => (
               <div
                 key={item.id}
-                className="bg-white border border-black/[0.04] rounded-2xl p-6 md:p-8 w-[320px] sm:w-[420px] md:w-[460px] shrink-0 flex flex-col justify-between gap-6 md:gap-8 shadow-sm"
+                className="bg-white rounded-lg p-6 md:p-6 w-[320px] sm:w-[420px] md:w-[460px] shrink-0 flex flex-col justify-between gap-6 md:gap-8"
               >
                 {/* Author Info at Top */}
                 <div className="flex flex-col">
-                  <span className="font-sans font-medium text-[#1e1e1e] text-base md:text-lg">
+                  <span className="font-sans font-medium text-[#1e1e1e] text-md md:text-md">
                     {item.name}
                   </span>
-                  <span className="font-sans text-[#77786d] text-sm md:text-base mt-0.5">
+                  <span className="font-sans text-[#77786d] text-sm md:text-md mt-0.5">
                     {item.role}
                   </span>
                 </div>
@@ -188,6 +188,11 @@ export function ClientsSection() {
                 </div>
               </div>
             ))}
+            {/* Right End Spacer to guarantee right padding at scroll end */}
+            <div
+              className="w-6 md:w-[calc(max(3rem,(100vw-1200px)/2+3rem)-0.5rem)] shrink-0"
+              aria-hidden="true"
+            />
           </div>
         </div>
 
@@ -199,9 +204,9 @@ export function ClientsSection() {
               style={{ width: `${Math.max(10, scrollProgress * 100)}%` }}
             />
           </div>
-          <span className="font-mono text-[10px] uppercase text-[#77786d] tracking-widest font-medium">
+          {/* <span className="font-mono text-[10px] uppercase text-[#77786d] tracking-widest font-medium">
             SCROLL TO EXPLORE ({Math.round(scrollProgress * 100)}%)
-          </span>
+          </span> */}
         </div>
       </div>
     </div>
