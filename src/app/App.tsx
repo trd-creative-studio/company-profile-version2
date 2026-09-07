@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { scrollToSection } from "./utils/navigation";
 import { Navbar } from "./components/sections/Navbar";
 import { Hero } from "./components/sections/Hero";
 import { StudioStatementSection } from "./components/sections/StudioStatementSection";
@@ -67,16 +68,7 @@ export default function App() {
       const scrollToId = params.get("scroll");
       if (scrollToId) {
         setTimeout(() => {
-          const element = document.getElementById(scrollToId);
-          if (element) {
-            const offset = 70;
-            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - offset;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth",
-            });
-          }
+          scrollToSection(scrollToId, 80);
         }, 150);
       }
     };

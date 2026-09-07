@@ -32,7 +32,7 @@ export function StudioStatementSection() {
   }, []);
 
   return (
-    <section className="w-full bg-[#f8f8f8] px-4 md:px-10 py-10 md:py-16">
+    <section id="about" className="w-full bg-[#f8f8f8] px-4 md:px-10 py-10 md:py-16">
       <div
         ref={containerRef}
         className="mx-auto bg-[#eb5503] rounded-[20px] md:rounded-[36px] p-8 md:p-14 lg:p-20 max-w-[1500px] text-white shadow-sm flex flex-col items-center justify-center text-center gap-8 md:gap-12"

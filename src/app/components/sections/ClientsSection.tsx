@@ -117,7 +117,7 @@ export function ClientsSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} id="about" className="relative h-[280vh] bg-[#f8f8f8] w-full">
+    <div ref={sectionRef} id="testimonials" className="relative h-[280vh] bg-[#f8f8f8] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-10 md:py-16">
         {/* Header Block matching How We Help style */}
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center text-center mb-8 md:mb-12 shrink-0">

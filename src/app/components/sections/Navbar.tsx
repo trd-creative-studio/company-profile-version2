@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import navSvgPaths from "@/imports/Navigation/svg-f3oboy1128";
 import { ChevronDown, ArrowUpRight } from "../Icons";
 import { OrangeBtn } from "../OrangeBtn";
-import { navigateToHome, navigateToInquiry, navigateToService, navigateTo } from "../../utils/navigation";
+import { navigateToHome, navigateToInquiry, navigateToService, navigateTo, scrollToSection } from "../../utils/navigation";
 
 function CompassMark() {
   return (
@@ -258,17 +258,9 @@ export function Navbar() {
 
     const params = new URLSearchParams(window.location.search);
     const isHomepage = !params.get("page") && !params.get("service");
-    const element = document.getElementById(id);
 
-    if (isHomepage && element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+    if (isHomepage) {
+      scrollToSection(id);
     } else {
       window.history.pushState({}, "", `/?scroll=${id}`);
       window.dispatchEvent(new Event("popstate"));
@@ -288,14 +280,6 @@ export function Navbar() {
             {/* Nav Pill Container */}
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-5">
               <span
-                onClick={() => handleScroll("work")}
-                onMouseEnter={closeServicesImmediately}
-                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
-              >
-                WORK
-              </span>
-
-              <span
                 onClick={() => handleScroll("about")}
                 onMouseEnter={closeServicesImmediately}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
@@ -303,11 +287,12 @@ export function Navbar() {
                 ABOUT
               </span>
 
-              {/* SERVICES Trigger */}
+              {/* SERVICES Trigger (Clickable & Hoverable) */}
               <div
-                className="relative py-1 flex items-center"
+                className="relative py-1 flex items-center cursor-pointer"
                 onMouseEnter={openServices}
                 onMouseLeave={closeServices}
+                onClick={() => handleScroll("services")}
               >
                 <div
                   className="flex items-center gap-1.5 cursor-pointer group"
@@ -329,25 +314,43 @@ export function Navbar() {
                 <div
                   onMouseEnter={openServices}
                   onMouseLeave={closeServices}
-                  className={`absolute top-full left-1/2 -translate-x-1/2 pt-6 transition-all duration-350 ease-out z-50 ${servicesOpen
+                  className={`absolute top-full left-1/2 -translate-x-1/2 bg-shadow-md pt-6 transition-all duration-350 ease-out z-50 ${servicesOpen
                     ? "opacity-100 translate-y-0 pointer-events-auto"
                     : "opacity-0 -translate-y-2 pointer-events-none"
                     }`}
                 >
                   {/* Invisible Hover Bridge */}
-                  <div className="absolute -top-4 left-0 right-0 h-4 w-full" />
-                  <ServicesDropdown
-                    onItemClick={handleScroll}
-                    onClose={closeServicesImmediately}
+                  <div
+                    className="absolute -top-4 left-0 right-0 h-4 w-full cursor-pointer"
+                    onClick={() => handleScroll("services")}
                   />
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <ServicesDropdown
+                      onItemClick={handleScroll}
+                      onClose={closeServicesImmediately}
+                    />
+                  </div>
                 </div>
               </div>
 
               <span
-                onClick={() => {
-                  window.history.pushState({}, "", "/?page=inquiry");
-                  window.dispatchEvent(new Event("popstate"));
-                }}
+                onClick={() => handleScroll("process")}
+                onMouseEnter={closeServicesImmediately}
+                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
+              >
+                OUR PROCESS
+              </span>
+
+              <span
+                onClick={() => handleScroll("testimonials")}
+                onMouseEnter={closeServicesImmediately}
+                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
+              >
+                TESTIMONIALS
+              </span>
+
+              <span
+                onClick={() => handleScroll("contact")}
                 onMouseEnter={closeServicesImmediately}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
               >
@@ -379,7 +382,7 @@ export function Navbar() {
 
         {/* Backdrop blur overlay */}
         <div
-          className={`hidden lg:block fixed inset-0 bg-black/10 z-40 transition-opacity duration-300 ease-in-out ${servicesOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          className={`hidden lg:block fixed inset-0 z-40 transition-opacity duration-300 ease-in-out ${servicesOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             }`}
           onMouseEnter={closeServices}
           onClick={closeServicesImmediately}
@@ -392,23 +395,21 @@ export function Navbar() {
           <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[80px] bg-[#f9f9f9] z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
             {/* Links */}
             <div className="flex flex-col">
-              {["WORK", "ABOUT", "SERVICES", "CONTACT"].map((l, i) => (
+              {[
+                { label: "ABOUT", id: "about" },
+                { label: "SERVICES", id: "services" },
+                { label: "OUR PROCESS", id: "process" },
+                { label: "TESTIMONIALS", id: "testimonials" },
+                { label: "CONTACT", id: "contact" },
+              ].map((item, i) => (
                 <div
-                  key={l}
-                  onClick={() => {
-                    if (l === "CONTACT") {
-                      setMenuOpen(false);
-                      window.history.pushState({}, "", "/?page=inquiry");
-                      window.dispatchEvent(new Event("popstate"));
-                    } else {
-                      handleScroll(l.toLowerCase());
-                    }
-                  }}
+                  key={item.label}
+                  onClick={() => handleScroll(item.id)}
                   className="flex items-center justify-between py-4 border-b border-black/[0.06] cursor-pointer group active:opacity-60 transition-opacity"
                 >
                   <div className="flex items-baseline gap-4">
                     <span className="font-mono text-[#77786d] text-xs">0{i + 1}</span>
-                    <span className="font-sans font-regular text-[#1e1e1e] text-[28px] tracking-[-0.56px] uppercase">{l}</span>
+                    <span className="font-sans font-regular text-[#1e1e1e] text-[24px] tracking-[-0.56px] uppercase">{item.label}</span>
                   </div>
                   <ArrowUpRight className="text-[#1e1e1e] size-5" />
                 </div>
