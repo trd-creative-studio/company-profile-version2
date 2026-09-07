@@ -163,14 +163,14 @@ export function ClientsSection() {
                 </div>
 
                 {/* Quote Text */}
-                <p className="font-sans text-[#1e1e1e] text-base md:text-lg leading-[1.6] font-regular">
+                <p className="font-sans text-[#1e1e1e] text-base md:text-md leading-[1.6] font-regular">
                   {item.quote}
                 </p>
 
                 {/* Bottom Separator & Metrics */}
                 <div className="border-t border-black/[0.08] pt-6 grid grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <span className="font-sans font-regular text-3xl md:text-[40px] text-[#1e1e1e] tracking-[-1px] leading-tight">
+                    <span className="font-sans font-regular text-3xl text-[#1e1e1e] tracking-[-1px] leading-tight">
                       {item.stat1Number}
                     </span>
                     <span className="font-sans text-xs md:text-sm text-[#77786d] mt-1">
@@ -178,7 +178,7 @@ export function ClientsSection() {
                     </span>
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-sans font-regular text-3xl md:text-[40px] text-[#1e1e1e] tracking-[-1px] leading-tight">
+                    <span className="font-sans font-regular text-3xl text-[#1e1e1e] tracking-[-1px] leading-tight">
                       {item.stat2Number}
                     </span>
                     <span className="font-sans text-xs md:text-sm text-[#77786d] mt-1">

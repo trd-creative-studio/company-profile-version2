@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Import tool SVG icons from src/assets/tools
 import toolAe from "@/assets/tools/ae.svg";
@@ -68,8 +68,25 @@ const TOOL_ITEMS = [
 const TOOL_LOGO_HEIGHT = "h-4 md:h-6";
 
 export function ProcessSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-cycle cards every 4 seconds continuously without hover disruption
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % PROCESS_STEPS.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section id="process" className="bg-[#ffffff] w-full py-16 md:py-[150px]">
+      <style>{`
+        @keyframes walkProgress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+      `}</style>
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center">
         {/* Top Badge */}
         <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
@@ -92,29 +109,47 @@ export function ProcessSection() {
 
         {/* 4 Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-2 w-full max-w-[1200px] mb-16 md:mb-24">
-          {PROCESS_STEPS.map((item) => (
-            <div
-              key={item.step}
-              className="bg-[#f9f9f9] hover:bg-[#f4f4f4] rounded-md p-6 sm:p-6 flex flex-col justify-between min-h-[320px] md:min-h-[370px] hover:rounded-none transition-all duration-300 group"
-            >
-              {/* Step Number Badge */}
-              <div className="bg-white px-3 w-fit">
-                <span className="font-mono text-xs text-[#77786d] font-medium">
-                  {item.step}
-                </span>
+          {PROCESS_STEPS.map((item, idx) => {
+            const isCardActive = activeIndex === idx;
+
+            return (
+              <div
+                key={item.step}
+                className={`relative rounded-md p-6 sm:p-6 flex flex-col justify-between min-h-[320px] md:min-h-[370px] overflow-hidden transition-all duration-300 group ${isCardActive
+                  ? "bg-[#f4f4f4]"
+                  : "bg-[#f9f9f9] hover:bg-[#f4f4f4]"
+                  }`}
+              >
+                {/* Walking Progress Line at the Top of Active Card */}
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-black/[0.04] overflow-hidden">
+                  {isCardActive && (
+                    <div
+                      key={`progress-${activeIndex}`}
+                      className="h-full bg-[#eb5503]"
+                      style={{ animation: "walkProgress 3000ms linear forwards" }}
+                    />
+                  )}
+                </div>
+
+                {/* Step Number Badge */}
+                <div className="bg-white px-3 w-fit">
+                  <span className="font-mono text-xs text-[#77786d] font-medium">
+                    {item.step}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h3 className="font-sans font-medium text-[30px] sm:text-[24px] text-[#1e1e1e] tracking-[-0.5px] my-6">
+                  {item.title}
+                </h3>
+
+                {/* Description (Always visible) */}
+                <p className="font-sans text-[#4d4d4d] text-sm md:text-[14px] leading-[1.45]">
+                  {item.description}
+                </p>
               </div>
-
-              {/* Title */}
-              <h3 className="font-sans font-medium text-[30px] sm:text-[24px] text-[#1e1e1e] tracking-[-0.5px] my-6">
-                {item.title}
-              </h3>
-
-              {/* Description */}
-              <p className="font-sans text-[#4d4d4d] text-sm md:text-[14px] leading-[1.45]">
-                {item.description}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Tools Subsection Badge */}

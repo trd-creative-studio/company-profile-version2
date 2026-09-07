@@ -221,6 +221,19 @@ function ServicesDropdown({
   );
 }
 
+function NavTextRoll({ text, className = "" }: { text: string; className?: string }) {
+  return (
+    <span className={`relative overflow-hidden inline-flex flex-col h-[1.25em] leading-[1.25em] ${className}`}>
+      <span className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+        {text}
+      </span>
+      <span className="absolute top-full left-0 inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full whitespace-nowrap">
+        {text}
+      </span>
+    </span>
+  );
+}
+
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -279,17 +292,17 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-4">
             {/* Nav Pill Container */}
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-5">
-              <span
+              <div
                 onClick={() => handleScroll("about")}
                 onMouseEnter={closeServicesImmediately}
-                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
+                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
-                ABOUT
-              </span>
+                <NavTextRoll text="ABOUT" />
+              </div>
 
               {/* SERVICES Trigger (Clickable & Hoverable) */}
               <div
-                className="relative py-1 flex items-center cursor-pointer"
+                className="relative py-1 flex items-center cursor-pointer group"
                 onMouseEnter={openServices}
                 onMouseLeave={closeServices}
                 onClick={() => handleScroll("services")}
@@ -298,12 +311,10 @@ export function Navbar() {
                   className="flex items-center gap-1.5 cursor-pointer group"
                   onClick={() => handleScroll("services")}
                 >
-                  <span
-                    className={`font-mono font-medium text-xs md:text-sm tracking-wider transition-opacity ${servicesOpen ? "text-[#1e1e1e]" : "text-[#1e1e1e] group-hover:opacity-60"
-                      }`}
-                  >
-                    SERVICES
-                  </span>
+                  <NavTextRoll
+                    text="SERVICES"
+                    className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider"
+                  />
                   <ChevronDown
                     className={`size-3.5 text-[#1e1e1e] transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""
                       }`}
@@ -333,29 +344,29 @@ export function Navbar() {
                 </div>
               </div>
 
-              <span
+              <div
                 onClick={() => handleScroll("process")}
                 onMouseEnter={closeServicesImmediately}
-                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
+                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
-                OUR PROCESS
-              </span>
+                <NavTextRoll text="OUR PROCESS" />
+              </div>
 
-              <span
+              <div
                 onClick={() => handleScroll("testimonials")}
                 onMouseEnter={closeServicesImmediately}
-                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
+                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
-                TESTIMONIALS
-              </span>
+                <NavTextRoll text="TESTIMONIALS" />
+              </div>
 
-              <span
+              <div
                 onClick={() => handleScroll("contact")}
                 onMouseEnter={closeServicesImmediately}
-                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer hover:opacity-60 transition-opacity"
+                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
-                CONTACT
-              </span>
+                <NavTextRoll text="CONTACT" />
+              </div>
             </div>
 
             {/* Start a Project Pill Button */}
@@ -365,9 +376,9 @@ export function Navbar() {
                 window.dispatchEvent(new Event("popstate"));
               }}
               onMouseEnter={closeServicesImmediately}
-              className="bg-white hover:bg-gray-50 text-[#1e1e1e] px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider transition-all duration-200 cursor-pointer shrink-0"
+              className="bg-white hover:bg-gray-50 text-[#1e1e1e] px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider transition-all duration-200 cursor-pointer shrink-0 group flex items-center justify-center overflow-hidden"
             >
-              START A PROJECT
+              <NavTextRoll text="START A PROJECT" />
             </button>
           </div>
 

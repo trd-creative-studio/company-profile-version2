@@ -17,9 +17,9 @@ export function StudioStatementSection() {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Start revealing when orange card top reaches 75% of screen height
-      // Complete revealing when container is centered in viewport
-      const start = windowHeight * 0.75;
+      // Add 50px scroll delay before activating the text reveal scroll effect
+      const SCROLL_DELAY_PX = 50;
+      const start = windowHeight * 0.75 - SCROLL_DELAY_PX;
       const end = windowHeight * 0.2;
       const rawProgress = (start - rect.top) / (start - end);
       const clampedProgress = Math.min(1, Math.max(0, rawProgress));
@@ -42,12 +42,12 @@ export function StudioStatementSection() {
           {p1.split("").map((char, idx) => {
             const globalIndex = idx;
             const threshold = globalIndex / totalChars;
-            const isRevealed = scrollProgress >= threshold;
+            const isRevealed = scrollProgress > 0 && scrollProgress >= threshold;
             return (
               <span
                 key={idx}
                 className="transition-opacity duration-150 ease-out inline"
-                style={{ opacity: isRevealed ? 1 : 0.4 }}
+                style={{ opacity: isRevealed ? 1 : 0.35 }}
               >
                 {char}
               </span>
@@ -60,12 +60,12 @@ export function StudioStatementSection() {
           {p2.split("").map((char, idx) => {
             const globalIndex = p1.length + idx;
             const threshold = globalIndex / totalChars;
-            const isRevealed = scrollProgress >= threshold;
+            const isRevealed = scrollProgress > 0 && scrollProgress >= threshold;
             return (
               <span
                 key={idx}
                 className="transition-opacity duration-150 ease-out inline"
-                style={{ opacity: isRevealed ? 1 : 0.4 }}
+                style={{ opacity: isRevealed ? 1 : 0.35 }}
               >
                 {char}
               </span>
