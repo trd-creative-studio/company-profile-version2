@@ -379,7 +379,7 @@ export function Navbar() {
 
         {/* Backdrop blur overlay */}
         <div
-          className={`hidden lg:block fixed inset-0 bg-black/10 backdrop-blur-sm z-40 transition-opacity duration-300 ease-in-out ${servicesOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          className={`hidden lg:block fixed inset-0 bg-black/10 z-40 transition-opacity duration-300 ease-in-out ${servicesOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
             }`}
           onMouseEnter={closeServices}
           onClick={closeServicesImmediately}
