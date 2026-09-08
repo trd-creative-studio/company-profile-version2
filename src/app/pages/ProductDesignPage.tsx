@@ -4,7 +4,7 @@ import { ProductProcessSection } from "../components/sections/product-design/Pro
 import { ProductDeliverablesSection } from "../components/sections/product-design/ProductDeliverablesSection";
 import { ProductEngagementsSection } from "../components/sections/product-design/ProductEngagementsSection";
 import { ProductShowcaseSection } from "../components/sections/product-design/ProductShowcaseSection";
-import { LogoStripSection } from "../components/layout/LogoStripSection";
+import { LogoStripSection } from "../components/sections/product-design/LogoStripSection";
 import { ProductToolsSection } from "../components/sections/product-design/ProductToolsSection";
 import { FAQSection } from "../components/common/FAQSection";
 import { Footer } from "../components/layout/Footer";

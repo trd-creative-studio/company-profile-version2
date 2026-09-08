@@ -46,26 +46,26 @@ const PROCESS_STEPS = [
 ];
 
 const TOOL_ITEMS = [
-  { name: "Figma", logo: toolFigma },
-  { name: "FigJam", logo: toolFigjam },
-  { name: "Framer", logo: toolFramer },
-  { name: "Webflow", logo: toolWebflow },
-  { name: "Next.js", logo: toolNextjs },
-  { name: "React", logo: toolReact },
-  { name: "Tailwind CSS", logo: toolTailwind },
-  { name: "Notion", logo: toolNotion },
-  { name: "Slack", logo: toolSlack },
-  { name: "Illustrator", logo: toolAi },
-  { name: "After Effects", logo: toolAe },
-  { name: "Lottie", logo: toolLottie },
-  { name: "Medusa", logo: toolMedusa },
-  { name: "WordPress", logo: toolWordpress },
-  { name: "Elementor", logo: toolElementor },
-  { name: "Google Meet", logo: toolGmeet },
+  { name: "Figma", logo: toolFigma, hasTextInSvg: false },
+  { name: "FigJam", logo: toolFigjam, hasTextInSvg: false },
+  { name: "Framer", logo: toolFramer, hasTextInSvg: true },
+  { name: "Webflow", logo: toolWebflow, hasTextInSvg: true },
+  { name: "Next.js", logo: toolNextjs, hasTextInSvg: false },
+  { name: "React", logo: toolReact, hasTextInSvg: false },
+  { name: "Tailwind CSS", logo: toolTailwind, hasTextInSvg: false },
+  { name: "Notion", logo: toolNotion, hasTextInSvg: false },
+  { name: "Slack", logo: toolSlack, hasTextInSvg: false },
+  { name: "Illustrator", logo: toolAi, hasTextInSvg: true },
+  { name: "After Effects", logo: toolAe, hasTextInSvg: true },
+  { name: "Lottie", logo: toolLottie, hasTextInSvg: false },
+  { name: "Medusa", logo: toolMedusa, hasTextInSvg: true },
+  { name: "WordPress", logo: toolWordpress, hasTextInSvg: true },
+  { name: "Elementor", logo: toolElementor, hasTextInSvg: true },
+  { name: "Google Meet", logo: toolGmeet, hasTextInSvg: false },
 ];
 
 // Edit this constant to easily adjust the height/size of all tool logos
-const TOOL_LOGO_HEIGHT = "h-4 md:h-6";
+const TOOL_LOGO_HEIGHT = "h-4 md:h-5";
 
 export function ProcessSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -170,8 +170,13 @@ export function ProcessSection() {
               <img
                 src={tool.logo}
                 alt={tool.name}
-                className={`${TOOL_LOGO_HEIGHT} w-auto object-contain invert opacity-75 group-hover:opacity-100 transition-all duration-300`}
+                className={`${TOOL_LOGO_HEIGHT} w-auto object-contain opacity-75 group-hover:opacity-100 transition-all duration-300 ${tool.hasTextInSvg ? "invert" : ""}`}
               />
+              {!tool.hasTextInSvg && (
+                <span className="font-sans text-xs md:text-sm font-medium text-[#1e1e1e] group-hover:text-black transition-colors whitespace-nowrap ml-2">
+                  {tool.name}
+                </span>
+              )}
             </div>
           ))}
         </div>
