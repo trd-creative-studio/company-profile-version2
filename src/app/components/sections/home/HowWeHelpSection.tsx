@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronDown } from "../Icons";
+import { ChevronDown } from "../../common/Icons";
 
 interface ServiceData {
   id: string;

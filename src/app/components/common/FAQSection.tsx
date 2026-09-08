@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown } from "../Icons";
+import { ChevronDown } from "./Icons";
 
 const FAQ_ITEMS = [
   { q: "Why TRD Creative Studio?", a: "For businesses that need websites that communicate clearly and feel intentional.", open: true },

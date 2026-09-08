@@ -1,6 +1,6 @@
-import { OrangeBtn } from "../OrangeBtn";
-import { navigateToService } from "../../utils/navigation";
-import { SERVICES_LIST } from "../../data/content";
+import { OrangeBtn } from "../../common/OrangeBtn";
+import { navigateToService } from "../../../utils/navigation";
+import { SERVICES_LIST } from "../../../data/content";
 
 function BulletStar() {
   return (

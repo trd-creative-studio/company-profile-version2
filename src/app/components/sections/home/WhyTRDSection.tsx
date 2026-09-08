@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { OrangeBtn } from "../OrangeBtn";
-import { LightbulbSvg, MedalSvg, ForwardSvg, CursorSvg } from "../Icons";
+import { OrangeBtn } from "../../common/OrangeBtn";
+import { LightbulbSvg, MedalSvg, ForwardSvg, CursorSvg } from "../../common/Icons";
 
 function FeatureRow({
   icon,

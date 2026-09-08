@@ -1,6 +1,6 @@
-import { OrangeBtn } from "../OrangeBtn";
-import { ArrowRightIcon } from "../Icons";
-import { navigateToService } from "../../utils/navigation";
+import { OrangeBtn } from "../../common/OrangeBtn";
+import { ArrowRightIcon } from "../../common/Icons";
+import { navigateToService } from "../../../utils/navigation";
 
 function ServicePanel({
   title,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
-import { OrangeBtn } from "../OrangeBtn";
+import { Navbar } from "../components/layout/Navbar";
+import { Footer } from "../components/layout/Footer";
+import { OrangeBtn } from "../components/common/OrangeBtn";
 
 const SCOPE_OPTIONS_MAP: Record<string, string[]> = {
   "Product & Experience Design": [

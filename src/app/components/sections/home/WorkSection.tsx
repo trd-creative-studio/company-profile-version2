@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OrangeBtn } from "../OrangeBtn";
+import { OrangeBtn } from "../../common/OrangeBtn";
 
 function ProjectCard({ title, sub, tag, image }: { title: string; sub: string; tag: string; image?: string }) {
   const [imgError, setImgError] = useState(false);

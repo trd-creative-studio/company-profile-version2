@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import navSvgPaths from "@/imports/Navigation/svg-f3oboy1128";
-import { ChevronDown, ArrowUpRight } from "../Icons";
-import { OrangeBtn } from "../OrangeBtn";
+import { ChevronDown, ArrowUpRight } from "../common/Icons";
+import { OrangeBtn } from "../common/OrangeBtn";
 import { navigateToHome, navigateToInquiry, navigateToService, navigateTo, scrollToSection } from "../../utils/navigation";
 
 function CompassMark() {
@@ -87,7 +87,7 @@ function ServicesDropdown({
   onClose: () => void;
 }) {
   return (
-    <div className="bg-white rounded-lg p-6 w-[740px] max-w-[calc(100vw-48px)] cursor-default">
+    <div className="bg-white rounded-lg p-6 w-[740px] max-w-[calc(100vw-48px)] shadow- cursor-default">
       <div className="grid grid-cols-[1fr_250px] gap-8 items-stretch w-full">
         {/* Left Column: Our Services */}
         <div className="flex flex-col flex-1 min-w-0">
@@ -119,20 +119,18 @@ function ServicesDropdown({
             <div className="h-[1px] bg-black/[0.03] w-full my-2" />
 
             <ServiceCard
-              onClick={() => {
-                navigateToService("website-design");
-                onClose();
-              }}
               title="Website Design"
               desc="Websites built to convert."
+              badgeText="COMING SOON"
+              disabled={true}
               icon={
                 <svg width="18" height="18" viewBox="0 0 17.9167 17.9167" fill="none">
-                  <path d={navSvgPaths.pb805f80} stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p33afdb00} stroke="#1E1E1E" strokeWidth="1.25" />
-                  <path d="M14.7917 15.625H13.125" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M8.125 17.2917H5.625" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M8.125 17.2917V13.125" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M8.125 9.79167H0.625001" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d={navSvgPaths.pb805f80} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d={navSvgPaths.p33afdb00} stroke="#777777" strokeWidth="1.25" />
+                  <path d="M14.7917 15.625H13.125" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d="M8.125 17.2917H5.625" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d="M8.125 17.2917V13.125" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d="M8.125 9.79167H0.625001" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
                 </svg>
               }
             />
@@ -186,20 +184,33 @@ function ServicesDropdown({
 
             <div className="flex flex-col gap-3 w-full">
               {[
-                { label: "UI/UX Design", service: "product-design" },
-                { label: "Landing Pages", service: "website-design" },
-                { label: "E-Commerce Website", service: "website-design" },
+                { label: "UI/UX Design", service: "product-design", disabled: false },
+                { label: "Landing Pages", service: "website-design", disabled: true },
+                { label: "E-Commerce Website", service: "website-design", disabled: true },
               ].map((item) => (
                 <div
                   key={item.label}
                   onClick={() => {
+                    if (item.disabled) return;
                     navigateToService(item.service);
                     onClose();
                   }}
-                  className="bg-[#f9f9f9] hover:bg-[#f7f7f7] flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group"
+                  className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 ${item.disabled
+                    ? "bg-[#f9f9f9]/60 opacity-60 cursor-not-allowed"
+                    : "bg-[#f9f9f9] hover:bg-[#f7f7f7] cursor-pointer group"
+                    }`}
                 >
-                  <span className="font-sans font-medium text-[#1e1e1e] text-md">{item.label}</span>
-                  <ArrowUpRight className="size-4 text-[#1e1e1e] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                  <div className="flex items-center gap-2">
+                    <span className="font-sans font-medium text-[#1e1e1e] text-md">{item.label}</span>
+                    {item.disabled && (
+                      <span className="bg-[#eb5503] text-white font-mono text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shrink-0">
+                        COMING SOON
+                      </span>
+                    )}
+                  </div>
+                  {!item.disabled && (
+                    <ArrowUpRight className="size-4 text-[#1e1e1e] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                  )}
                 </div>
               ))}
             </div>

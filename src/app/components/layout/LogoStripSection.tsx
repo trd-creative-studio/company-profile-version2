@@ -1,4 +1,4 @@
-import { Marquee } from "../Marquee";
+import { Marquee } from "../common/Marquee";
 
 // Import tool logos
 import logoFigma from "@/assets/logo/logo-figma.png";
@@ -78,11 +78,11 @@ export function LogoStripSection() {
   ];
 
   return (
-    <section className="bg-[#f8f8f8] w-full pt-4 pb-16 md:pb-24 flex flex-col gap-6 md:gap-8 items-center" data-name="Clients Section">
+    <section className="bg-[#ffffff] w-full py-[75px] md:pb-24 flex flex-col gap-6 md:gap-8 items-center" data-name="Clients Section">
       {/* Title */}
       <div className="text-center px-5">
-        <p className="font-sans font-medium text-[#1e1e1e] text-center text-sm md:text-base tracking-[-0.1px]">
-          Trusted by 40+ companies
+        <p className="font-sans font-medium text-[#1e1e1e] text-center text-sm md:text-md tracking-[-0.1px]">
+          Selected experience & collaborations
         </p>
       </div>
 

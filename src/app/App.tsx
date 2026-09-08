@@ -1,20 +1,8 @@
 import { useState, useEffect } from "react";
 import { scrollToSection } from "./utils/navigation";
-import { Navbar } from "./components/sections/Navbar";
-import { Hero } from "./components/sections/Hero";
-import { StudioStatementSection } from "./components/sections/StudioStatementSection";
-import { LogoStripSection } from "./components/sections/LogoStripSection";
-import { HowWeHelpSection } from "./components/sections/HowWeHelpSection";
-import { ProcessSection } from "./components/sections/ProcessSection";
-import { WorkSection } from "./components/sections/WorkSection";
-import { WhyTRDSection } from "./components/sections/WhyTRDSection";
-import { ServicesSection } from "./components/sections/ServicesSection";
-import { ClientsSection } from "./components/sections/ClientsSection";
-import { PricingSection } from "./components/sections/PricingSection";
-import { FAQSection } from "./components/sections/FAQSection";
-import { Footer } from "./components/sections/Footer";
-import { ProductDesignPage } from "./components/sections/ProductDesignPage";
-import { InquiryFormPage } from "./components/sections/InquiryFormPage";
+import { HomePage } from "./pages/HomePage";
+import { ProductDesignPage } from "./pages/ProductDesignPage";
+import { InquiryFormPage } from "./pages/InquiryFormPage";
 
 export default function App() {
   const [page, setPage] = useState("home");
@@ -118,17 +106,7 @@ export default function App() {
       ) : page === "product-design" ? (
         <ProductDesignPage />
       ) : (
-        <>
-          <Navbar />
-          <Hero />
-          <StudioStatementSection />
-          <LogoStripSection />
-          <HowWeHelpSection />
-          <ProcessSection />
-          <ClientsSection />
-          <FAQSection />
-          <Footer />
-        </>
+        <HomePage />
       )}
     </div>
   );
