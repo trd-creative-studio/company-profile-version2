@@ -11,6 +11,7 @@ interface ServiceData {
   linkText: string;
   linkUrl: string;
   images: string[];
+  disabled?: boolean;
 }
 
 const SERVICES_DATA: ServiceData[] = [
@@ -19,13 +20,14 @@ const SERVICES_DATA: ServiceData[] = [
     step: "01",
     title: "Product & Experience Design",
     description:
-      "We've built brands for companies that went on to raise tens of millions and reach millions of users. The work shows up everywhere, product, marketing site, app screens, pitch decks, investor updates, paid campaigns, app store listings. Not a logo in a zip file, a system that makes every touchpoint look like the same company built it.",
+      "We design digital products across SaaS, dashboards, mobile apps, and complex web platforms from early MVPs to existing products that need a clearer experience.",
     bullets: [
-      "Strategy & Page Structure",
-      "Custom UI Design",
-      "Responsive Development",
-      "Contact / Lead Integration",
-      "SEO Foundations",
+      "SaaS Product",
+      "Dashboard",
+      "Landing Page",
+      "Web & Mobile Application",
+      "MVP Product",
+      "Product Redesign",
     ],
     linkText: "EXPLORE OUR DESIGN PROCESS",
     linkUrl: "/?service=product-design",
@@ -36,6 +38,7 @@ const SERVICES_DATA: ServiceData[] = [
     step: "02",
     title: "Website Design & Development",
     badge: "Coming Soon",
+    disabled: true,
     description:
       "High-converting landing pages, marketing websites, and custom Webflow/Next.js web applications engineered for speed, SEO, and visual impact. Designed to showcase your product value clearly and convert visitors into active leads.",
     bullets: [
@@ -54,6 +57,7 @@ const SERVICES_DATA: ServiceData[] = [
     step: "03",
     title: "AI Video Production",
     badge: "Coming Soon",
+    disabled: true,
     description:
       "Next-generation AI video generation, creative direction, and motion graphic production for product walkthroughs, social campaigns, and brand storytelling that stand out in crowded feeds.",
     bullets: [
@@ -221,15 +225,15 @@ export function HowWeHelpSection() {
                       {/* Right: Info & Features */}
                       <div className="flex flex-col justify-between flex-1 py-4">
                         <div className="flex flex-col gap-6">
-                          <p className="font-sans text-[#4d4d4d] text-sm md:text-sm leading-[1.6]">
+                          <p className="font-sans text-[#1e1e1e] text-md md:text-md leading-[1.6]">
                             {service.description}
                           </p>
 
-                          <ul className="flex flex-col gap-2 pt-2">
+                          <ul className="flex flex-col gap-1 pt-2">
                             {service.bullets.map((bullet) => (
                               <li
                                 key={bullet}
-                                className="font-sans text-sm md:text-sm text-[#1e1e1e] flex items-center gap-2.5"
+                                className="font-sans text-md md:text-md text-[#1e1e1e] flex items-center gap-2.5"
                               >
                                 <span className="text-[#eb5503] font-bold text-sm select-none">
                                   ✳
@@ -241,11 +245,17 @@ export function HowWeHelpSection() {
                         </div>
 
                         <button
+                          disabled={service.disabled}
                           onClick={() => {
+                            if (service.disabled) return;
                             window.history.pushState({}, "", service.linkUrl);
                             window.dispatchEvent(new Event("popstate"));
                           }}
-                          className="font-mono text-xs md:text-sm font-regular text-[#1e1e1e] hover:text-[#eb5503] flex items-center gap-1.5 mt-8 uppercase underline underline-offset-4 cursor-pointer transition-colors self-start"
+                          className={`font-mono text-xs md:text-sm font-regular flex items-center gap-1.5 mt-8 uppercase transition-colors self-start ${
+                            service.disabled
+                              ? "text-[#77786d] cursor-not-allowed opacity-60"
+                              : "text-[#1e1e1e] hover:text-[#eb5503] underline underline-offset-4 cursor-pointer"
+                          }`}
                         >
                           <span>{service.linkText}</span>
                           <span className="text-sm">↗</span>
