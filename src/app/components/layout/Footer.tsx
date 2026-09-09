@@ -127,6 +127,19 @@ export function Footer({
 
             {/* Email */}
             <span className="font-mono text-xs text-[#707070] tracking-wider uppercase pt-0.5">
+              WHATSAPP
+            </span>
+            <div>
+              <a
+                href="https://wa.me/+6285128034600"
+                className="font-sans text-sm md:text-base text-white hover:text-[#eb5503] transition-colors"
+              >
+                +62 851 2803 4600
+              </a>
+            </div>
+
+            {/* Email */}
+            <span className="font-mono text-xs text-[#707070] tracking-wider uppercase pt-0.5">
               E-MAIL
             </span>
             <div>
