@@ -10,6 +10,8 @@ function ProjectCard({ title, sub, tag, image }: { title: string; sub: string; t
         <img
           src={image}
           alt={title}
+          loading="lazy"
+          decoding="async"
           className="rounded-lg h-[280px] md:h-[250px] w-full shrink-0 object-cover"
           onError={() => setImgError(true)}
         />

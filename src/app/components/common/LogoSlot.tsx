@@ -35,6 +35,8 @@ export function LogoImage({ src, alt, type }: { src: string; alt: string; type: 
       src={src}
       className={`${heightClass} ${filterClass} object-contain`}
       alt={alt}
+      loading="lazy"
+      decoding="async"
     />
   );
 }

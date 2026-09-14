@@ -29,6 +29,8 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
           key={src + idx}
           src={src}
           alt="Service Preview"
+          loading="lazy"
+          decoding="async"
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === currentIdx ? "opacity-100" : "opacity-0"
             }`}
         />

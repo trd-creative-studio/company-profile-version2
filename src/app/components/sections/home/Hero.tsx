@@ -123,6 +123,10 @@ function CarouselCard({
           <img
             src={item.image}
             alt={item.title}
+            loading={CAROUSEL_ITEMS.indexOf(item) === 0 ? "eager" : "lazy"}
+            decoding="async"
+            width="430"
+            height="290"
             className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
             onError={() => setImgError(true)}
           />

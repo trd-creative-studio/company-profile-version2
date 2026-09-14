@@ -163,6 +163,8 @@ export function ProductHero() {
               <img
                 src={currentWork.image}
                 alt={currentWork.title}
+                loading="eager"
+                decoding="async"
                 className="w-full h-full object-cover rounded-lg transition-all duration-500 ease-out transform group-hover:scale-[1.02]"
               />
 
