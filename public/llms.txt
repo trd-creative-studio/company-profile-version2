@@ -1,0 +1,28 @@
+# TRD Creative Studio
+
+> Independent design studio based in Indonesia, specializing in UI/UX design, custom web design & development, and AI video production for startups, business owners, and product teams worldwide.
+
+## Overview
+
+TRD Creative Studio turns complex ideas and product requirements into clear, scalable, and high-converting digital products. We work closely with ambitious founders and leaders seeking strategic clarity, design precision, and execution speed.
+
+## Core Services
+
+- [Product & Experience Design](https://trdcreativestudio.com/services/product-design): UI/UX design, SaaS dashboards, mobile app interfaces, design systems, and product strategy.
+- [Web Design & Development](https://trdcreativestudio.com/services): High-converting marketing landing pages, corporate websites, and e-commerce platforms built to scale.
+- [AI Video Production](https://trdcreativestudio.com/services): Next-generation AI-powered creative video production and marketing assets.
+
+## Key Pages & Navigation
+
+- [Home Page](https://trdcreativestudio.com/): Overview of TRD Creative Studio, client collaborations, featured projects, and core capabilities.
+- [Product & Experience Design](https://trdcreativestudio.com/services/product-design): Detailed breakdown of UI/UX design deliverables, process, and engagement models.
+- [Start a Project](https://trdcreativestudio.com/inquiry): Interactive project discovery and inquiry form for new clients.
+- [Our Process](https://trdcreativestudio.com/process): Step-by-step methodology from initial discovery to final design system delivery.
+- [Client Testimonials](https://trdcreativestudio.com/testimonials): Verified feedback and case studies from global clients and product partners.
+
+## Contact & Inquiries
+
+- [Submit Inquiry Form](https://trdcreativestudio.com/inquiry): Tell us about your project goals, scope, and timeline.
+- Email: [hi@trdcreativestudio.com](mailto:hi@trdcreativestudio.com)
+- WhatsApp: [+62 851 2803 4600](https://wa.me/+6285128034600)
+- Location: Malang, Indonesia (GMT+7)
