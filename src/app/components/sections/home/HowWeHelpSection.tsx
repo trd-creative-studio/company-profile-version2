@@ -1,77 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown } from "../../common/Icons";
+import { SERVICES_DATA, getServiceImages } from "../../../data/servicesData";
 
-interface ServiceData {
-  id: string;
-  step: string;
-  title: string;
-  badge?: string;
-  description: string;
-  bullets: string[];
-  linkText: string;
-  linkUrl: string;
-  images: string[];
-  disabled?: boolean;
-}
-
-const SERVICES_DATA: ServiceData[] = [
-  {
-    id: "product-design",
-    step: "01",
-    title: "Product & Experience Design",
-    description:
-      "We design digital products across SaaS, dashboards, mobile apps, and complex web platforms from early MVPs to existing products that need a clearer experience.",
-    bullets: [
-      "SaaS Product",
-      "Dashboard",
-      "Landing Page",
-      "Web & Mobile Application",
-      "MVP Product",
-      "Product Redesign",
-    ],
-    linkText: "EXPLORE OUR DESIGN PROCESS",
-    linkUrl: "/?service=product-design",
-    images: ["/work/showcase1.png", "/hero/resumify-ai.png", "/hero/hero5.png"],
-  },
-  {
-    id: "website-design",
-    step: "02",
-    title: "Website Design & Development",
-    badge: "Coming Soon",
-    disabled: true,
-    description:
-      "High-converting landing pages, marketing websites, and custom Webflow/Next.js web applications engineered for speed, SEO, and visual impact. Designed to showcase your product value clearly and convert visitors into active leads.",
-    bullets: [
-      "Landing Pages & Marketing Sites",
-      "Custom Web Development",
-      "E-Commerce & CMS Setup",
-      "SEO & Analytics Integration",
-      "Performance Optimization",
-    ],
-    linkText: "EXPLORE WEBSITE SERVICES",
-    linkUrl: "/?scroll=services",
-    images: ["/work/showcase2.png", "/hero/hero1.png", "/hero/hero3.png"],
-  },
-  {
-    id: "ai-video",
-    step: "03",
-    title: "AI Video Production",
-    badge: "Coming Soon",
-    disabled: true,
-    description:
-      "Next-generation AI video generation, creative direction, and motion graphic production for product walkthroughs, social campaigns, and brand storytelling that stand out in crowded feeds.",
-    bullets: [
-      "Product & Explainer Videos",
-      "AI Video Generation",
-      "Motion Graphics & Animation",
-      "Social & Short-Form Content",
-      "Campaign Assets",
-    ],
-    linkText: "EXPLORE VIDEO PRODUCTION",
-    linkUrl: "/?scroll=services",
-    images: ["/work/showcase3.png", "/hero/hero2.png", "/hero/resumify-tailor.png"],
-  },
-];
 
 function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolean }) {
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -81,7 +11,7 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
 
     const interval = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % images.length);
-    }, 3000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [isOpen, images.length]);
@@ -99,7 +29,7 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
           key={src + idx}
           src={src}
           alt="Service Preview"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${idx === currentIdx ? "opacity-100" : "opacity-0"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === currentIdx ? "opacity-100" : "opacity-0"
             }`}
         />
       ))}
@@ -120,7 +50,7 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
               className="h-full bg-[#eb5503]"
               style={{
                 width: idx < currentIdx ? "100%" : idx > currentIdx ? "0%" : undefined,
-                animation: idx === currentIdx && isOpen ? "progressWalk 3000ms linear forwards" : "none",
+                animation: idx === currentIdx && isOpen ? "progressWalk 2000ms linear forwards" : "none",
               }}
             />
           </div>
@@ -220,7 +150,7 @@ export function HowWeHelpSection() {
                         }`}
                     >
                       {/* Left: Slideshow */}
-                      <ServiceSlideshow images={service.images} isOpen={isOpen} />
+                      <ServiceSlideshow images={getServiceImages(service.id, service.images)} isOpen={isOpen} />
 
                       {/* Right: Info & Features */}
                       <div className="flex flex-col justify-between flex-1 py-4">
@@ -251,11 +181,10 @@ export function HowWeHelpSection() {
                             window.history.pushState({}, "", service.linkUrl);
                             window.dispatchEvent(new Event("popstate"));
                           }}
-                          className={`font-mono text-xs md:text-sm font-regular flex items-center gap-1.5 mt-8 uppercase transition-colors self-start ${
-                            service.disabled
-                              ? "text-[#77786d] cursor-not-allowed opacity-60"
-                              : "text-[#1e1e1e] hover:text-[#eb5503] underline underline-offset-4 cursor-pointer"
-                          }`}
+                          className={`font-mono text-xs md:text-sm font-regular flex items-center gap-1.5 mt-8 uppercase transition-colors self-start ${service.disabled
+                            ? "text-[#77786d] cursor-not-allowed opacity-60"
+                            : "text-[#1e1e1e] hover:text-[#eb5503] underline underline-offset-4 cursor-pointer"
+                            }`}
                         >
                           <span>{service.linkText}</span>
                           <span className="text-sm">↗</span>

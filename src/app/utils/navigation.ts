@@ -8,12 +8,12 @@ export function navigateTo(url: string) {
 }
 
 export function navigateToInquiry(serviceId?: string) {
-  const url = serviceId ? `/?page=inquiry&service=${serviceId}` : "/?page=inquiry";
+  const url = serviceId ? `/inquiry?service=${serviceId}` : "/inquiry";
   navigateTo(url);
 }
 
 export function navigateToService(serviceId: string) {
-  navigateTo(`/?service=${serviceId}`);
+  navigateTo(`/services/${serviceId}`);
 }
 
 export function navigateToHome() {

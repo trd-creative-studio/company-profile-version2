@@ -10,6 +10,7 @@ export function LogoStripSection() {
     "client-synapsis",
     "client-tehchouse",
     "client-greenflags",
+    // "client-puranawa",
   ];
 
   return (

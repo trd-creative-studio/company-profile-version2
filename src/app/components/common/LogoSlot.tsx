@@ -12,6 +12,7 @@ import clientPupuk from "@/assets/logo/client-pupuk.png";
 import clientSynapsis from "@/assets/logo/client-synapsis.png";
 import clientTehchouse from "@/assets/logo/client-tehchouse.png";
 import clientGreenflags from "@/assets/logo/Frame 467.png";
+import clientPuranawa from "@/assets/logo/client-puranawa.png";
 
 // ==========================================
 // CONFIGURATION: Edit these to resize all logos
@@ -56,6 +57,7 @@ export function LogoSlot({ name }: { name: string }) {
       {name === "client-synapsis" && <LogoImage src={clientSynapsis} alt="Synapsis" type="client" />}
       {name === "client-tehchouse" && <LogoImage src={clientTehchouse} alt="Tehc House" type="client" />}
       {name === "client-greenflags" && <LogoImage src={clientGreenflags} alt="Greenflags" type="client" />}
+      {name === "client-puranawa" && <LogoImage src={clientPuranawa} alt="Pura Nawa" type="client" />}
     </div>
   );
 }

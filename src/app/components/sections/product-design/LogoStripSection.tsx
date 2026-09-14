@@ -14,6 +14,7 @@ export function LogoStripSection({ title = "Selected experience & collaborations
     "client-synapsis",
     "client-tehchouse",
     "client-greenflags",
+    // "client-puranawa",
   ];
 
   return (

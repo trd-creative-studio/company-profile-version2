@@ -22,7 +22,8 @@ function CompassMark() {
 
 function BrandMark() {
   return (
-    <div
+    <a
+      href="/"
       className="flex items-center cursor-pointer shrink-0"
       onClick={(e) => {
         e.preventDefault();
@@ -31,10 +32,10 @@ function BrandMark() {
     >
       <img
         src="/trd-logo.png"
-        alt="The Realistic Dreamer"
+        alt="TRD Creative Studio"
         className="h-9 md:h-11 w-auto object-contain"
       />
-    </div>
+    </a>
   );
 }
 
@@ -280,13 +281,14 @@ export function Navbar() {
     closeServicesImmediately();
     setMenuOpen(false);
 
-    const params = new URLSearchParams(window.location.search);
-    const isHomepage = !params.get("page") && !params.get("service");
+    const pathname = window.location.pathname;
+    const isHomepage = pathname === "/" || pathname === "";
 
     if (isHomepage) {
       scrollToSection(id);
+      window.history.replaceState({}, "", `/#${id}`);
     } else {
-      window.history.pushState({}, "", `/?scroll=${id}`);
+      window.history.pushState({}, "", `/#${id}`);
       window.dispatchEvent(new Event("popstate"));
     }
   };
@@ -303,24 +305,25 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-4">
             {/* Nav Pill Container */}
             <div className="bg-white rounded-full px-4 py-2 flex items-center gap-5">
-              <div
-                onClick={() => handleScroll("about")}
+              <a
+                href="/#about"
+                onClick={(e) => { e.preventDefault(); handleScroll("about"); }}
                 onMouseEnter={closeServicesImmediately}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
                 <NavTextRoll text="ABOUT" />
-              </div>
+              </a>
 
               {/* SERVICES Trigger (Clickable & Hoverable) */}
               <div
                 className="relative py-1 flex items-center cursor-pointer group"
                 onMouseEnter={openServices}
                 onMouseLeave={closeServices}
-                onClick={() => handleScroll("services")}
               >
-                <div
+                <a
+                  href="/#services"
                   className="flex items-center gap-1.5 cursor-pointer group"
-                  onClick={() => handleScroll("services")}
+                  onClick={(e) => { e.preventDefault(); handleScroll("services"); }}
                 >
                   <NavTextRoll
                     text="SERVICES"
@@ -330,7 +333,7 @@ export function Navbar() {
                     className={`size-3.5 text-[#1e1e1e] transition-transform duration-200 ${servicesOpen ? "rotate-180" : ""
                       }`}
                   />
-                </div>
+                </a>
 
                 {/* Services Megamenu Dropdown Card - Centered on SERVICES */}
                 <div
@@ -355,42 +358,46 @@ export function Navbar() {
                 </div>
               </div>
 
-              <div
-                onClick={() => handleScroll("process")}
+              <a
+                href="/#process"
+                onClick={(e) => { e.preventDefault(); handleScroll("process"); }}
                 onMouseEnter={closeServicesImmediately}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
                 <NavTextRoll text="OUR PROCESS" />
-              </div>
+              </a>
 
-              <div
-                onClick={() => handleScroll("testimonials")}
+              <a
+                href="/#testimonials"
+                onClick={(e) => { e.preventDefault(); handleScroll("testimonials"); }}
                 onMouseEnter={closeServicesImmediately}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
                 <NavTextRoll text="TESTIMONIALS" />
-              </div>
+              </a>
 
-              <div
-                onClick={() => handleScroll("contact")}
+              <a
+                href="/#contact"
+                onClick={(e) => { e.preventDefault(); handleScroll("contact"); }}
                 onMouseEnter={closeServicesImmediately}
                 className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
               >
                 <NavTextRoll text="CONTACT" />
-              </div>
+              </a>
             </div>
 
             {/* Start a Project Pill Button */}
-            <button
-              onClick={() => {
-                window.history.pushState({}, "", "/?page=inquiry");
-                window.dispatchEvent(new Event("popstate"));
+            <a
+              href="/inquiry"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateToInquiry();
               }}
               onMouseEnter={closeServicesImmediately}
               className="bg-white hover:bg-gray-50 text-[#1e1e1e] px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider transition-all duration-200 cursor-pointer shrink-0 group flex items-center justify-center overflow-hidden"
             >
               <NavTextRoll text="START A PROJECT" />
-            </button>
+            </a>
           </div>
 
           {/* Mobile Hamburger Button */}
