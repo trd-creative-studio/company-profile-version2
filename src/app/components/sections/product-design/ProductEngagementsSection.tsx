@@ -63,7 +63,7 @@ function EngagementCard({ data }: { data: EngagementItem }) {
         </div>
 
         <button
-          onClick={() => navigateToInquiry("product-design")}
+          onClick={() => navigateToInquiry("product-design", data.id)}
           className="bg-[#eb5503] hover:bg-[#d44c02] text-white px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider justify-center flex items-center gap-4 transition-all duration-200 cursor-pointer w-full mt-2"
         >
           <span>{data.ctaLabel}</span>
@@ -89,16 +89,16 @@ export function ProductEngagementsSection() {
           </span>
         </div>
 
-        <div className="flex flex-col gap-4 items-center max-w-[600px]">
+        <div className="flex flex-col gap-4 items-center max-w-[600px] mb-6">
           {/* Headline */}
           <h2 className="max-w-[500px] font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] leading-[1.2] text-[#1e1e1e] tracking-[-1px] text-center">
             Product design shaped around the stage you’re in.
           </h2>
 
           {/* Subtitle */}
-          <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[640px] text-center mb-6 md:mb-8">
+          {/* <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[640px] text-center mb-6 md:mb-8">
             Some teams need a cleaner MVP. Others need a full product redesign, design system cleanup, or ongoing product support.
-          </p>
+          </p> */}
         </div>
       </div>
 

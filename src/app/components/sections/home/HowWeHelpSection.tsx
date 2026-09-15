@@ -70,7 +70,7 @@ export function HowWeHelpSection() {
   };
 
   return (
-    <section id="services" className="bg-[#ffffff] w-full py-16 md:py-[150px]">
+    <section id="services" className="bg-[#ffffff] w-full py-16 md:pt-[150px] md:pb-[75px]">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-center">
         {/* Top Badge */}
         <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">

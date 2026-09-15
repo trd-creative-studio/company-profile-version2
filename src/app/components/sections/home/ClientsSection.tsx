@@ -74,11 +74,22 @@ export function ClientsSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     let animationFrameId: number;
 
     const handleScroll = () => {
+      if (window.innerWidth < 768) return;
       if (!sectionRef.current || !trackRef.current || !containerRef.current) return;
 
       const sectionRect = sectionRef.current.getBoundingClientRect();
@@ -117,8 +128,8 @@ export function ClientsSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} id="testimonials" className="relative h-[280vh] bg-[#f8f8f8] w-full">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-10 md:py-16">
+    <div ref={sectionRef} id="testimonials" className="relative h-auto md:h-[280vh] bg-[#f8f8f8] w-full py-16 md:py-0">
+      <div className="relative md:sticky top-0 h-auto md:h-screen w-full overflow-hidden flex flex-col justify-center py-6 md:py-16">
         {/* Header Block matching How We Help style */}
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center text-center mb-8 md:mb-12 shrink-0">
           {/* Badge */}
@@ -135,22 +146,25 @@ export function ClientsSection() {
             </h2>
 
             {/* Subtitle */}
-            <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[600px] text-center">
+            {/* <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[600px] text-center">
               Trusted by 20+ partners around the world, we've built a reputation for reliability, integrity, and exceptional results.
-            </p>
+            </p> */}
           </div>
         </div>
 
         {/* Horizontal Testimonials Track Window */}
-        <div ref={containerRef} className="w-full overflow-hidden">
+        <div ref={containerRef} className="w-full overflow-x-auto md:overflow-hidden no-scrollbar snap-x snap-mandatory md:snap-none">
           <div
             ref={trackRef}
-            className="flex gap-4 md:gap-2 will-change-transform transition-transform ease-out duration-75 max-w-max pl-6 md:pl-[calc(max(3rem,(100vw-1200px)/2+3rem))]"
+            className="flex gap-4 md:gap-2 will-change-transform transition-transform ease-out duration-75 max-w-max px-6 md:px-0 md:pl-[calc(max(3rem,(100vw-1200px)/2+3rem))]"
+            style={{
+              transform: isMobile ? "none" : undefined,
+            }}
           >
             {TESTIMONIALS_DATA.map((item) => (
               <div
                 key={item.id}
-                className="bg-white rounded-lg p-6 md:p-6 w-[320px] sm:w-[420px] md:w-[460px] shrink-0 flex flex-col justify-between gap-6 md:gap-8"
+                className="bg-white rounded-lg p-6 md:p-6 w-[290px] sm:w-[420px] md:w-[460px] shrink-0 flex flex-col justify-between gap-6 md:gap-8 snap-center"
               >
                 {/* Author Info at Top */}
                 <div className="flex flex-col">
@@ -196,17 +210,14 @@ export function ClientsSection() {
           </div>
         </div>
 
-        {/* Scroll Progress Bar Indicator */}
-        <div className="max-w-[240px] w-full mx-auto mt-8 md:mt-10 px-6 shrink-0 flex flex-col items-center gap-2">
+        {/* Scroll Progress Bar Indicator (Desktop Only) */}
+        <div className="hidden md:flex max-w-[240px] w-full mx-auto mt-8 md:mt-10 px-6 shrink-0 flex-col items-center gap-2">
           <div className="w-full bg-black/[0.08] h-1 rounded-full overflow-hidden relative">
             <div
               className="bg-[#eb5503] h-full rounded-full transition-all duration-150 ease-out"
               style={{ width: `${Math.max(10, scrollProgress * 100)}%` }}
             />
           </div>
-          {/* <span className="font-mono text-[10px] uppercase text-[#77786d] tracking-widest font-medium">
-            SCROLL TO EXPLORE ({Math.round(scrollProgress * 100)}%)
-          </span> */}
         </div>
       </div>
     </div>

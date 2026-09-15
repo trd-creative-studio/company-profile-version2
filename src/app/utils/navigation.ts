@@ -7,8 +7,12 @@ export function navigateTo(url: string) {
   window.dispatchEvent(new Event("popstate"));
 }
 
-export function navigateToInquiry(serviceId?: string) {
-  const url = serviceId ? `/inquiry?service=${serviceId}` : "/inquiry";
+export function navigateToInquiry(serviceId?: string, packageId?: string) {
+  let url = "/inquiry";
+  const params: string[] = [];
+  if (serviceId) params.push(`service=${serviceId}`);
+  if (packageId) params.push(`package=${packageId}`);
+  if (params.length > 0) url += `?${params.join("&")}`;
   navigateTo(url);
 }
 

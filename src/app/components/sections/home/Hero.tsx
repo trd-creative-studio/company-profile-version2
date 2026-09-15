@@ -207,6 +207,16 @@ export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [maxTranslate, setMaxTranslate] = useState(0);
   const [paddingLeft, setPaddingLeft] = useState<number>(24);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Mouse Trail State
   const [trail, setTrail] = useState<TrailItem[]>([]);
@@ -284,9 +294,10 @@ export function Hero() {
     return () => window.removeEventListener("resize", updateMaxTranslate);
   }, [paddingLeft]);
 
-  // Calculate scroll progress based on section pin
+  // Calculate scroll progress based on section pin (desktop only)
   useEffect(() => {
     const handleScroll = () => {
+      if (window.innerWidth < 768) return;
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const totalHeight = sectionRef.current.offsetHeight - window.innerHeight;
@@ -309,7 +320,7 @@ export function Hero() {
   }, []);
 
   const scrollToItem = (index: number) => {
-    if (!sectionRef.current) return;
+    if (isMobile || !sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
     const totalHeight = sectionRef.current.offsetHeight - window.innerHeight;
     const targetProgress = index / (CAROUSEL_ITEMS.length - 1);
@@ -341,7 +352,7 @@ export function Hero() {
   const translateX = progress * maxTranslate;
 
   return (
-    <section ref={sectionRef} className="relative w-full h-[300vh] bg-[#f8f8f8]">
+    <section ref={sectionRef} className="relative w-full h-auto md:h-[300vh] bg-[#f8f8f8]">
       {/* Interactive Cursor Image Trail Elements */}
       {trail.map((item, idx) => (
         <TrailCard
@@ -352,10 +363,10 @@ export function Hero() {
         />
       ))}
 
-      {/* Sticky Frame fitting exact 100vh viewport height - vertically centered */}
+      {/* Frame: Sticky on Desktop, Relative on Mobile */}
       <div
         onMouseMove={handleHeroMouseMove}
-        className="sticky top-0 h-screen max-h-screen w-full flex flex-col justify-center gap-8 sm:gap-10 lg:gap-16 overflow-hidden pt-16 pb-8 bg-[#f8f8f8]"
+        className="relative md:sticky top-0 h-auto md:h-screen md:max-h-screen w-full flex flex-col justify-center gap-8 sm:gap-10 lg:gap-16 overflow-hidden pt-24 md:pt-16 pb-12 md:pb-8 bg-[#f8f8f8]"
       >
         {/* Header content container */}
         <div className="w-full px-6 md:px-[150px] shrink-0">
@@ -408,26 +419,27 @@ export function Hero() {
         </div>
 
         {/* Full-width Horizontal Scroll Track */}
-        <div className="w-full overflow-hidden shrink-0">
+        <div className="w-full overflow-x-auto md:overflow-hidden shrink-0 no-scrollbar snap-x snap-mandatory md:snap-none">
           <div
             ref={trackRef}
-            className="flex gap-2 sm:gap-1 ease-out select-none will-change-transform"
+            className="flex gap-4 md:gap-1 ease-out select-none will-change-transform min-w-max md:min-w-0 px-6 md:px-0"
             style={{
-              transform: `translate3d(-${translateX}px, 0, 0)`,
-              paddingLeft: `${paddingLeft}px`,
-              paddingRight: "1.5rem",
-              transition: "transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)",
+              transform: isMobile ? "none" : `translate3d(-${translateX}px, 0, 0)`,
+              paddingLeft: isMobile ? undefined : `${paddingLeft}px`,
+              paddingRight: isMobile ? undefined : "1.5rem",
+              transition: isMobile ? "none" : "transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)",
             }}
           >
             {CAROUSEL_ITEMS.map((item, idx) => (
               <div
                 key={item.id}
-                onClick={() => scrollToItem(idx)}
+                onClick={() => !isMobile && scrollToItem(idx)}
+                className="snap-center shrink-0"
               >
-                <CarouselCard item={item} isActive={idx === activeIndex} />
+                <CarouselCard item={item} isActive={isMobile ? true : idx === activeIndex} />
               </div>
             ))}
-            <div className="w-12 shrink-0" />
+            <div className="w-6 md:w-12 shrink-0" />
           </div>
         </div>
       </div>

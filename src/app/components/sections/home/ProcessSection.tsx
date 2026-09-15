@@ -80,7 +80,7 @@ export function ProcessSection() {
   }, []);
 
   return (
-    <section id="process" className="bg-[#ffffff] w-full py-16 md:py-[150px]">
+    <section id="process" className="bg-[#ffffff] w-full py-16 md:pb-[150px] md:pt-[75px]">
       <style>{`
         @keyframes walkProgress {
           0% { width: 0%; }

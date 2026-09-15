@@ -3,6 +3,49 @@ import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
 import { OrangeBtn } from "../components/common/OrangeBtn";
 
+const PRODUCT_PACKAGES = [
+  {
+    id: "mvp",
+    name: "MVP Product Design",
+    defaultBudget: "< Rp5.000.000",
+    scopes: [
+      "New SaaS Products",
+      "MVP Web Applications",
+      "B2C / B2B Mobile Apps",
+      "New Product Features",
+      "Vibe-coding Cleanup",
+      "Landing Page Design",
+    ],
+  },
+  {
+    id: "redesign",
+    name: "Product Redesign",
+    defaultBudget: "Rp12.000.000 – Rp25.000.000",
+    scopes: [
+      "SaaS Dashboard",
+      "B2B Platforms",
+      "Complex Web Apps",
+      "Existing Workflow Improvements",
+      "UI Consistency Cleanup",
+      "Design System Cleanup",
+    ],
+  },
+  {
+    id: "partner",
+    name: "Design Partner",
+    defaultBudget: "Not sure yet",
+    scopes: [
+      "Fast-moving Product Teams",
+      "Continuous Feature Design",
+      "SaaS Startups and Scaleups",
+      "Roadmap Support",
+      "UX/UI Product Cleanup",
+      "Design System Growth",
+      "Design QA",
+    ],
+  },
+];
+
 const SCOPE_OPTIONS_MAP: Record<string, string[]> = {
   "Product & Experience Design": [
     "Landing Page Design",
@@ -101,6 +144,7 @@ export function InquiryFormPage() {
   const [companyName, setCompanyName] = useState("");
 
   const [serviceCategory, setServiceCategory] = useState<string>("");
+  const [selectedPackage, setSelectedPackage] = useState<string>("");
   const [serviceScope, setServiceScope] = useState<string[]>([]);
   const [budget, setBudget] = useState<string>("");
   const [timeline, setTimeline] = useState<string>("As soon as possible");
@@ -111,18 +155,53 @@ export function InquiryFormPage() {
   const [submitError, setSubmitError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  // Auto pre-fill service from URL search parameters on load
+  // Auto pre-fill service & package from URL search parameters on load
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get("service");
+    const packageParam = params.get("package");
+
+    let initialCategory = "";
     if (serviceParam === "product-design") {
+      initialCategory = "Product & Experience Design";
       setServiceCategory("Product & Experience Design");
     } else if (serviceParam === "website") {
+      initialCategory = "Web Design & Development";
       setServiceCategory("Web Design & Development");
     } else if (serviceParam === "ai-video") {
+      initialCategory = "AI Video Production";
       setServiceCategory("AI Video Production");
     }
+
+    if (packageParam) {
+      const foundPkg = PRODUCT_PACKAGES.find(
+        (p) => p.id === packageParam.toLowerCase() || p.name.toLowerCase() === packageParam.toLowerCase()
+      );
+      if (foundPkg) {
+        if (!initialCategory) {
+          setServiceCategory("Product & Experience Design");
+        }
+        setSelectedPackage(foundPkg.name);
+        if (foundPkg.defaultBudget) {
+          setBudget(foundPkg.defaultBudget);
+        }
+      }
+    }
   }, []);
+
+  const getAvailableScopes = (): string[] => {
+    if (serviceCategory === "Product & Experience Design") {
+      if (selectedPackage) {
+        const pkg = PRODUCT_PACKAGES.find((p) => p.name === selectedPackage);
+        if (pkg) return pkg.scopes;
+      }
+      return SCOPE_OPTIONS_MAP["Product & Experience Design"] || [];
+    }
+    if (serviceCategory && SCOPE_OPTIONS_MAP[serviceCategory]) {
+      return SCOPE_OPTIONS_MAP[serviceCategory];
+    }
+    return [];
+  };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -155,9 +234,11 @@ export function InquiryFormPage() {
             companyName,
             serviceCategory,
             serviceScope: Array.isArray(serviceScope) ? serviceScope.join(", ") : (serviceScope || ""),
-            helpServices: Array.isArray(serviceScope) && serviceScope.length > 0
-              ? [serviceCategory, ...serviceScope].filter(Boolean)
-              : [serviceCategory].filter(Boolean),
+            helpServices: [
+              serviceCategory,
+              selectedPackage ? `Package: ${selectedPackage}` : "",
+              ...(Array.isArray(serviceScope) ? serviceScope : [serviceScope])
+            ].filter(Boolean),
             budget,
             timeline,
             projectDetails,
@@ -354,10 +435,12 @@ export function InquiryFormPage() {
                               onClick={() => {
                                 if (serviceCategory === item.name) {
                                   setServiceCategory("");
+                                  setSelectedPackage("");
                                   setServiceScope([]);
                                   setBudget("");
                                 } else {
                                   setServiceCategory(item.name);
+                                  setSelectedPackage("");
                                   setServiceScope([]);
                                   setBudget("");
                                 }
@@ -374,14 +457,50 @@ export function InquiryFormPage() {
                       </div>
                     </div>
 
-                    {/* Dynamic Child Scope Options (Only visible after a main category is selected) */}
-                    {serviceCategory && SCOPE_OPTIONS_MAP[serviceCategory] && (
+                    {/* Which package / engagement fits your project? (Only visible when Product & Experience Design is selected) */}
+                    {serviceCategory === "Product & Experience Design" && (
+                      <div className="flex flex-col gap-4 w-full animate-fadeIn">
+                        <label className="font-sans text-md font-medium text-[#1e1e1e]">
+                          Which package / engagement fits your project?
+                        </label>
+                        <div className="flex flex-wrap gap-2 w-full">
+                          {PRODUCT_PACKAGES.map((pkg) => {
+                            const isSelected = selectedPackage === pkg.name;
+                            return (
+                              <button
+                                key={pkg.id}
+                                type="button"
+                                onClick={() => {
+                                  if (isSelected) {
+                                    setSelectedPackage("");
+                                    setServiceScope([]);
+                                  } else {
+                                    setSelectedPackage(pkg.name);
+                                    setServiceScope([]);
+                                    if (pkg.defaultBudget) setBudget(pkg.defaultBudget);
+                                  }
+                                }}
+                                className={`px-4 py-2 rounded-full border text-xs sm:text-sm font-sans transition-all duration-200 cursor-pointer select-none flex items-center gap-2 ${isSelected
+                                  ? "bg-[#fff1eb] border-[#eb5503] text-[#eb5503] font-medium"
+                                  : "bg-[#ffffff] border-black/[0.08] hover:border-black/[0.2] text-[#1e1e1e]"
+                                  }`}
+                              >
+                                <span>{pkg.name}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Dynamic Child Scope Options */}
+                    {serviceCategory && getAvailableScopes().length > 0 && (
                       <div className="flex flex-col gap-4 w-full animate-fadeIn">
                         <label className="font-sans text-md font-medium text-[#1e1e1e]">
                           What specific scope do you need help with?
                         </label>
                         <div className="flex flex-wrap gap-2 w-full">
-                          {SCOPE_OPTIONS_MAP[serviceCategory].map((item) => {
+                          {getAvailableScopes().map((item) => {
                             const isSelected = serviceScope.includes(item);
                             return (
                               <button

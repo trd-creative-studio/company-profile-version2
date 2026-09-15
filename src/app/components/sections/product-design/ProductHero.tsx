@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { navigateToInquiry, scrollToSection } from "../../../utils/navigation";
 import { PRODUCT_WORKS, TRAIL_IMAGES, TrailItem } from "./data";
+import { getServiceImages } from "../../../data/servicesData";
 
 function TrailCard({
   item,
@@ -46,9 +47,11 @@ function TrailCard({
 }
 
 export function ProductHero() {
+  const serviceImages = getServiceImages("product-design");
+  const heroImages = serviceImages.length > 0 ? serviceImages : PRODUCT_WORKS.map((w) => w.image);
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
-  const currentWork = PRODUCT_WORKS[activeIndex];
 
   // Mouse Trail State
   const [trail, setTrail] = useState<TrailItem[]>([]);
@@ -65,11 +68,12 @@ export function ProductHero() {
     if (dist > 45) {
       lastPos.current = { x: e.clientX, y: e.clientY };
 
+      const trailPool = heroImages.length > 0 ? heroImages : TRAIL_IMAGES;
       const newItem: TrailItem = {
         id: idCounter.current++,
         x: e.clientX,
         y: e.clientY,
-        image: TRAIL_IMAGES[imageIndex.current % TRAIL_IMAGES.length],
+        image: trailPool[imageIndex.current % trailPool.length],
         rotation: (Math.random() - 0.5) * 16,
         timestamp: Date.now(),
       };
@@ -88,14 +92,15 @@ export function ProductHero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-advance slide every 4 seconds (4000ms)
+  // Auto-advance slide every 3 seconds (3000ms)
   useEffect(() => {
+    if (heroImages.length <= 1) return;
     setProgressKey((prev) => prev + 1);
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % PRODUCT_WORKS.length);
-    }, 4000);
+      setActiveIndex((prev) => (prev + 1) % heroImages.length);
+    }, 3000);
     return () => clearInterval(timer);
-  }, [activeIndex]);
+  }, [activeIndex, heroImages.length]);
 
   return (
     <section
@@ -107,7 +112,7 @@ export function ProductHero() {
         <TrailCard key={item.id} item={item} index={index} total={trail.length} />
       ))}
 
-      {/* Keyframes for 4-second walking line animation */}
+      {/* Keyframes for walking line animation */}
       <style>{`
         @keyframes walkingProgress {
           0% { width: 0%; }
@@ -160,17 +165,22 @@ export function ProductHero() {
         <div className="w-full lg:flex-1 max-w-[750px] min-w-0">
           <div className="bg-white rounded-lg md:rounded-lg p-2 md:p-2 w-full h-[380px] sm:h-[460px] md:h-[500px] lg:h-[540px] flex flex-col justify-between relative overflow-hidden group">
             <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#f8f8f8]">
-              <img
-                src={currentWork.image}
-                alt={currentWork.title}
-                loading="eager"
-                decoding="async"
-                className="w-full h-full object-cover rounded-lg transition-all duration-500 ease-out transform group-hover:scale-[1.02]"
-              />
+              {heroImages.map((imgSrc, idx) => (
+                <img
+                  key={imgSrc + idx}
+                  src={imgSrc}
+                  alt={`Product Design Showcase ${idx + 1}`}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className={`absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-700 ease-out transform group-hover:scale-[1.02] ${
+                    idx === activeIndex ? "opacity-100" : "opacity-0 pointer-events-none"
+                  }`}
+                />
+              ))}
 
               {/* Segmented Walking Line Progress Indicator inside Image Div */}
               <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center gap-2 px-1 pointer-events-auto">
-                {PRODUCT_WORKS.map((_, idx) => (
+                {heroImages.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveIndex(idx)}
@@ -182,7 +192,7 @@ export function ProductHero() {
                         key={progressKey}
                         className="h-full bg-[#eb5503] rounded-full"
                         style={{
-                          animation: "walkingProgress 4s linear forwards",
+                          animation: "walkingProgress 3s linear forwards",
                         }}
                       />
                     ) : (

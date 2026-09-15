@@ -21,7 +21,7 @@ function ProcessCard({ week, title, desc }: { week: string; title: string; desc:
 
 export function ProductProcessSection() {
   return (
-    <section id="process" className="bg-white w-full py-16 md:pt-[75px] md:pb-[150px] px-5 md:px-12 lg:px-20 flex flex-col items-center gap-6 md:gap-8">
+    <section id="process" className="bg-white w-full py-16 md:pt-[150px] md:pb-[150px] px-5 md:px-12 lg:px-20 flex flex-col items-center gap-6 md:gap-8">
       {/* Section Header */}
       <div className="max-w-[800px] mx-auto px-6 md:px-8 flex flex-col items-center gap-5">
         <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
@@ -37,9 +37,9 @@ export function ProductProcessSection() {
           </h2>
 
           {/* Subtitle */}
-          <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[640px] text-center">
+          {/* <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[640px] text-center">
             A focused 4-week process to understand the problem, structure the experience, design the product, and prepare it for implementation.
-          </p>
+          </p> */}
         </div>
       </div>
 
@@ -69,7 +69,7 @@ export function ProductProcessSection() {
 
       {/* Bottom Footer Note */}
       <p className="font-sans font-normal text-[#77786d] text-xs sm:text-sm text-center max-w-[680px] mt-4">
-        A typical product design cycle. Larger engagements may extend based on scope and complexity.
+        Landing page design only 5 days – Full Product Design Cycle may vary based on the scope and complexity.
       </p>
     </section>
   );

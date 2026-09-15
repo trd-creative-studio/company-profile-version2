@@ -92,7 +92,7 @@ export const ENGAGEMENTS: EngagementItem[] = [
   {
     id: "mvp",
     tag: "STARTING",
-    duration: "4-5 Weeks",
+    duration: "5-20 days",
     title: "MVP Product Design",
     description: "We create mid-fidelity screens to solve layout, hierarchy, states, and interaction logic before pushing the final visual layer.",
     features: [
@@ -101,16 +101,17 @@ export const ENGAGEMENTS: EngagementItem[] = [
       "B2C / B2B Mobile Apps",
       "New Product Features",
       "Vibe-coding Cleanup",
+      "Landing Page Design ",
     ],
     priceLabel: "Starting from",
-    price: "Rp5.000.000",
+    price: "Rp2.000.000",
     ctaLabel: "START YOUR MVP",
     footnote: "Final scope depends on content and development needs.",
   },
   {
     id: "redesign",
     tag: "MAINTAINING",
-    duration: "4-5 Weeks",
+    duration: "2-4 Weeks",
     title: "Product Redesign",
     description: "For teams with an existing product that feels outdated, inconsistent, or harder to use than it should be.",
     features: [
@@ -129,7 +130,7 @@ export const ENGAGEMENTS: EngagementItem[] = [
   {
     id: "partner",
     tag: "PARTNERING",
-    duration: "4-5 Weeks",
+    duration: "Minimum 1 month",
     title: "Design Partner",
     description: "For teams that need ongoing product support across new features, design systems, and product growth.",
     features: [
