@@ -2,14 +2,35 @@ import React, { useState, useEffect, useRef } from "react";
 
 export function StudioStatementSection() {
   const p1 =
-    "TRD Creative studio is a lean, founder-led studio built around clarity, direct collaboration, and practical execution.";
+    "TRD Creative Studio is a lean, founder-led design partner for ambitious teams.";
   const p2 =
-    "We help teams bring clarity to digital products, websites, and visual experiences through strategy, design, and practical execution.";
+    "We cut out agency middleman bloat to deliver sharp UI/UX, high-converting websites, and AI media with direct, honest execution.";
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   const totalChars = p1.length + p2.length;
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,13 +53,15 @@ export function StudioStatementSection() {
   }, []);
 
   return (
-    <section id="about" className="w-full bg-[#f8f8f8] px-4 md:px-10 py-10 md:py-16">
+    <section id="about" className="w-full bg-[#f8f8f8] px-4 md:px-10 py-10 md:py-16 overflow-hidden">
       <div
         ref={containerRef}
-        className="mx-auto bg-[#eb5503] rounded-[20px] md:rounded-[36px] p-8 md:p-14 lg:p-20 max-w-[1500px] text-white shadow-sm flex flex-col items-center justify-center text-center gap-8 md:gap-12"
+        className={`mx-auto bg-[#eb5503] rounded-[20px] md:rounded-[36px] p-8 md:p-14 lg:p-20 max-w-[1500px] text-white shadow-sm flex flex-col items-center justify-center text-center gap-8 md:gap-12 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+        }`}
       >
         {/* Statement Paragraph 1 */}
-        <p className="font-sans font-regular text-3xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-1px] md:tracking-[-1.5px] max-w-[900px] text-left md:text-center mx-auto">
+        <p className="font-sans font-light text-3xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-0.5px] md:tracking-[-0.5px] max-w-[900px] text-left md:text-center mx-auto">
           {p1.split("").map((char, idx) => {
             const globalIndex = idx;
             const threshold = globalIndex / totalChars;
@@ -56,7 +79,7 @@ export function StudioStatementSection() {
         </p>
 
         {/* Statement Paragraph 2 - Starts after Paragraph 1 completes */}
-        <p className="font-sans font-regular text-3xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-1px] md:tracking-[-1.5px] max-w-[900px] text-left md:text-center mx-auto">
+        <p className="font-sans font-light text-3xl sm:text-3xl md:text-[38px] lg:text-[46px] leading-[1.25] tracking-[-0.5px] md:tracking-[-0.5px] max-w-[900px] text-left md:text-center mx-auto">
           {p2.split("").map((char, idx) => {
             const globalIndex = p1.length + idx;
             const threshold = globalIndex / totalChars;

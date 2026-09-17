@@ -144,11 +144,6 @@ export function ClientsSection() {
             <h2 className="font-sans font-regular text-[24px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
               What our clients say about us
             </h2>
-
-            {/* Subtitle */}
-            {/* <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[600px] text-center">
-              Trusted by 20+ partners around the world, we've built a reputation for reliability, integrity, and exceptional results.
-            </p> */}
           </div>
         </div>
 
@@ -223,5 +218,3 @@ export function ClientsSection() {
     </div>
   );
 }
-
-

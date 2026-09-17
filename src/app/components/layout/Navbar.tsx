@@ -316,9 +316,6 @@ export function Navbar() {
   return (
     <>
       <nav className={`w-full fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${menuOpen ? "bg-[#f9f9f9]" : "bg-transparent"}`}>
-        {/* Slim Announcement Bar */}
-        <AnnouncementBar />
-
         {/* Top bar */}
         <div className="flex items-center justify-between h-[80px] px-6 md:px-[150px] w-full">
           {/* Brand Logo */}
@@ -444,7 +441,7 @@ export function Navbar() {
 
         {/* Mobile Menu Drawer */}
         {menuOpen && (
-          <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[116px] bg-[#f9f9f9] z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
+          <div className="lg:hidden fixed left-0 right-0 bottom-0 top-[80px] bg-[#f9f9f9] z-[9999] flex flex-col justify-between px-6 py-8 overflow-y-auto">
             {/* Links */}
             <div className="flex flex-col">
               {[

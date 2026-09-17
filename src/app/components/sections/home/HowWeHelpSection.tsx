@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "../../common/Icons";
 import { SERVICES_DATA, getServiceImages } from "../../../data/servicesData";
 
@@ -11,19 +11,13 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
 
     const interval = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % images.length);
-    }, 2000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [isOpen, images.length]);
 
   return (
     <div className="relative aspect-[4/3] w-full rounded-lg overflow-hidden bg-[#f4f4f4]">
-      <style>{`
-        @keyframes progressWalk {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-      `}</style>
       {images.map((src, idx) => (
         <img
           key={src + idx}
@@ -31,73 +25,87 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
           alt="Service Preview"
           loading="lazy"
           decoding="async"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${idx === currentIdx ? "opacity-100" : "opacity-0"
-            }`}
+          className={`absolute inset-0 w-full h-full object-cover ${
+            idx === currentIdx ? "opacity-100" : "opacity-0"
+          }`}
         />
       ))}
-
-      {/* Bottom Progress Bars Indicator */}
-      <div className="absolute bottom-4 left-4 right-4 flex gap-1.5 z-10">
-        {images.map((_, idx) => (
-          <div
-            key={idx}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentIdx(idx);
-            }}
-            className="flex-1 h-1 bg-black/20 rounded-full overflow-hidden cursor-pointer"
-          >
-            <div
-              key={`${idx}-${currentIdx}`}
-              className="h-full bg-[#eb5503]"
-              style={{
-                width: idx < currentIdx ? "100%" : idx > currentIdx ? "0%" : undefined,
-                animation: idx === currentIdx && isOpen ? "progressWalk 2000ms linear forwards" : "none",
-              }}
-            />
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
 
 export function HowWeHelpSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleAccordion = (idx: number) => {
     setOpenIndex((prev) => (prev === idx ? null : idx));
   };
 
   return (
-    <section id="services" className="bg-[#ffffff] w-full py-16 md:pt-[150px] md:pb-[75px]">
+    <section ref={sectionRef} id="services" className="bg-[#ffffff] w-full py-16 md:pt-[150px] md:pb-[75px] overflow-hidden">
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-center">
-        {/* Top Badge */}
-        <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">
-          <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
-            HOW WE HELP
-          </span>
+        {/* Header Block with Scroll Reveal */}
+        <div
+          className={`flex flex-col items-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
+          {/* Top Badge */}
+          <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">
+            <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
+              OUR SERVICES
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-5 mt-6 items-center">
+            {/* Headline */}
+            <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] leading-11 text-center max-w-[550px]">
+              Services built to design, launch & scale your product
+            </h2>
+
+            {/* Subtitle */}
+            <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[700px] text-center mb-12 md:mb-16">
+              Choose a standalone service or partner with us for end-to-end execution.</p>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          {/* Headline */}
-          <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
-            Support for every stage
-          </h2>
-
-          {/* Subtitle */}
-          <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[600px] text-center mb-12 md:mb-16">
-            Bring us in when your idea, product, website, or brand needs to feel sharper, cleaner and ready for what comes next.
-          </p>
-        </div>
-
-        {/* Accordion List */}
+        {/* Accordion List with Staggered Scroll Reveal */}
         <div className="w-full flex flex-col divide-y divide-black/[0.08]">
           {SERVICES_DATA.map((service, idx) => {
             const isOpen = openIndex === idx;
 
             return (
-              <div key={service.id} className="py-6 md:py-8 transition-all duration-300">
+              <div
+                key={service.id}
+                className={`py-6 md:py-8 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+                }`}
+                style={{
+                  transitionDelay: `${idx * 200 + 200}ms`,
+                }}
+              >
                 {/* Accordion Header Row */}
                 <div
                   onClick={() => toggleAccordion(idx)}

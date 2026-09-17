@@ -1,9 +1,25 @@
+import { useState, useEffect, useRef } from "react";
 import { navigateToInquiry } from "../../../utils/navigation";
 import { ENGAGEMENTS, EngagementItem } from "./data";
 
-function EngagementCard({ data }: { data: EngagementItem }) {
+function EngagementCard({
+  data,
+  isVisible,
+  delayIndex,
+}: {
+  data: EngagementItem;
+  isVisible: boolean;
+  delayIndex: number;
+}) {
   return (
-    <div className="bg-[#f9f9f9] md:rounded-lg p-6 md:p-6 flex flex-col justify-between flex-1 min-w-0 gap-6">
+    <div
+      className={`bg-[#f9f9f9] md:rounded-lg p-6 md:p-6 flex flex-col justify-between flex-1 min-w-0 gap-6 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+      }`}
+      style={{
+        transitionDelay: `${delayIndex * 250 + 200}ms`,
+      }}
+    >
       {/* Top Part: Badges, Title & Subtitle */}
       <div className="flex flex-col gap-10">
         {/* Badges Row */}
@@ -79,10 +95,41 @@ function EngagementCard({ data }: { data: EngagementItem }) {
 }
 
 export function ProductEngagementsSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  // IntersectionObserver to trigger scroll reveal when user scrolls into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-white w-full py-16 md:py-[150px] px-5 md:px-12 lg:px-20 flex flex-col items-center gap-8 md:gap-8">
+    <section
+      ref={sectionRef}
+      className="bg-white w-full py-16 md:py-[150px] px-5 md:px-12 lg:px-20 flex flex-col items-center gap-8 md:gap-8 overflow-hidden"
+    >
       {/* Section Header */}
-      <div className="max-w-[1100px] mx-auto px-6 md:px-8 flex flex-col items-center">
+      <div
+        className={`max-w-[1100px] mx-auto px-6 md:px-8 flex flex-col items-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+        }`}
+      >
         <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
             TYPICAL ENGAGEMENTS
@@ -94,18 +141,18 @@ export function ProductEngagementsSection() {
           <h2 className="max-w-[500px] font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] leading-[1.2] text-[#1e1e1e] tracking-[-1px] text-center">
             Product design shaped around the stage you’re in.
           </h2>
-
-          {/* Subtitle */}
-          {/* <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[640px] text-center mb-6 md:mb-8">
-            Some teams need a cleaner MVP. Others need a full product redesign, design system cleanup, or ongoing product support.
-          </p> */}
         </div>
       </div>
 
-      {/* 3 Engagements Grid */}
+      {/* 3 Engagements Grid with Staggered Scroll Reveal */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 md:gap-2 w-full max-w-[1150px] items-stretch">
-        {ENGAGEMENTS.map((item) => (
-          <EngagementCard key={item.id} data={item} />
+        {ENGAGEMENTS.map((item, idx) => (
+          <EngagementCard
+            key={item.id}
+            data={item}
+            isVisible={isVisible}
+            delayIndex={idx}
+          />
         ))}
       </div>
     </section>

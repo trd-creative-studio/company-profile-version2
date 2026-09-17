@@ -17,7 +17,7 @@ function ShowcaseCard({ img, title }: { img: string; title: string }) {
 
 export function ProductShowcaseSection() {
   return (
-    <section className="bg-white w-full pt-4 md:pt-[75px] flex flex-col items-center gap-10 md:gap-14 overflow-hidden">
+    <section id="showcase" className="bg-white w-full pt-4 md:pt-[75px] flex flex-col items-center gap-10 md:gap-14 overflow-hidden">
       {/* Section Header */}
       <div className="max-w-[1100px] mx-auto px-6 md:px-8 flex flex-col items-center">
         <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">

@@ -28,9 +28,8 @@ function TrailCard({
       style={{
         left: `${item.x}px`,
         top: `${item.y}px`,
-        transform: `translate(-50%, -50%) rotate(${item.rotation}deg) scale(${
-          fading ? 0.8 : 1 - age * 0.04
-        })`,
+        transform: `translate(-50%, -50%) rotate(${item.rotation}deg) scale(${fading ? 0.8 : 1 - age * 0.04
+          })`,
         opacity: fading ? 0 : Math.max(0.15, 1 - age * 0.22),
         filter: fading ? "blur(12px)" : age > 1 ? `blur(${age * 2.5}px)` : "none",
       }}
@@ -51,7 +50,13 @@ export function ProductHero() {
   const heroImages = serviceImages.length > 0 ? serviceImages : PRODUCT_WORKS.map((w) => w.image);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [progressKey, setProgressKey] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Trigger entrance reveal on mount
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 60);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Mouse Trail State
   const [trail, setTrail] = useState<TrailItem[]>([]);
@@ -92,37 +97,33 @@ export function ProductHero() {
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-advance slide every 3 seconds (3000ms)
+  // Auto-advance slide every 1 second (1000ms)
   useEffect(() => {
     if (heroImages.length <= 1) return;
-    setProgressKey((prev) => prev + 1);
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % heroImages.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, [activeIndex, heroImages.length]);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [heroImages.length]);
 
   return (
     <section
       onMouseMove={handleHeroMouseMove}
-      className="bg-[#f9f9f9] w-full min-h-screen flex flex-col justify-center pt-28 sm:pt-32 md:pt-36 pb-12 md:pb-16 px-5 md:px-12 lg:px-16 overflow-hidden relative"
+      className="bg-[#f9f9f9] w-full min-h-screen flex flex-col justify-center pt-[80px] pb-6 md:pb-10 px-5 md:px-12 lg:px-16 overflow-hidden relative"
     >
       {/* Mouse Cursor Trail Images */}
       {trail.map((item, index) => (
         <TrailCard key={item.id} item={item} index={index} total={trail.length} />
       ))}
 
-      {/* Keyframes for walking line animation */}
-      <style>{`
-        @keyframes walkingProgress {
-          0% { width: 0%; }
-          100% { width: 100%; }
-        }
-      `}</style>
-
       <div className="max-w-[1300px] mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 my-auto">
-        {/* Left Column: Headline, Subtitle & CTAs */}
-        <div className="flex flex-col items-start gap-6 lg:max-w-[500px] shrink-0 text-left">
+        {/* Left Column: Headline, Subtitle & CTAs with Entrance Reveal */}
+        <div
+          className={`flex flex-col items-start gap-6 lg:max-w-[500px] shrink-0 text-left transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+          style={{ transitionDelay: "200ms" }}
+        >
           {/* Availability Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white mb-4 md:mb-8">
             <span className="size-2 rounded-full bg-[#eb5503] animate-pulse" />
@@ -137,8 +138,8 @@ export function ProductHero() {
           </h1>
 
           {/* Subtitle Description */}
-          <p className="font-sans text-[#4d4d4d] text-sm sm:text-base leading-[1.45] mb-4 md:mb-6 max-w-[400px]">
-            We turn complex workflows and requirements into clear, build-ready experiences.
+          <p className="font-sans text-[#4d4d4d] text-sm sm:text-base leading-[1.45] mb-4 md:mb-6 max-w-[440px]">
+            We turn complex workflows, raw requirements, or generic AI prototypes into clear, build-ready UI/UX design systems.
           </p>
 
           {/* CTA Buttons Row */}
@@ -152,7 +153,7 @@ export function ProductHero() {
             </button>
 
             <button
-              onClick={() => scrollToSection("process")}
+              onClick={() => scrollToSection("showcase")}
               className="font-mono text-xs md:text-sm font-medium tracking-wider text-[#1e1e1e] hover:opacity-60 flex items-center gap-1.5 transition-opacity cursor-pointer"
             >
               <span>OUR WORK</span>
@@ -161,8 +162,13 @@ export function ProductHero() {
           </div>
         </div>
 
-        {/* Right Column: Hero Interactive Card Showcase */}
-        <div className="w-full lg:flex-1 max-w-[750px] min-w-0">
+        {/* Right Column: Hero Interactive Card Showcase with Staggered Entrance Reveal */}
+        <div
+          className={`w-full lg:flex-1 max-w-[750px] min-w-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+          }`}
+          style={{ transitionDelay: "500ms" }}
+        >
           <div className="bg-white rounded-lg md:rounded-lg p-2 md:p-2 w-full h-[380px] sm:h-[460px] md:h-[500px] lg:h-[540px] flex flex-col justify-between relative overflow-hidden group">
             <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#f8f8f8]">
               {heroImages.map((imgSrc, idx) => (
@@ -172,35 +178,11 @@ export function ProductHero() {
                   alt={`Product Design Showcase ${idx + 1}`}
                   loading={idx === 0 ? "eager" : "lazy"}
                   decoding="async"
-                  className={`absolute inset-0 w-full h-full object-cover rounded-lg transition-opacity duration-700 ease-out transform group-hover:scale-[1.02] ${
+                  className={`absolute inset-0 w-full h-full object-cover rounded-lg transform group-hover:scale-[1.02] ${
                     idx === activeIndex ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
                 />
               ))}
-
-              {/* Segmented Walking Line Progress Indicator inside Image Div */}
-              <div className="absolute bottom-4 left-4 right-4 z-10 flex items-center gap-2 px-1 pointer-events-auto">
-                {heroImages.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveIndex(idx)}
-                    className="h-1 flex-1 rounded-full bg-white/40 overflow-hidden cursor-pointer relative backdrop-blur-xs"
-                    aria-label={`Go to slide ${idx + 1}`}
-                  >
-                    {idx === activeIndex ? (
-                      <div
-                        key={progressKey}
-                        className="h-full bg-[#eb5503] rounded-full"
-                        style={{
-                          animation: "walkingProgress 3s linear forwards",
-                        }}
-                      />
-                    ) : (
-                      <div className="h-full rounded-full bg-transparent" />
-                    )}
-                  </button>
-                ))}
-              </div>
             </div>
           </div>
         </div>

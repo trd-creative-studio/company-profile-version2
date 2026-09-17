@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "./Icons";
 
 type FAQItem = {
@@ -33,9 +33,31 @@ function renderHighlightedText(text: React.ReactNode) {
   });
 }
 
-function FAQRow({ q, a, isOpen, onToggle }: { q: string; a: React.ReactNode; isOpen: boolean; onToggle: () => void }) {
+function FAQRow({
+  q,
+  a,
+  isOpen,
+  onToggle,
+  isVisible,
+  delayIndex,
+}: {
+  q: string;
+  a: React.ReactNode;
+  isOpen: boolean;
+  onToggle: () => void;
+  isVisible: boolean;
+  delayIndex: number;
+}) {
   return (
-    <div className="bg-[#f9f9f9] flex flex-col p-5 rounded-lg cursor-pointer w-full transition-colors duration-300 hover:bg-[#f4f4f4]" onClick={onToggle}>
+    <div
+      className={`bg-[#f9f9f9] flex flex-col p-5 rounded-lg cursor-pointer w-full transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#f4f4f4] ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+      }`}
+      style={{
+        transitionDelay: `${delayIndex * 100 + 150}ms`,
+      }}
+      onClick={onToggle}
+    >
       <div className="flex gap-2 items-center w-full">
         <p className="flex-1 min-w-px font-sans font-medium leading-[1.2] text-[#1e1e1e] text-lg tracking-[-0.14px]">{q}</p>
         <ChevronDown className={`transition-transform duration-500 ${isOpen ? "rotate-180" : ""}`} />
@@ -54,24 +76,54 @@ function FAQRow({ q, a, isOpen, onToggle }: { q: string; a: React.ReactNode; isO
 export function FAQSection() {
   const initialOpenIndex = FAQ_ITEMS.findIndex((item) => item.open);
   const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex !== -1 ? initialOpenIndex : null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleToggle = (index: number) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
-    <div className="bg-[#1e1e1e] w-full">
-      <section className="bg-white rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-24 lg:py-[150px] flex flex-col gap-3 items-center">
+    <div ref={sectionRef} className="bg-[#1e1e1e] w-full overflow-hidden">
+      <section className="bg-white rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-20 lg:py-24 flex flex-col gap-3 items-center">
         {/* Top Badge */}
-        <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">
+        <div
+          className={`inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
             FAQ
           </span>
         </div>
 
-        <div className="flex flex-col gap-12 items-center">
+        <div className="flex flex-col gap-12 items-center w-full">
           {/* Headline */}
-          <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
+          <h2
+            className={`font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             Still have questions?
           </h2>
 
@@ -83,12 +135,18 @@ export function FAQSection() {
                 a={item.a}
                 isOpen={openIndex === i}
                 onToggle={() => handleToggle(i)}
+                isVisible={isVisible}
+                delayIndex={i}
               />
             ))}
           </div>
 
           {/* Subtitle */}
-          <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[400px] text-center mb-12 md:mb-16">
+          <p
+            className={`font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[400px] text-center mb-12 md:mb-16 transition-all duration-1000 delay-500 ease-out ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
             Looking for something else? Reach out to us by{" "}
             <a
               href="https://wa.me/+6285128034600"
@@ -106,9 +164,7 @@ export function FAQSection() {
               email us
             </a>
           </p>
-
         </div>
-
       </section>
     </div>
   );
