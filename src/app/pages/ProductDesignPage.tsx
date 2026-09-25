@@ -6,6 +6,7 @@ import { ProductEngagementsSection } from "../components/sections/product-design
 import { ProductShowcaseSection } from "../components/sections/product-design/ProductShowcaseSection";
 import { LogoStripSection } from "../components/sections/product-design/LogoStripSection";
 import { ProductToolsSection } from "../components/sections/product-design/ProductToolsSection";
+import { FounderMessageSection } from "../components/sections/home/FounderMessageSection";
 import { FAQSection } from "../components/common/FAQSection";
 import { Footer } from "../components/layout/Footer";
 
@@ -20,6 +21,7 @@ export function ProductDesignPage() {
       <ProductShowcaseSection />
       <LogoStripSection title="Selected experience & collaborations" />
       <ProductToolsSection />
+      <FounderMessageSection />
       <FAQSection />
       <Footer
         tag="PRODUCT & EXPERIENCE DESIGN"

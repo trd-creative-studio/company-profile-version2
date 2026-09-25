@@ -206,14 +206,14 @@ export function ClientsSection() {
         </div>
 
         {/* Scroll Progress Bar Indicator (Desktop Only) */}
-        <div className="hidden md:flex max-w-[240px] w-full mx-auto mt-8 md:mt-10 px-6 shrink-0 flex-col items-center gap-2">
+        {/* <div className="hidden md:flex max-w-[240px] w-full mx-auto mt-8 md:mt-10 px-6 shrink-0 flex-col items-center gap-2">
           <div className="w-full bg-black/[0.08] h-1 rounded-full overflow-hidden relative">
             <div
               className="bg-[#eb5503] h-full rounded-full transition-all duration-150 ease-out"
               style={{ width: `${Math.max(10, scrollProgress * 100)}%` }}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
