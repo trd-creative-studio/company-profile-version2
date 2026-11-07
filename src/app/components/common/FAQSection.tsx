@@ -50,9 +50,8 @@ function FAQRow({
 }) {
   return (
     <div
-      className={`bg-[#f9f9f9] flex flex-col p-5 rounded-lg cursor-pointer w-full transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#f4f4f4] ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-      }`}
+      className={`bg-[#f9f9f9] flex flex-col p-5 rounded-lg cursor-pointer w-full transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#f4f4f4] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+        }`}
       style={{
         transitionDelay: `${delayIndex * 100 + 150}ms`,
       }}
@@ -108,9 +107,8 @@ export function FAQSection() {
       <section className="bg-white rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-20 lg:py-24 flex flex-col gap-3 items-center">
         {/* Top Badge */}
         <div
-          className={`inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
+          className={`inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
         >
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
             FAQ
@@ -120,9 +118,8 @@ export function FAQSection() {
         <div className="flex flex-col gap-12 items-center w-full">
           {/* Headline */}
           <h2
-            className={`font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+            className={`font-sans font-regular text-[28px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
           >
             Still have questions?
           </h2>
@@ -143,9 +140,8 @@ export function FAQSection() {
 
           {/* Subtitle */}
           <p
-            className={`font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[400px] text-center mb-12 md:mb-16 transition-all duration-1000 delay-500 ease-out ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
+            className={`font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[400px] text-center mb-12 md:mb-16 transition-all duration-1000 delay-500 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
           >
             Looking for something else? Reach out to us by{" "}
             <a

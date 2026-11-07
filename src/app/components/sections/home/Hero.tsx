@@ -152,7 +152,7 @@ function CarouselCard({
 const ROTATING_SERVICES = [
   "UI/UX Design",
   "Web Development",
-  "AI Video Production",
+  "AI Video Creation",
 ];
 
 function RotatingServiceText() {
@@ -372,13 +372,12 @@ export function Hero() {
       {/* Frame: Sticky on Desktop, Relative on Mobile */}
       <div
         onMouseMove={handleHeroMouseMove}
-        className="relative md:sticky top-0 h-auto md:h-screen md:max-h-screen w-full flex flex-col justify-center gap-8 sm:gap-10 lg:gap-16 overflow-hidden pt-[100px] md:pt-16 pb-12 md:pb-8 bg-[#f8f8f8]"
+        className="relative md:sticky top-0 h-auto md:h-screen md:max-h-screen w-full flex flex-col justify-center gap-8 sm:gap-10 lg:gap-16 overflow-hidden pt-[150px] md:pt-16 pb-12 md:pb-8 bg-[#f8f8f8]"
       >
         {/* Header content container */}
         <div
-          className={`w-full px-6 md:px-[150px] shrink-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`w-full px-6 md:px-[150px] shrink-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
           style={{ transitionDelay: "150ms" }}
         >
           <div>
@@ -431,9 +430,8 @@ export function Hero() {
 
         {/* Full-width Horizontal Scroll Track */}
         <div
-          className={`w-full overflow-x-auto md:overflow-hidden shrink-0 no-scrollbar snap-x snap-mandatory md:snap-none transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-          }`}
+          className={`w-full overflow-x-auto md:overflow-hidden shrink-0 no-scrollbar snap-x snap-mandatory md:snap-none transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+            }`}
           style={{ transitionDelay: "400ms" }}
         >
           <div

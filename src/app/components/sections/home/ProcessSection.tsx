@@ -114,9 +114,8 @@ export function ProcessSection() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center">
         {/* Header Block with Scroll Reveal */}
         <div
-          className={`flex flex-col items-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`flex flex-col items-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
         >
           {/* Top Badge */}
           <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
@@ -127,12 +126,12 @@ export function ProcessSection() {
 
           <div className="flex flex-col gap-2">
             {/* Headline */}
-            <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
+            <h2 className="font-sans font-regular text-[28px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
               Our Process
             </h2>
 
             {/* Subtitle */}
-            <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[640px] text-center mb-12 md:mb-16">
+            <p className="font-sans text-[#4d4d4d] text-sm md:text-lg leading-[1.5] max-w-[640px] text-center mb-12 md:mb-16">
               AI moves fast, but users still need trust, clarity, and a product that feels natural. That&apos;s where our design, product thinking, and engineering come in.
             </p>
           </div>
@@ -146,11 +145,10 @@ export function ProcessSection() {
             return (
               <div
                 key={item.step}
-                className={`relative rounded-md p-6 sm:p-6 flex flex-col justify-between min-h-[320px] md:min-h-[370px] overflow-hidden transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-                } ${isCardActive
-                  ? "bg-[#f4f4f4]"
-                  : "bg-[#f9f9f9] hover:bg-[#f4f4f4]"
+                className={`relative rounded-md p-6 sm:p-6 flex flex-col justify-between min-h-[320px] md:min-h-[370px] overflow-hidden transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+                  } ${isCardActive
+                    ? "bg-[#f4f4f4]"
+                    : "bg-[#f9f9f9] hover:bg-[#f4f4f4]"
                   }`}
                 style={{
                   transitionDelay: `${idx * 250 + 200}ms`,
@@ -190,9 +188,8 @@ export function ProcessSection() {
 
         {/* Tools Subsection with Scroll Reveal */}
         <div
-          className={`flex flex-col items-center w-full transition-all duration-[1400ms] delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
-          }`}
+          className={`flex flex-col items-center w-full transition-all duration-[1400ms] delay-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+            }`}
         >
           {/* Tools Subsection Badge */}
           <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-8">

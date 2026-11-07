@@ -141,8 +141,9 @@ export function ClientsSection() {
 
           <div className="flex flex-col gap-2 items-center">
             {/* Headline */}
-            <h2 className="font-sans font-regular text-[24px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
-              What our clients say about us
+            <h2 className="font-sans font-regular text-[28px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] leading-8 md:leading-11 text-center">
+              <span className="block md:inline">What our clients</span>{" "}
+              <span className="block md:inline">say about us</span>
             </h2>
           </div>
         </div>
@@ -172,7 +173,7 @@ export function ClientsSection() {
                 </div>
 
                 {/* Quote Text */}
-                <p className="font-sans text-[#1e1e1e] text-base md:text-md leading-[1.6] font-regular">
+                <p className="font-sans text-[#1e1e1e] text-sm md:text-md leading-[1.6] font-regular">
                   {item.quote}
                 </p>
 

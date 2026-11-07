@@ -25,11 +25,41 @@ function ServiceSlideshow({ images, isOpen }: { images: string[]; isOpen: boolea
           alt="Service Preview"
           loading="lazy"
           decoding="async"
-          className={`absolute inset-0 w-full h-full object-cover ${
-            idx === currentIdx ? "opacity-100" : "opacity-0"
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover ${idx === currentIdx ? "opacity-100" : "opacity-0"
+            }`}
         />
       ))}
+    </div>
+  );
+}
+
+function ServiceDescription({ text, isOpen }: { text: string; isOpen: boolean }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsExpanded(false);
+    }
+  }, [isOpen]);
+
+  return (
+    <div className="flex flex-col items-start">
+      <p
+        className={`font-sans text-[#1e1e1e] text-sm md:text-md leading-[1.6] ${isExpanded ? "" : "line-clamp-3"
+          }`}
+      >
+        {text}
+      </p>
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsExpanded((prev) => !prev);
+        }}
+        className="mt-1.5 font-sans text-xs md:text-sm font-medium text-[#eb5503] hover:underline cursor-pointer"
+      >
+        {isExpanded ? "Read less" : "Read more"}
+      </button>
     </div>
   );
 }
@@ -65,12 +95,11 @@ export function HowWeHelpSection() {
 
   return (
     <section ref={sectionRef} id="services" className="bg-[#ffffff] w-full py-16 md:pt-[150px] md:pb-[75px] overflow-hidden">
-      <div className="max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-center">
+      <div className="max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-start w-full">
         {/* Header Block with Scroll Reveal */}
         <div
-          className={`flex flex-col items-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
+          className={`w-full flex flex-col items-start transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
         >
           {/* Top Badge */}
           <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">
@@ -79,14 +108,14 @@ export function HowWeHelpSection() {
             </span>
           </div>
 
-          <div className="flex flex-col gap-5 mt-6 items-center">
+          <div className="flex flex-col gap-2 md:gap-5 mt-6 items-start">
             {/* Headline */}
-            <h2 className="font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] leading-11 text-center max-w-[550px]">
+            <h2 className="font-sans font-l text-[28px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] leading-8 md:leading-11 text-left max-w-[550px]">
               Services built to design, launch & scale your product
             </h2>
 
             {/* Subtitle */}
-            <p className="font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[700px] text-center mb-12 md:mb-16">
+            <p className="font-sans text-[#4d4d4d] text-sm md:text-lg leading-[1.5] max-w-[700px] text-left mb-12 md:mb-16">
               Choose a standalone service or partner with us for end-to-end execution.</p>
           </div>
         </div>
@@ -99,9 +128,8 @@ export function HowWeHelpSection() {
             return (
               <div
                 key={service.id}
-                className={`py-6 md:py-8 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
-                }`}
+                className={`py-6 md:py-8 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+                  }`}
                 style={{
                   transitionDelay: `${idx * 200 + 200}ms`,
                 }}
@@ -117,7 +145,7 @@ export function HowWeHelpSection() {
                     </span>
                     <div className="flex flex-col items-start">
                       <h3
-                        className={`font-sans font-regular text-2xl sm:text-3xl md:text-[32px] tracking-[-0.8px] transition-colors ${isOpen ? "text-[#1e1e1e]" : "text-[#77786d] group-hover:text-[#1e1e1e]"
+                        className={`font-sans font-regular text-xl sm:text-3xl md:text-[32px] tracking-[-0.8px] transition-colors ${isOpen ? "text-[#1e1e1e]" : "text-[#77786d] group-hover:text-[#1e1e1e]"
                           }`}
                       >
                         {service.title}
@@ -156,7 +184,7 @@ export function HowWeHelpSection() {
                 >
                   <div className="overflow-hidden">
                     <div
-                      className={`grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 pt-8 md:pt-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"
+                      className={`grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-12 pt-5 md:pt-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3 pointer-events-none"
                         }`}
                     >
                       {/* Left: Slideshow */}
@@ -165,15 +193,13 @@ export function HowWeHelpSection() {
                       {/* Right: Info & Features */}
                       <div className="flex flex-col justify-between flex-1 py-4">
                         <div className="flex flex-col gap-6">
-                          <p className="font-sans text-[#1e1e1e] text-md md:text-md leading-[1.6]">
-                            {service.description}
-                          </p>
+                          <ServiceDescription text={service.description} isOpen={isOpen} />
 
-                          <ul className="flex flex-col gap-1 pt-2">
+                          <ul className="flex flex-col gap-1 pt-1 md:pt-2">
                             {service.bullets.map((bullet) => (
                               <li
                                 key={bullet}
-                                className="font-sans text-md md:text-md text-[#1e1e1e] flex items-center gap-2.5"
+                                className="font-sans text-sm md:text-md text-[#1e1e1e] flex items-center gap-2.5"
                               >
                                 <span className="text-[#eb5503] font-bold text-sm select-none">
                                   ✳

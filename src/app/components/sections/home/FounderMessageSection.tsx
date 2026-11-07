@@ -33,15 +33,15 @@ export function FounderMessageSection() {
     >
       {/* Sticky Viewport Container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center px-5 md:px-12">
-        {/* Background Supporting Text (Full screen centered reveal with dissolve & zoom animation) */}
+        {/* Background Supporting Text (Full screen reveal with dissolve & zoom animation) */}
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center px-6 md:px-16 pointer-events-none gap-4 sm:gap-8 transition-transform duration-300 ease-out"
+          className="absolute inset-0 flex flex-col items-start md:items-center justify-center px-6 md:px-16 pointer-events-none gap-10 sm:gap-8 transition-transform duration-300 ease-out"
           style={{
             transform: `scale(${0.95 + scrollProgress * 0.05})`,
           }}
         >
           <p
-            className="font-sans text-[#1e1e1e] text-md sm:text-xl md:text-4xl font-medium leading-[1.2] max-w-[500px] text-center tracking-[-1px] transition-opacity duration-500 ease-out"
+            className="font-sans text-[#1e1e1e] text-3xl sm:text-xl md:text-4xl font-regular md:font-medium leading-[1.15] md:leading-[1.2] max-w-[500px] text-left md:text-center tracking-[-0.8px] md:tracking-[-1px] transition-opacity duration-500 ease-out"
             style={{
               opacity: p1Progress,
             }}
@@ -49,7 +49,7 @@ export function FounderMessageSection() {
             When you partner with TRD, you collaborate directly with us from day one.
           </p>
           <p
-            className="font-sans text-[#1e1e1e] text-md sm:text-md md:text-4xl font-medium leading-[1.2] max-w-[500px] text-center tracking-[-1px] transition-opacity duration-500 ease-out"
+            className="font-sans text-[#1e1e1e] text-3xl sm:text-md md:text-4xl font-regular md:font-medium leading-[1.15] md:leading-[1.2] max-w-[500px] text-left md:text-center tracking-[-0.8px] md:tracking-[-1px] transition-opacity duration-500 ease-out"
             style={{
               opacity: p2Progress,
             }}
@@ -61,7 +61,7 @@ export function FounderMessageSection() {
 
         {/* Foreground Main Founder Card (Moves UP on scroll to reveal text) */}
         <div
-          className="relative z-10 bg-white p-4 sm:p-8 max-w-[504px] w-full min-h-[580px] flex flex-col justify-between transition-transform duration-75 ease-out"
+          className="relative z-10 bg-white p-4 sm:p-8 max-w-[504px] w-full min-h-[400px] md:min-h-[580px] flex flex-col justify-between transition-transform duration-75 ease-out"
           style={{
             transform: `translateY(-${scrollProgress * 125}vh) rotate(-2deg)`,
           }}
@@ -84,7 +84,7 @@ export function FounderMessageSection() {
           </div>
 
           {/* Core Founder Quote / Headline */}
-          <h3 className="font-sans font-medium text-[#1e1e1e] text-4xl sm:text-[50px] md:text-[36px] leading-[1.2] tracking-[-0.8px] mb-8 md:mb-10">
+          <h3 className="font-sans md:font-medium text-[#1e1e1e] text-3xl md:text-4xl sm:text-[50px] md:text-[36px] leading-[1.2] tracking-[-0.8px] mb-8 md:mb-10">
             &ldquo;No account managers. No agency bloat. Just direct, honest
             design execution from people who care.&rdquo;
           </h3>
