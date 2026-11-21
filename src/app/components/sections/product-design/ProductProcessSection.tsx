@@ -79,7 +79,7 @@ export function ProductProcessSection() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-4">
+        <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-4">
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
             OUR PRODUCT PROCESS
           </span>

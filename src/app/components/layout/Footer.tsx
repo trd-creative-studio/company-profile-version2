@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { navigateToInquiry, navigateToService } from "../../utils/navigation";
 
 interface FooterProps {
@@ -7,15 +7,37 @@ interface FooterProps {
   description?: string;
   secondaryCta?: string;
   inquiryService?: string;
+  /** Footer stays still and is uncovered on scroll (page content must sit above it). */
+  reveal?: boolean;
 }
 
 export function Footer({
   title = "Have an exciting project? Let's make it happen.",
   inquiryService,
+  reveal = false,
 }: FooterProps) {
   const [indoTime, setIndoTime] = useState("5:19 AM");
   const [londonTime, setLondonTime] = useState("5:19 AM");
   const [londonZone, setLondonZone] = useState("GMT");
+
+  // Reveal effect: the footer sits still behind the page and gets uncovered on scroll.
+  // Only enabled when the whole footer fits in the viewport, so nothing gets cut off.
+  const footerRef = useRef<HTMLElement>(null);
+  const [canReveal, setCanReveal] = useState(false);
+
+  useEffect(() => {
+    const el = footerRef.current;
+    if (!el) return;
+    const check = () => setCanReveal(reveal && el.offsetHeight <= window.innerHeight);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    window.addEventListener("resize", check);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", check);
+    };
+  }, [reveal]);
 
   useEffect(() => {
     const updateTimes = () => {
@@ -53,7 +75,11 @@ export function Footer({
   }, []);
 
   return (
-    <footer id="contact" className="bg-[#1e1e1e] text-white w-full px-6 md:px-[150px] pt-16 md:pt-24 pb-12 md:pb-16 overflow-hidden">
+    <footer
+      ref={footerRef}
+      id="contact"
+      className={`bg-[#1e1e1e] text-white w-full px-6 md:px-[150px] pb-12 md:pb-16 overflow-hidden z-0 ${reveal ? "-mt-12 pt-28 md:pt-36" : "pt-16 md:pt-24"} ${canReveal ? "sticky bottom-0" : "relative"}`}
+    >
       <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-12 w-full">
         {/* Left Column */}
         <div className="flex flex-col justify-between flex-1 min-w-0">

@@ -5,43 +5,39 @@ import { OrangeBtn } from "../components/common/OrangeBtn";
 
 const PRODUCT_PACKAGES = [
   {
-    id: "mvp",
-    name: "MVP Product Design",
+    id: "website-design",
+    name: "Website Design",
     defaultBudget: "< Rp5.000.000",
     scopes: [
-      "New SaaS Products",
-      "MVP Web Applications",
-      "B2C / B2B Mobile Apps",
-      "New Product Features",
-      "Vibe-coding Cleanup",
       "Landing Page Design",
+      "Company Profile Design",
+      "Website Redesign",
+      "Mobile Layouts",
     ],
   },
   {
-    id: "redesign",
-    name: "Product Redesign",
-    defaultBudget: "Rp12.000.000 – Rp25.000.000",
+    id: "product-design",
+    name: "Product Design",
+    defaultBudget: "Rp5.000.000 – Rp12.000.000",
     scopes: [
-      "SaaS Dashboard",
-      "B2B Platforms",
-      "Complex Web Apps",
-      "Existing Workflow Improvements",
-      "UI Consistency Cleanup",
-      "Design System Cleanup",
+      "New App or MVP",
+      "Web App / SaaS Dashboard",
+      "Mobile App",
+      "New Product Features",
+      "Redesign an Existing Product",
+      "Fix an AI-Generated Prototype",
+      "Clickable Prototype for Pitching",
     ],
   },
   {
     id: "partner",
     name: "Design Partner",
-    defaultBudget: "Not sure yet",
+    defaultBudget: "Rp5.000.000 – Rp12.000.000",
     scopes: [
-      "Fast-moving Product Teams",
-      "Continuous Feature Design",
-      "SaaS Startups and Scaleups",
-      "Roadmap Support",
-      "UX/UI Product Cleanup",
-      "Design System Growth",
+      "Ongoing Feature Design",
+      "Design System Upkeep",
       "Design QA",
+      "Roadmap Support",
     ],
   },
 ];
@@ -298,7 +294,7 @@ export function InquiryFormPage() {
       )}
 
       {/* Main Light Section Container with Rounded Bottom */}
-      <div className="bg-[#f8f8f8] rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full flex flex-col min-h-[calc(100vh-400px)]">
+      <div className="relative z-10 bg-[#f8f8f8] rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full flex flex-col min-h-[calc(100vh-400px)]">
         <Navbar />
 
         <main className="w-full pb-20 pt-28 z-10 relative flex-1">
@@ -652,7 +648,7 @@ export function InquiryFormPage() {
         </main>
       </div>
 
-      <Footer />
+      <Footer reveal />
     </div>
   );
 }

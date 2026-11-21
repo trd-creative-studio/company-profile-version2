@@ -103,7 +103,7 @@ export function FAQSection() {
   };
 
   return (
-    <div ref={sectionRef} className="bg-[#1e1e1e] w-full overflow-hidden">
+    <div ref={sectionRef} className="relative z-10 w-full overflow-hidden">
       <section className="bg-white rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-20 lg:py-24 flex flex-col gap-3 items-center">
         {/* Top Badge */}
         <div

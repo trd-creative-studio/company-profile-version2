@@ -84,68 +84,67 @@ export interface EngagementItem {
   features: string[];
   priceLabel: string;
   price: string;
+  priceSuffix?: string;
   ctaLabel: string;
-  footnote: string;
+  footnote?: string;
+  footnoteLink?: { label: string; service: string };
 }
 
 export const ENGAGEMENTS: EngagementItem[] = [
   {
-    id: "mvp",
-    tag: "STARTING",
-    duration: "5-20 days",
-    title: "MVP Product Design",
-    description: "We create mid-fidelity screens to solve layout, hierarchy, states, and interaction logic before pushing the final visual layer.",
+    id: "website-design",
+    tag: "DESIGN ONLY",
+    duration: "~1 week",
+    title: "Website Design",
+    description: "Landing page or company profile, designed and ready to build.",
     features: [
-      "New SaaS Products",
-      "MVP Web Applications",
-      "B2C / B2B Mobile Apps",
-      "New Product Features",
-      "AI Slop & Vibe-Code Revamp",
-      "Landing Page Design",
+      "Landing page or company profile design",
+      "Desktop and mobile layouts",
+      "Page structure and section planning",
+      "2 rounds of revisions",
+      "Figma files ready for your developer",
+      "Need it built? We can develop it too",
+    ],
+    priceLabel: "Starting from",
+    price: "Rp2.000.000",
+    ctaLabel: "START A WEBSITE DESIGN",
+  },
+  {
+    id: "product-design",
+    tag: "MOST REQUESTED",
+    duration: "1–4 weeks",
+    title: "Product Design",
+    description: "For new apps, or ones that need a cleanup.",
+    features: [
+      "User flows and screen structure",
+      "Wireframes to lock the layout first",
+      "Final UI for mobile or web",
+      "Clickable prototype to test or pitch",
+      "Basic design system (colors, type, components)",
+      "Developer handoff in Figma",
     ],
     priceLabel: "Starting from",
     price: "Rp5.000.000",
-    ctaLabel: "START YOUR MVP",
-    footnote: "Final scope depends on content and development needs.",
-  },
-  {
-    id: "redesign",
-    tag: "MAINTAINING",
-    duration: "2-4 Weeks",
-    title: "Product Redesign",
-    description: "For teams with an existing product that feels outdated, inconsistent, or harder to use than it should be.",
-    features: [
-      "SaaS Dashboard",
-      "B2B Platforms",
-      "Complex Web Apps",
-      "Existing Workflow Improvements",
-      "UI Consistency Cleanup",
-      "Design System Cleanup",
-    ],
-    priceLabel: "Starting from",
-    price: "Rp12.000.000",
-    ctaLabel: "DISCUSS A REDESIGN",
-    footnote: "Final scope depends on content and development needs.",
+    ctaLabel: "START A PRODUCT PROJECT",
   },
   {
     id: "partner",
-    tag: "PARTNERING",
-    duration: "Minimum 1 month",
+    tag: "MONTHLY",
+    duration: "Min. 1 month",
     title: "Design Partner",
-    description: "For teams that need ongoing product support across new features, design systems, and product growth.",
+    description: "Your design team, without hiring one.",
     features: [
-      "Fast-moving Product Teams",
-      "Continuous Feature Design",
-      "SaaS Startups and Scaleups",
-      "Roadmap Support",
-      "UX/UI Product Cleanup",
-      "Design System Growth",
-      "Design QA",
+      "A founder-level designer on your team",
+      "New screens and features every month",
+      "Design system kept up to date",
+      "Weekly check-in with your team",
+      "Design QA before each release",
+      "Stop or continue month to month",
     ],
     priceLabel: "Starting from",
-    price: "Custom",
-    ctaLabel: "EXPLORE A DESIGN PARTNERSHIP",
-    footnote: "Final scope depends on content and development needs.",
+    price: "Rp7.000.000",
+    priceSuffix: "/month",
+    ctaLabel: "BOOK A CALL",
   },
 ];
 

@@ -20,16 +20,16 @@ export function ProductShowcaseSection() {
     <section id="showcase" className="bg-white w-full pt-4 md:pt-[75px] flex flex-col items-center gap-10 md:gap-14 overflow-hidden">
       {/* Section Header */}
       <div className="max-w-[1100px] mx-auto px-6 md:px-8 flex flex-col items-center">
-        <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
+        <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-6">
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
-            SELECTED WORK
+            OUR WORK
           </span>
         </div>
 
         <div className="flex flex-col gap-4 items-center max-w-[600px]">
           {/* Headline */}
           <h2 className="max-w-[500px] font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] leading-[1.2] text-[#1e1e1e] tracking-[-1px] text-center">
-            Selected Work
+            Products we&apos;ve designed.
           </h2>
         </div>
       </div>

@@ -39,7 +39,7 @@ export function ProductDeliverablesSection() {
           }`}
         >
           <div>
-            <div className="bg-white/20 text-white px-3 py-1 font-mono text-xs tracking-wider uppercase inline-block">
+            <div className="bg-white/20 text-white px-3 py-1 rounded-full font-mono text-xs tracking-wider uppercase inline-block">
               OUR DELIVERABLES
             </div>
             <h2 className="font-sans font-regular text-white text-[24px] sm:text-[24px] md:text-[38px] tracking-[-1px] leading-[1.2] mt-6">

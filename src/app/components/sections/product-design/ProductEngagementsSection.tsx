@@ -24,7 +24,7 @@ function EngagementCard({
       <div className="flex flex-col gap-10">
         {/* Badges Row */}
         <div className="flex items-center justify-between w-full">
-          <span className="bg-white px-3 py-1 font-mono text-[10px] md:text-[11px] text-[#77786d] uppercase tracking-wider">
+          <span className="bg-white px-3 py-1 rounded-full font-mono text-[10px] md:text-[11px] text-[#77786d] uppercase tracking-wider">
             {data.tag}
           </span>
           <span className="font-mono text-xs uppercase text-[#77786d]">
@@ -69,26 +69,25 @@ function EngagementCard({
         </div>
       </div>
 
-      {/* Bottom Part: Price, Button & Footnote */}
+      {/* Bottom Part: Price & Button */}
       <div className="flex flex-col gap-3 pt-2">
-        <div className="flex items-baseline justify-between w-full px-1">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-2 w-full px-1">
           <span className="font-sans text-sm text-[#77786d]">{data.priceLabel}</span>
-          <span className="font-sans font-medium text-xl sm:text-2xl text-[#1e1e1e] tracking-[-0.8px]">
+          <span className="font-sans font-medium text-xl sm:text-2xl text-[#1e1e1e] tracking-[-0.8px] whitespace-nowrap">
             {data.price}
+            {data.priceSuffix && (
+              <span className="text-sm text-[#77786d] tracking-normal font-normal ml-0.5">{data.priceSuffix}</span>
+            )}
           </span>
         </div>
 
         <button
           onClick={() => navigateToInquiry("product-design", data.id)}
-          className="bg-[#eb5503] hover:bg-[#d44c02] text-white px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider justify-center flex items-center gap-4 transition-all duration-200 cursor-pointer w-full mt-2"
+          className="bg-[#eb5503] hover:bg-[#d44c02] text-white px-4 py-2 rounded-full font-mono text-xs md:text-sm lg:text-xs xl:text-sm font-regular tracking-wider whitespace-nowrap justify-center flex items-center gap-4 transition-all duration-200 cursor-pointer w-full mt-2"
         >
           <span>{data.ctaLabel}</span>
           <span className="text-[10px]">▶</span>
         </button>
-
-        <p className="font-sans font-normal text-sm text-[#77786d] text-center mt-1">
-          {data.footnote}
-        </p>
       </div>
     </div>
   );
@@ -130,7 +129,7 @@ export function ProductEngagementsSection() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
+        <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-6">
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
             TYPICAL ENGAGEMENTS
           </span>
@@ -155,6 +154,10 @@ export function ProductEngagementsSection() {
           />
         ))}
       </div>
+
+      <p className="font-sans text-sm text-[#77786d] text-center">
+        Prices depend on scope. We&apos;ll confirm everything before we start.
+      </p>
     </section>
   );
 }

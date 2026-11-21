@@ -14,6 +14,8 @@ export function HomePage() {
   return (
     <>
       <Navbar />
+      {/* Page content sits above the footer so the footer is revealed on scroll */}
+      <div className="relative z-10 bg-[#f8f8f8]">
       <Hero />
       <StudioStatementSection />
       <LogoStripSection />
@@ -21,8 +23,9 @@ export function HomePage() {
       <ProcessSection />
       {/* <ClientsSection /> */}
       <FounderMessageSection />
+      </div>
       <FAQSection />
-      <Footer />
+      <Footer reveal />
     </>
   );
 }

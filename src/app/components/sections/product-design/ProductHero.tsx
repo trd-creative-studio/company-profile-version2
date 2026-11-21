@@ -109,26 +109,26 @@ export function ProductHero() {
   return (
     <section
       onMouseMove={handleHeroMouseMove}
-      className="bg-[#f9f9f9] w-full min-h-screen flex flex-col justify-center pt-[80px] pb-6 md:pb-10 px-5 md:px-12 lg:px-16 overflow-hidden relative"
+      className="bg-[#f9f9f9] w-full min-h-screen flex flex-col justify-center pt-[80px] pb-6 md:pb-10 px-6 md:px-[150px] overflow-hidden relative"
     >
       {/* Mouse Cursor Trail Images */}
       {trail.map((item, index) => (
         <TrailCard key={item.id} item={item} index={index} total={trail.length} />
       ))}
 
-      <div className="max-w-[1300px] mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 my-auto">
+      <div className="w-full flex flex-col xl:flex-row items-start xl:items-center justify-between gap-8 xl:gap-12 my-auto">
         {/* Left Column: Headline, Subtitle & CTAs with Entrance Reveal */}
         <div
-          className={`flex flex-col items-start gap-6 lg:max-w-[500px] shrink-0 text-left transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`flex flex-col items-start gap-6 xl:max-w-[500px] shrink-0 text-left transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
           style={{ transitionDelay: "200ms" }}
         >
           {/* Availability Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white mb-4 md:mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full -mb-2 md:mb-2">
             <span className="size-2 rounded-full bg-[#eb5503] animate-pulse" />
             <span className="font-mono text-xs text-[#1e1e1e] font-regular uppercase">
-              AVAILABLE FOR PROJECTS
+              AVAILABLE FOR Q1 2027
             </span>
           </div>
 
@@ -164,7 +164,7 @@ export function ProductHero() {
 
         {/* Right Column: Hero Interactive Card Showcase with Staggered Entrance Reveal */}
         <div
-          className={`w-full lg:flex-1 max-w-[750px] min-w-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`w-full xl:flex-1 xl:max-w-[750px] min-w-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
           }`}
           style={{ transitionDelay: "500ms" }}
