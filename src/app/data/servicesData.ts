@@ -47,8 +47,8 @@ export const SERVICES_DATA: ServiceData[] = [
     bullets: [
       "Mobile & Web App Design",
       "SaaS & Dashboard Interfaces",
-      "MVP Product Design",
-      "UX Audit & Redesign",
+      "New Apps & MVPs",
+      "Product Redesign",
       "AI Prototype Cleanup",
       "Design Systems",
     ],
