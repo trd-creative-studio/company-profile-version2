@@ -23,25 +23,25 @@ const PROCESS_STEPS = [
     step: "01",
     title: "Understand",
     description:
-      "We align on business goals, users, requirements, constraints, existing systems, and what needs to improve.",
+      "We learn your goals, your users, and what needs to change.",
   },
   {
     step: "02",
     title: "Shape",
     description:
-      "We define priorities, journeys, information structure, roles, and the experience direction.",
+      "We plan the structure, flows, and priorities.",
   },
   {
     step: "03",
     title: "Design",
     description:
-      "We develop the interface, interactions, states, and detailed product experience.",
+      "We design every screen, page, and piece of content.",
   },
   {
     step: "04",
     title: "Deliver",
     description:
-      "We prepare the work for implementation and support the development team when required.",
+      "We hand off ready-to-build files, or build and launch it ourselves.",
   },
 ];
 
@@ -118,7 +118,7 @@ export function ProcessSection() {
             }`}
         >
           {/* Top Badge */}
-          <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
+          <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-6">
             <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
               HOW WE THINK
             </span>
@@ -132,7 +132,7 @@ export function ProcessSection() {
 
             {/* Subtitle */}
             <p className="font-sans text-[#4d4d4d] text-sm md:text-lg leading-[1.5] max-w-[640px] text-center mb-12 md:mb-16">
-              AI moves fast, but users still need trust, clarity, and a product that feels natural. That&apos;s where our design, product thinking, and engineering come in.
+              AI moves fast, but people still need products they can trust and understand. That&apos;s our job.
             </p>
           </div>
         </div>
@@ -192,9 +192,9 @@ export function ProcessSection() {
             }`}
         >
           {/* Tools Subsection Badge */}
-          <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-8">
+          <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-8">
             <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
-              THE TOOLS BEHIND OUR PROCESS
+              THE TOOLS WE USE
             </span>
           </div>
 

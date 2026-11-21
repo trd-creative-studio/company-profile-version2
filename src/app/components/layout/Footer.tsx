@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { navigateToInquiry } from "../../utils/navigation";
+import { navigateToInquiry, navigateToService } from "../../utils/navigation";
 
 interface FooterProps {
   tag?: string;
@@ -15,6 +15,7 @@ export function Footer({
 }: FooterProps) {
   const [indoTime, setIndoTime] = useState("5:19 AM");
   const [londonTime, setLondonTime] = useState("5:19 AM");
+  const [londonZone, setLondonZone] = useState("GMT");
 
   useEffect(() => {
     const updateTimes = () => {
@@ -34,6 +35,14 @@ export function Footer({
         });
         setIndoTime(indoStr);
         setLondonTime(londonStr);
+        // London switches between GMT (winter) and BST (summer)
+        const zonePart = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Europe/London",
+          timeZoneName: "short",
+        })
+          .formatToParts(now)
+          .find((p) => p.type === "timeZoneName");
+        if (zonePart) setLondonZone(zonePart.value);
       } catch (e) {
         // Fallback if timezone not supported
       }
@@ -75,7 +84,7 @@ export function Footer({
               }}
               className="bg-[#eb5503] hover:bg-[#d44c02] text-white px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider flex items-center gap-4 transition-all duration-200 cursor-pointer"
             >
-              <span>SUBMIT INQUIRY</span>
+              <span>START A PROJECT</span>
               <span className="text-xs">▶</span>
             </button>
           </div>
@@ -98,7 +107,7 @@ export function Footer({
             <div>
               <span>LONDON | </span>
               <span className="text-white">{londonTime}</span>
-              <span> GMT+2</span>
+              <span> {londonZone}</span>
             </div>
           </div>
 
@@ -110,18 +119,25 @@ export function Footer({
             </span>
             <div className="flex flex-col gap-2.5">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <span className="font-sans text-sm md:text-base text-white">
-                  Product & UI/UX Design
-                </span>
+                <a
+                  href="/services/product-design"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigateToService("product-design");
+                  }}
+                  className="font-sans text-sm md:text-base text-white hover:text-[#eb5503] transition-colors cursor-pointer"
+                >
+                  Product Design
+                </a>
                 <span className="bg-[#eb5503] text-white text-[10px] font-mono px-2 py-0.5 rounded-full uppercase font-medium">
                   POPULAR
                 </span>
               </div>
-              <span className="font-sans text-sm md:text-base text-[#707070]">
-                Website Design & Development
+              <span className="font-sans text-sm md:text-base text-[#707070] cursor-default select-none">
+                Website Development
               </span>
-              <span className="font-sans text-sm md:text-base text-[#707070]">
-                AI Video Production
+              <span className="font-sans text-sm md:text-base text-[#707070] cursor-default select-none">
+                Social Media & Content
               </span>
             </div>
 
@@ -157,7 +173,7 @@ export function Footer({
             </span>
             <div className="flex flex-col gap-2.5">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/trd-creative-studio"
                 target="_blank"
                 rel="noreferrer"
                 className="font-sans text-sm md:text-base text-white hover:text-[#eb5503] transition-colors self-start"
@@ -165,7 +181,7 @@ export function Footer({
                 LinkedIn
               </a>
               <a
-                href="https://behance.net"
+                href="https://www.behance.net/trdcreativestudio"
                 target="_blank"
                 rel="noreferrer"
                 className="font-sans text-sm md:text-base text-white hover:text-[#eb5503] transition-colors self-start"
@@ -173,7 +189,7 @@ export function Footer({
                 Behance
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/trdcreative.studio/"
                 target="_blank"
                 rel="noreferrer"
                 className="font-sans text-sm md:text-base text-white hover:text-[#eb5503] transition-colors self-start"
@@ -185,7 +201,7 @@ export function Footer({
 
           {/* Copyright at Bottom Right */}
           <span className="font-sans text-sm text-[#707070] mt-16 lg:mt-24 self-start lg:self-end">
-            ©2025 Copyright TRD Creative Studio. All rights reserved.
+            © {new Date().getFullYear()} TRD Creative Studio
           </span>
         </div>
       </div>

@@ -3,9 +3,10 @@
  */
 
 export const STUDIO_INFO = {
-  email: "trdcreativestudio@gmail.com",
-  linkedin: "https://linkedin.com",
-  instagram: "https://instagram.com",
+  email: "hi@trdcreativestudio.com",
+  linkedin: "https://www.linkedin.com/company/trd-creative-studio",
+  behance: "https://www.behance.net/trdcreativestudio",
+  instagram: "https://www.instagram.com/trdcreative.studio/",
   availabilityBadge: "2 projects available for Q2",
   copyright: "ⓒTRD CREATIVE STUDIO 2024-2026. ALL RIGHTS RESERVED.",
 };

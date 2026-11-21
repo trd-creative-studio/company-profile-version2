@@ -117,7 +117,7 @@ export default function App() {
       description = "Get in touch with TRD Creative Studio to kickstart your next digital product, UI/UX design, or web project.";
       canonical = "https://trdcreativestudio.com/inquiry";
     } else if (page === "product-design") {
-      title = "Product & Experience Design | TRD Creative Studio";
+      title = "Product Design | TRD Creative Studio";
       description = "UI/UX Design, Product Strategy, Mobile App & SaaS Dashboard Design Systems by TRD Creative Studio.";
       canonical = "https://trdcreativestudio.com/services/product-design";
     }

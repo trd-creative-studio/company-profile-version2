@@ -22,14 +22,14 @@ export function ProductShowcaseSection() {
       <div className="max-w-[1100px] mx-auto px-6 md:px-8 flex flex-col items-center">
         <div className="inline-flex items-center px-2 py-1 bg-[#f9f9f9] mb-6">
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
-            WANT MORE EXAMPLES?
+            SELECTED WORK
           </span>
         </div>
 
         <div className="flex flex-col gap-4 items-center max-w-[600px]">
           {/* Headline */}
           <h2 className="max-w-[500px] font-sans font-regular text-[24px] sm:text-[24px] md:text-[38px] leading-[1.2] text-[#1e1e1e] tracking-[-1px] text-center">
-            Product Showcase
+            Selected Work
           </h2>
         </div>
       </div>

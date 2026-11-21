@@ -98,25 +98,25 @@ export function HowWeHelpSection() {
       <div className="max-w-[1100px] mx-auto px-6 md:px-12 flex flex-col items-start w-full">
         {/* Header Block with Scroll Reveal */}
         <div
-          className={`w-full flex flex-col items-start transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          className={`w-full flex flex-col items-center text-center transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
         >
           {/* Top Badge */}
-          <div className="inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4">
+          <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-4">
             <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
               OUR SERVICES
             </span>
           </div>
 
-          <div className="flex flex-col gap-2 md:gap-5 mt-6 items-start">
+          <div className="flex flex-col gap-2 md:gap-5 mt-6 items-center">
             {/* Headline */}
-            <h2 className="font-sans font-l text-[28px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] leading-8 md:leading-11 text-left max-w-[550px]">
+            <h2 className="font-sans font-l text-[28px] sm:text-[28px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] leading-8 md:leading-11 text-center max-w-[550px]">
               Services built to design, launch & scale your product
             </h2>
 
             {/* Subtitle */}
-            <p className="font-sans text-[#4d4d4d] text-sm md:text-lg leading-[1.5] max-w-[700px] text-left mb-12 md:mb-16">
-              Choose a standalone service or partner with us for end-to-end execution.</p>
+            <p className="font-sans text-[#4d4d4d] text-sm md:text-lg leading-[1.5] max-w-[700px] text-center mb-12 md:mb-16">
+              Start with one project, or bring us in as your long-term design team.</p>
           </div>
         </div>
 

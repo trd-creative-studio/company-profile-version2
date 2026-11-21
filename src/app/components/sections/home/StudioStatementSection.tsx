@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 
 export function StudioStatementSection() {
   const p1 =
-    "TRD Creative Studio is a lean, founder-led design partner for ambitious teams.";
+    "A small, founder-led studio.";
   const p2 =
-    "We cut out agency middleman bloat to deliver sharp UI/UX, high-converting websites, and AI media with direct, honest execution.";
+    "You work directly with the people doing the work. No account managers, no handoffs.";
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);

@@ -133,7 +133,7 @@ export function ClientsSection() {
         {/* Header Block matching How We Help style */}
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex flex-col items-center text-center mb-8 md:mb-12 shrink-0">
           {/* Badge */}
-          <div className="inline-flex items-center px-2.5 py-1 bg-[#ffffff] border border-black/[0.04] mb-3 md:mb-4">
+          <div className="inline-flex items-center px-3 py-1 bg-[#ffffff] rounded-full mb-3 md:mb-4">
             <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
               TESTIMONIALS
             </span>

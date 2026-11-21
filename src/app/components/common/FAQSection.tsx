@@ -8,14 +8,14 @@ type FAQItem = {
 };
 
 const FAQ_ITEMS: FAQItem[] = [
-  { q: "Who is the best fit to work with TRD?", a: "We work best with **startups**, **growing businesses**, and **product teams** that need clear design thinking, practical execution, and direct collaboration.", open: true },
-  { q: "What can TRD help with?", a: "Our core services are **Product & Experience Design**, **Website Design & Development**, and **AI Video Production**. Each service can be scoped as a focused project or a larger engagement depending on what you need.", open: false },
-  { q: "Can you work with our existing team?", a: "Yes. We can work independently or collaborate directly with your **founders**, **product managers**, **marketers**, **designers**, and **developers**.", open: false },
-  { q: "How much does a project usually cost?", a: "Pricing depends on the service, scope, and complexity. Product design engagements currently start from **Rp5 million**, website projects from **Rp12 million**, and AI video production from **Rp5 million**. Larger or more complex projects are quoted separately.", open: false },
-  { q: "How long does a typical project take?", a: "Focused engagements can take around **1–2 weeks**. Product and website projects typically run from **4 weeks onward**, depending on scope, feedback cycles, and complexity.", open: false },
-  { q: "What does working together look like?", a: "**We start by aligning on the problem, goals, requirements, and priorities.** From there, we structure the work, design the solution, review it together, and prepare everything needed for implementation or launch. You’ll always know what we’re working on, what needs your review, and what comes next.", open: false },
-  { q: "What if we need revisions?", a: "Revisions are included within the agreed scope.** We’ll refine the work together until the direction is aligned with the project goals. **Major scope changes are handled separately.", open: false },
-  { q: "Can you sign an NDA?", a: "**Yes. We’re happy to sign an NDA** before reviewing confidential product, business, or technical information.", open: false },
+  { q: "Who do you work with?", a: "**Startups**, **growing businesses**, and **product teams** that want good design and direct communication.", open: true },
+  { q: "What do you do?", a: "Three things: **product design** (UI/UX), **website development**, and **social media content**. Hire us for one project or keep us on monthly.", open: false },
+  { q: "Can you work with our existing team?", a: "Yes. We work directly with your **founders**, **PMs**, **marketers**, and **developers**.", open: false },
+  { q: "How much does it cost?", a: "Product design starts from **Rp5 million**. Websites start from **Rp2 million** for a landing page, **Rp5 million** for a company profile, and **Rp15 million** for e-commerce or custom builds. Social media content starts from **Rp2 million per month**.", open: false },
+  { q: "How long does a project take?", a: "Small projects take **1–2 weeks**. Full product or website projects take **4 weeks or more**.", open: false },
+  { q: "What does working together look like?", a: "**We agree on goals, do the work, review it with you, and deliver.** You’ll always know what’s next.", open: false },
+  { q: "What about revisions?", a: "**Revisions within scope are included.** Bigger changes are quoted separately.", open: false },
+  { q: "Can you sign an NDA?", a: "**Yes**, before you share anything.", open: false },
 ];
 
 function renderHighlightedText(text: React.ReactNode) {
@@ -107,7 +107,7 @@ export function FAQSection() {
       <section className="bg-white rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] w-full px-5 md:px-16 min-[1080px]:px-[250px] py-16 md:py-20 lg:py-24 flex flex-col gap-3 items-center">
         {/* Top Badge */}
         <div
-          className={`inline-flex items-center px-2.5 py-1 bg-[#f9f9f9] border border-black/[0.04] mb-4 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          className={`inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full mb-4 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
         >
           <span className="font-mono text-xs text-[#77786d] font-regular tracking-wider uppercase">
@@ -143,7 +143,7 @@ export function FAQSection() {
             className={`font-sans text-[#4d4d4d] text-base md:text-lg leading-[1.5] max-w-[400px] text-center mb-12 md:mb-16 transition-all duration-1000 delay-500 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
           >
-            Looking for something else? Reach out to us by{" "}
+            Something else? Message us on{" "}
             <a
               href="https://wa.me/+6285128034600"
               target="_blank"
@@ -154,11 +154,11 @@ export function FAQSection() {
             </a>{" "}
             or{" "}
             <a
-              href="mailto:trdcreativestudio@gmail.com"
+              href="mailto:hi@trdcreativestudio.com"
               className="text-[#eb5503] font-medium underline underline-offset-4 hover:opacity-80 transition-opacity"
             >
-              email us
-            </a>
+              email
+            </a>.
           </p>
         </div>
       </section>

@@ -93,7 +93,7 @@ function ServicesDropdown({
         {/* Left Column: Our Services */}
         <div className="flex flex-col flex-1 min-w-0">
           <div className="mb-6">
-            <span className="font-mono text-xs text-[#77786d] bg-[#f9f9f9] px-4 py-1 font-regular tracking-wider uppercase">
+            <span className="font-mono text-xs text-[#77786d] px-2.5 py-1 font-regular tracking-wider uppercase">
               OUR SERVICES
             </span>
           </div>
@@ -104,8 +104,8 @@ function ServicesDropdown({
                 navigateToService("product-design");
                 onClose();
               }}
-              title="Product & Experience Design"
-              desc="Cleaner products, faster decisions"
+              title="Product Design"
+              desc="Clearer products, faster builds"
               icon={
                 <svg width="18" height="18" viewBox="0 0 17.9167 17.9168" fill="none">
                   <path d={navSvgPaths.p16828200} stroke="#1E1E1E" strokeWidth="1.25" />
@@ -120,18 +120,20 @@ function ServicesDropdown({
             <div className="h-[1px] bg-black/[0.03] w-full my-2" />
 
             <ServiceCard
-              title="Website Design"
-              desc="Websites built to convert."
-              badgeText="COMING SOON"
-              disabled={true}
+              onClick={() => {
+                navigateToInquiry("website");
+                onClose();
+              }}
+              title="Website Development"
+              desc="Websites that convert"
               icon={
                 <svg width="18" height="18" viewBox="0 0 17.9167 17.9167" fill="none">
-                  <path d={navSvgPaths.pb805f80} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p33afdb00} stroke="#777777" strokeWidth="1.25" />
-                  <path d="M14.7917 15.625H13.125" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M8.125 17.2917H5.625" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M8.125 17.2917V13.125" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M8.125 9.79167H0.625001" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d={navSvgPaths.pb805f80} stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d={navSvgPaths.p33afdb00} stroke="#1E1E1E" strokeWidth="1.25" />
+                  <path d="M14.7917 15.625H13.125" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d="M8.125 17.2917H5.625" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d="M8.125 17.2917V13.125" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d="M8.125 9.79167H0.625001" stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
                 </svg>
               }
             />
@@ -139,35 +141,17 @@ function ServicesDropdown({
             <div className="h-[1px] bg-black/[0.03] w-full my-2" />
 
             <ServiceCard
-              title="AI Video Production"
-              desc="Creative Production, AI Video"
-              badgeText="COMING SOON"
-              disabled={true}
-              icon={
-                <svg width="18" height="18" viewBox="0 0 17.9167 17.9167" fill="none">
-                  <path d={navSvgPaths.p2b4cea80} stroke="#777777" strokeWidth="1.25" />
-                  <path d="M16.875 13.125H1.04167" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d="M16.875 4.79167H1.04167" stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p8a28a00} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p3fc5aa00} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p1cee8000} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p33d75400} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                </svg>
-              }
-            />
-
-            <div className="h-[1px] bg-black/[0.03] w-full my-2" />
-
-            <ServiceCard
-              title="Social Media Design"
-              desc="Digital Marketing Content"
-              badgeText="COMING SOON"
-              disabled={true}
+              onClick={() => {
+                navigateToInquiry();
+                onClose();
+              }}
+              title="Social Media & Content"
+              desc="Posts and Reels that get noticed"
               icon={
                 <svg width="18" height="18" viewBox="0 0 17.9167 12.9167" fill="none">
-                  <path d={navSvgPaths.p1522ea00} stroke="#777777" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p247137c0} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
-                  <path d={navSvgPaths.p34d756a0} stroke="#777777" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d={navSvgPaths.p1522ea00} stroke="#1E1E1E" strokeWidth="1.25" />
+                  <path d={navSvgPaths.p247137c0} stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
+                  <path d={navSvgPaths.p34d756a0} stroke="#1E1E1E" strokeLinecap="round" strokeWidth="1.25" />
                 </svg>
               }
             />
@@ -178,7 +162,7 @@ function ServicesDropdown({
         <div className="flex flex-col justify-between h-full flex-1 min-w-0">
           <div className="flex flex-col w-full">
             <div className="mb-6">
-              <span className="font-mono text-xs text-[#77786d] bg-[#f9f9f9] px-4 py-1 font-regular tracking-wider uppercase">
+              <span className="font-mono text-xs text-[#77786d] px-4 py-1 font-regular tracking-wider uppercase">
                 MOST REQUESTED
               </span>
             </div>
@@ -186,14 +170,18 @@ function ServicesDropdown({
             <div className="flex flex-col gap-3 w-full">
               {[
                 { label: "UI/UX Design", service: "product-design", disabled: false },
-                { label: "Landing Pages", service: "website-design", disabled: true },
-                { label: "E-Commerce Website", service: "website-design", disabled: true },
+                { label: "Landing Pages", service: "website", disabled: false },
+                { label: "E-Commerce Website", service: "website", disabled: false },
               ].map((item) => (
                 <div
                   key={item.label}
                   onClick={() => {
                     if (item.disabled) return;
-                    navigateToService(item.service);
+                    if (item.service === "product-design") {
+                      navigateToService(item.service);
+                    } else {
+                      navigateToInquiry(item.service);
+                    }
                     onClose();
                   }}
                   className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 ${item.disabled
@@ -236,7 +224,7 @@ function ServicesDropdown({
 function NavTextRoll({ text, className = "" }: { text: string; className?: string }) {
   return (
     <span className={`relative overflow-hidden inline-flex flex-col h-[1.25em] leading-[1.25em] ${className}`}>
-      <span className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full">
+      <span className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full whitespace-nowrap">
         {text}
       </span>
       <span className="absolute top-full left-0 inline-block transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-full whitespace-nowrap">
@@ -388,15 +376,6 @@ export function Navbar() {
               </a>
 
               <a
-                href="/#testimonials"
-                onClick={(e) => { e.preventDefault(); handleScroll("testimonials"); }}
-                onMouseEnter={closeServicesImmediately}
-                className="font-mono font-medium text-[#1e1e1e] text-xs md:text-sm tracking-wider cursor-pointer group flex items-center"
-              >
-                <NavTextRoll text="TESTIMONIALS" />
-              </a>
-
-              <a
                 href="/#contact"
                 onClick={(e) => { e.preventDefault(); handleScroll("contact"); }}
                 onMouseEnter={closeServicesImmediately}
@@ -448,7 +427,6 @@ export function Navbar() {
                 { label: "ABOUT", id: "about" },
                 { label: "SERVICES", id: "services" },
                 { label: "OUR PROCESS", id: "process" },
-                { label: "TESTIMONIALS", id: "testimonials" },
                 { label: "CONTACT", id: "contact" },
               ].map((item, i) => (
                 <div
@@ -470,13 +448,13 @@ export function Navbar() {
               <div className="flex justify-between items-end">
                 <div className="flex flex-col gap-1">
                   <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">GET IN TOUCH</span>
-                  <a href="mailto:trdcreativestudio@gmail.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
+                  <a href="mailto:hi@trdcreativestudio.com" className="font-sans font-medium text-[#1e1e1e] text-sm underline">
                     hi@trdcreativestudio.com
                   </a>
                 </div>
                 <div className="flex flex-col gap-1 text-right">
                   <span className="font-mono text-[#77786d] text-[10px] tracking-[0.1em]">FOLLOW US</span>
-                  <span className="font-sans font-medium text-[#1e1e1e] text-sm">@trdcreativestudio</span>
+                  <a href="https://www.instagram.com/trdcreative.studio/" target="_blank" rel="noreferrer" className="font-sans font-medium text-[#1e1e1e] text-sm underline">@trdcreative.studio</a>
                 </div>
               </div>
               <button

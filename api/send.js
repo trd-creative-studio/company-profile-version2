@@ -82,8 +82,8 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: 'TRD Creative Studio <hi@trdcreativestudio.com>', // Replace with your verified Resend domain once added
-        to: 'trdcreativestudio@gmail.com',
-        cc: 'daryramadhan23@gmail.com',
+        to: 'hi@trdcreativestudio.com',
+        cc: ['trdcreativestudio@gmail.com', 'daryramadhan23@gmail.com'],
         reply_to: email,
         subject: `New Project Inquiry from ${fullName}`,
         html: `

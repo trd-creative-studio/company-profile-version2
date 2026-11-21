@@ -139,7 +139,7 @@ export function ProductHero() {
 
           {/* Subtitle Description */}
           <p className="font-sans text-[#4d4d4d] text-sm sm:text-base leading-[1.45] mb-4 md:mb-6 max-w-[440px]">
-            We turn complex workflows, raw requirements, or generic AI prototypes into clear, build-ready UI/UX design systems.
+            Bring us a messy workflow, rough requirements, or an AI-generated prototype. We turn it into clear, build-ready product design.
           </p>
 
           {/* CTA Buttons Row */}
@@ -148,7 +148,7 @@ export function ProductHero() {
               onClick={() => navigateToInquiry("product-design")}
               className="bg-[#eb5503] hover:bg-[#d44c02] text-white px-4 py-2 rounded-full font-mono text-xs md:text-sm font-regular tracking-wider flex items-center gap-4 transition-all duration-200 cursor-pointer"
             >
-              <span>START YOUR NEXT PROJECT</span>
+              <span>START A PROJECT</span>
               <span className="text-[10px]">▶</span>
             </button>
 

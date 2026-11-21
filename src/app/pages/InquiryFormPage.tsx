@@ -596,10 +596,10 @@ export function InquiryFormPage() {
                       />
                     </div>
 
-                    {/* How did you hear us? */}
+                    {/* How did you hear about us? */}
                     <div className="flex flex-col gap-3 w-full">
                       <label className="font-sans text-md font-medium text-[#1e1e1e]">
-                        How did you hear us?
+                        How did you hear about us?
                       </label>
                       <div className="flex flex-wrap gap-2.5 w-full">
                         {[

@@ -34,7 +34,7 @@ export function ProductDeliverablesSection() {
       <div className="max-w-[1150px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-16 items-start justify-between">
         {/* Left Column: Text & Disclaimers */}
         <div
-          className={`flex flex-col justify-between h-full lg:max-w-[420px] shrink-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`flex flex-col justify-between h-full lg:w-[38%] lg:max-w-[420px] shrink-0 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
@@ -46,19 +46,19 @@ export function ProductDeliverablesSection() {
               What you’ll get.
             </h2>
             <p className="font-sans text-[#ffffff] text-base md:text-lg leading-[1.5] max-w-[640px] text-left mt-4">
-              Clear product outputs, structured files, and implementation support.
+              Everything your team needs to build with confidence.
             </p>
           </div>
 
           {/* Bottom Footnotes */}
           <div className="mt-12 md:mt-24 space-y-1 font-sans text-xs md:text-sm text-white/80">
-            <p>* Included based on project scope & tier.</p>
-            <p>** Optional add-on service.</p>
+            <p>* Depends on package</p>
+            <p>** Add-on</p>
           </div>
         </div>
 
         {/* Right Column: 10 Deliverables Cards Grid with Staggered Scroll Reveal */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-1 w-full lg:w-[60%] shrink-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-1 w-full lg:flex-1 lg:min-w-0">
           {DELIVERABLES.map((item, idx) => (
             <div
               key={item.num}

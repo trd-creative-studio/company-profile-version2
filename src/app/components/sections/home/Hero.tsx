@@ -150,9 +150,9 @@ function CarouselCard({
 }
 
 const ROTATING_SERVICES = [
-  "UI/UX Design",
-  "Web Development",
-  "AI Video Creation",
+  "SaaS Products",
+  "Mobile Apps",
+  "Growing Brands",
 ];
 
 function RotatingServiceText() {
@@ -382,10 +382,10 @@ export function Hero() {
         >
           <div>
             {/* Availability Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white mb-4 md:mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full mb-4 md:mb-8">
               <span className="size-2 rounded-full bg-[#eb5503] animate-pulse" />
               <span className="font-mono text-xs text-[#1e1e1e] font-regular uppercase">
-                AVAILABLE FOR PROJECTS
+                AVAILABLE FOR Q1 2027
               </span>
             </div>
 
@@ -396,14 +396,14 @@ export function Hero() {
                 ref={headlineRef}
                 className="font-sans font-regular leading-[1.05] text-[#1e1e1e] text-[36px] sm:text-[48px] md:text-[56px] lg:text-[52px] tracking-[-1.5px] md:tracking-[-2.2px] max-w-[640px]"
               >
-                Design partner studio <br />
+                Design partner <br />
                 for <RotatingServiceText />
               </h1>
 
               {/* Right Paragraph & Action Buttons */}
               <div className="flex flex-col items-start lg:max-w-[440px] shrink-0">
                 <p className="font-sans text-[#4d4d4d] text-sm sm:text-base leading-[1.45] mb-4 md:mb-6">
-                  We are a studio specialized in UI/UX Design, Website Development & AI Video Production based in Indonesia.
+                  We&apos;re a design studio from Indonesia. We design digital products, build websites, and create content that gets them noticed.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-4 sm:gap-6">

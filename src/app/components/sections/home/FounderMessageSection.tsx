@@ -46,7 +46,7 @@ export function FounderMessageSection() {
               opacity: p1Progress,
             }}
           >
-            When you partner with TRD, you collaborate directly with us from day one.
+            When you work with TRD, you work with the founders from day one.
           </p>
           <p
             className="font-sans text-[#1e1e1e] text-3xl sm:text-md md:text-4xl font-regular md:font-medium leading-[1.15] md:leading-[1.2] max-w-[500px] text-left md:text-center tracking-[-0.8px] md:tracking-[-1px] transition-opacity duration-500 ease-out"
@@ -54,8 +54,8 @@ export function FounderMessageSection() {
               opacity: p2Progress,
             }}
           >
-            We limit our active projects so every product receives our full focus,
-            strategic rigor, and craft.
+            We take on a few projects at a time, so yours gets our full
+            attention.
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export function FounderMessageSection() {
             />
 
             {/* Direct from the Founders Badge */}
-            <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9]">
+            <div className="inline-flex items-center px-3 py-1 bg-[#f9f9f9] rounded-full">
               <span className="font-mono text-xs text-[#77786d] font-regular uppercase">
                 DIRECT FROM THE FOUNDERS
               </span>
@@ -85,8 +85,8 @@ export function FounderMessageSection() {
 
           {/* Core Founder Quote / Headline */}
           <h3 className="font-sans md:font-medium text-[#1e1e1e] text-3xl md:text-4xl sm:text-[50px] md:text-[36px] leading-[1.2] tracking-[-0.8px] mb-8 md:mb-10">
-            &ldquo;No account managers. No agency bloat. Just direct, honest
-            design execution from people who care.&rdquo;
+            &ldquo;Speed and quality, every project. That&apos;s the TRD
+            standard.&rdquo;
           </h3>
 
           {/* Founder Profile Details Row with Top Line Separator */}
@@ -104,8 +104,8 @@ export function FounderMessageSection() {
                 Dary Ramadhan
               </span>
               <span className="font-sans text-[#77786d] text-xs sm:text-sm mt-1 mb-2.5 leading-snug">
-                co-Founder @ TRD Creative Studio, <br className="hidden sm:inline" />
-                Apple Academy Graduate, Product Designer
+                Co-founder · Product Design & Development <br className="hidden sm:inline" />
+                Apple Developer Academy alumnus
               </span>
 
               {/* LinkedIn Icon Link */}

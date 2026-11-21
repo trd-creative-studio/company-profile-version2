@@ -202,7 +202,7 @@ export const TOOL_GROUPS: ToolGroup[] = [
     category: "DESIGN",
     tools: [
       { name: "Figma", logo: toolFigma },
-      { name: "Figjam", logo: toolFigjam },
+      { name: "FigJam", logo: toolFigjam },
       { name: "Lottie", logo: toolLottie },
     ],
   },
@@ -217,7 +217,7 @@ export const TOOL_GROUPS: ToolGroup[] = [
   {
     category: "DEVELOPMENT",
     tools: [
-      { name: "NextJS", logo: toolNextjs },
+      { name: "Next.js", logo: toolNextjs },
       { name: "React", logo: toolReact },
       { name: "Tailwind", logo: toolTailwind },
     ],

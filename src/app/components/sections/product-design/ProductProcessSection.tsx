@@ -88,7 +88,7 @@ export function ProductProcessSection() {
         <div className="flex flex-col gap-5 items-center mb-4">
           {/* Headline */}
           <h2 className="font-sans font-regular leading-[1.2] text-[24px] sm:text-[24px] md:text-[38px] text-[#1e1e1e] tracking-[-1px] text-center">
-            From complex requirements to a build-ready product experience.
+            From rough idea to build-ready design.
           </h2>
         </div>
       </div>
@@ -151,7 +151,7 @@ export function ProductProcessSection() {
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >
-        Sprint durations range from 1–4 weeks based on feature scope and product complexity.
+        Most projects take 1–4 weeks, depending on scope.
       </p>
     </section>
   );
